@@ -4,15 +4,25 @@ class ControllerSitebarLogin extends Controller
 	public function index()
 	{
 		$this->id="content";
+		$this->template="sitebar/login.tpl";
+		
+		$this->render();
+	}
+	
+	public function login()
+	{
+		$this->id="content";
 		if(!$this->member->isLogged())
-			$this->template="sitebar/login.tpl";
+			$this->template="sitebar/flogin.tpl";
 		else
 		{
+			
 			$this->getMemberInfor();
 			$this->template="sitebar/memberinfor.tpl";
 		}
 		$this->render();
 	}
+	
 	
 	private function getMemberInfor()
 	{

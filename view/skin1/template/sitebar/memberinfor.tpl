@@ -1,4 +1,4 @@
-<div class="ben-section">
+
 	<div class="ben-section-title">Thông tin thành viên</div>
     <div class="ben-section-content">
     	<p>
@@ -21,7 +21,6 @@
         </p>
     </div>
 
-</div>
 <script language="javascript">
 function logout()
 {
