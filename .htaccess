@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^site/([^/]*)/$ index.php?lang=$1 [L] 
+RewriteRule ^site/([^/]*)/([^/]*)/?$ index.php?lang=$1&route=page/detail&sitemapid=$2 [L] 
+RewriteRule ^site/([^/]*)/([^/]*)/([^/]*)/?$ index.php?lang=$1&route=page/detail&sitemapid=$2&id=$3 [L] 
+RewriteRule ^site/([^/]*)/([^/]*)/([^/]*)/([^/]*)/?$ index.php?lang=$1&route=page/detail&sitemapid=$2&$3=$4 [L] 

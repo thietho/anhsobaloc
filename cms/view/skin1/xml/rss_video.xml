@@ -1,0 +1,29 @@
+<rss version="2.0">
+	<channel>
+		<title>muabanxe.us</title>
+		<item>
+			<title>Toyota Venza 2009</title>
+			<link>muabanxe.us</link>
+			<description></description>
+			<media:credit role="author">the Peach Open Movie Project</media:credit>
+			<enclosure url="videoclip10.flv" type="video/x-flv" />
+			<media:thumbnail url="file/videoclipimage/fullsize/videoclip10.jpg" />
+		</item>
+		<item>
+			<title>X&#7871;p hình b&#7857;ng ôtô</title>
+			<link>muabanxe.us</link>
+			<description></description>
+			<media:credit role="author">the Peach Open Movie Project</media:credit>
+			<enclosure url="videoclip11.flv" type="video/x-flv" />
+			<media:thumbnail url="file/videoclipimage/fullsize/videoclip11.jpg" />
+		</item>
+		<item>
+			<title>Toyota Camry 2007</title>
+			<link>muabanxe.us</link>
+			<description></description>
+			<media:credit role="author">the Peach Open Movie Project</media:credit>
+			<enclosure url="videoclip9.flv" type="video/x-flv" />
+			<media:thumbnail url="file/videoclipimage/fullsize/videoclip9.jpg" />
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,142 @@
+.wt-rotator{
+font-family:Arial,Helvetica,sans-serif;
+font-size:12px;
+background-color:#000;
+border:1px solid #000;
+position:relative;
+width:548px;
+height:300px;
+overflow:hidden;
+}
+.wt-rotator a{
+outline:none;
+}
+.main-img{
+display:none;
+position:absolute;
+top:0;
+left:0;
+z-index:0;
+border:0px;
+}
+.preloader{
+background:#000 url(../image/assets/loader.gif) no-repeat center;
+float:left;
+width:34px;
+height:34px;
+position:absolute;
+top:0;
+left:0;
+z-index:4;
+display:none;
+}
+#timer{
+position:absolute;
+top:0;
+left:0;
+height:4px;
+/*background-color:#FFF;*/
+z-index:4;
+visibility:hidden;
+}
+.desc{
+color:#FFF;
+position:absolute;
+top:0;
+left:0;
+z-index:6;
+overflow:hidden;
+visibility:hidden;
+}
+.inner-bg{
+position:absolute;
+width:100%;
+height:100%;
+background-color:#000;
+z-index:0;
+}
+.inner-text{
+position:absolute;
+padding:10px;
+z-index:1;
+}
+.c-panel{
+position:relative;
+float:left;
+top:0;
+left:0;
+z-index:7;
+visibility:hidden;
+display:none;
+}
+.thumbnails,.buttons{
+float:left;
+}
+.thumbnails ul{
+list-style:none;
+margin:0;
+padding:0;
+}
+.thumbnails li,
+.play-btn,.prev-btn,.next-btn{
+list-style:none;
+display:block;
+float:left;
+margin-right:4px;
+overflow:hidden;
+width:24px;
+height:24px;
+line-height:24px;
+text-align:center;
+color:#FFF;
+background-color:#000;
+border:1px solid #000;
+cursor:pointer;
+font-weight:bold;
+}
+.thumbnails li.thumb-over{
+color:#000;
+background-color:#FFF;
+}
+.thumbnails li.curr-thumb{
+color:#000;
+background-color:#FFF;
+}
+.thumbnails li *{
+display:none;
+}
+.play-btn{
+background:#000 url(../image/assets/play.png) no-repeat center;
+}
+.pause{
+background:#000 url(../image/assets/pause.png) no-repeat center;
+}
+.prev-btn{
+background:#000 url(../image/assets/prev.png) no-repeat center;
+}
+.next-btn{
+background:#000 url(../image/assets/next.png) no-repeat center;
+}
+.button-over{
+background-color:#DDD;
+}
+#tool-tip{
+font-family:Arial,Helvetica,sans-serif;
+font-size:12px;
+color:#FFF;
+background-color:#000;
+padding:4px;
+position:absolute;
+top:0;
+left:0;
+max-width:300px;
+z-index:9999;
+display:none;
+}
+#tool-tip{
+background-color:rgba(0,0,0,.75) !important;
+}
+.block,.vpiece,.hpiece{
+position:absolute;
+z-index:2;
+}
