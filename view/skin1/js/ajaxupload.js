@@ -302,6 +302,7 @@ AjaxUpload.prototype = {
 		var self = this;
 		var input = d.createElement("input");
 		input.setAttribute('type', 'file');
+		input.setAttribute('multiple', 'multiple');
 		input.setAttribute('name', this._settings.name);
 		var styles = {
 			'position' : 'absolute'

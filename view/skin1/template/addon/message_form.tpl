@@ -3,7 +3,7 @@
     
     	<form id="fromMessage" name="InsertContent"  action="" method="post" enctype="multipart/form-data">
         
-    	<div class="right">
+    	<div class="ben-right">
             <input class="ben-button" type="button" value="Gửi" onclick="sendMessage()" />
             <a class="ben-button" href="index.php?route=addon/message">Quay về</a>
         </div>
@@ -41,7 +41,9 @@
                         </p>
                         <p id="attachment">
                         </p>
-                    	
+                    	<div id="errorupload" class="error" style="display:none"></div>
+                    
+                    	<div class="loadingimage" style="display:none"><img src="<?php echo HTTP_SERVER.DIR_IMAGE?>loadingimage.gif"></div>
                         <span id="delfile"></span>
                     </div>
 

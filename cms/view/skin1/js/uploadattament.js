@@ -2,8 +2,9 @@
 var imageindex = 0;
 new AjaxUpload(jQuery('#btnAddAttachment'), {
 	action: DIR_UPLOADATTACHMENT,
-	name: 'image2',
+	name: 'image2[]',
 	responseType: 'json',
+	
 	onChange: function(file, ext){
 	},
 	onSubmit: function(file, ext){
@@ -19,22 +20,26 @@ new AjaxUpload(jQuery('#btnAddAttachment'), {
 	},
 	onComplete: function(file, response){
 		//alert(response);
-		if(response.files.error == 'none')
+		for(i in response.files)
 		{
-			$('#attachment').append(creatAttachmentRow(response.files.imageid,response.files.imagename,response.files.imagethumbnail));
-			//$('input#attimageid'+imageindex).val(response.files.imageid);
-			//$('#attachment').append()
-			/*$('input#imagepath').val(response.files.imagepath);
-			$('input#imagethumbnail').val(response.files.imagethumbnail);
-			$('#preview').attr("src", response.files.imagethumbnail);
-			$('#errorupload').hide();*/
+			if(response.files[i].error == 'none')
+			{
+				$('#attachment').append(creatAttachmentRow(response.files[i].imageid,response.files[i].imagename,response.files[i].imagethumbnail));
+				//$('input#attimageid'+imageindex).val(response.files.imageid);
+				//$('#attachment').append()
+				/*$('input#imagepath').val(response.files.imagepath);
+				$('input#imagethumbnail').val(response.files.imagethumbnail);
+				$('#preview').attr("src", response.files.imagethumbnail);
+				$('#errorupload').hide();*/
+				
+				
+			}
+			else
+			{
+				$('#errorupload').html(response.files.error);
+				$('#errorupload').show();
+			}
 			
-			
-		}
-		else
-		{
-			$('#errorupload').html(response.files.error);
-			$('#errorupload').show();
 		}
 		$('#pnImage').show();
 		$('.loadingimage').hide();

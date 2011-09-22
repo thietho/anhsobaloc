@@ -98,6 +98,7 @@
                         </p>
                     	
                         <span id="delfile"></span>
+                        
                     </div>
                     <?php }?>
 <script language="javascript">
