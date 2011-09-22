@@ -35,6 +35,7 @@
   #gallery {
    
     background: #FFFFFF;
+	margin:10px;
   }
   #descriptions {
     position: relative;

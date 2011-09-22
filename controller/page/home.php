@@ -20,10 +20,11 @@ class ControllerPageHome extends Controller
 			$arr = array("bannerhome",0,"",$template);
 			$this->data['bannerhome'] = $this->loadModule('module/block','getList',$arr);
 			//San pham moi
+			
 			$template = array(
-						  'template' => "home/product.tpl",
-						  'width' => 176,
-						  'height' =>176
+						  'template' => "module/album_list.tpl",
+						  'width' => 150,
+						  'height' =>114
 						  );
 			
 			$medias = $this->getProduct();
@@ -50,7 +51,7 @@ class ControllerPageHome extends Controller
 		$arr = array('sanpham');
 		$this->data['leftsitebar']['produtcategory'] = $this->loadModule('sitebar/catalogue','index',$arr);
 		$this->data['leftsitebar']['supportonline'] = $this->loadModule('sitebar/supportonline');
-		//$this->data['leftsitebar']['exchange'] = $this->loadModule('sitebar/exchange');
+		$this->data['leftsitebar']['exchange'] = $this->loadModule('sitebar/exchange');
 		$this->data['leftsitebar']['weblink'] = $this->loadModule('sitebar/weblink');
 		$this->data['leftsitebar']['hitcounter'] = $this->loadModule('sitebar/hitcounter');
 		
@@ -67,7 +68,7 @@ class ControllerPageHome extends Controller
 		$this->load->model('core/sitemap');
 		$this->load->model('core/media');
 		$siteid = $this->member->getSiteId();
-		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+		$sitemaps = $this->model_core_sitemap->getListByModule("module/album", $siteid);
 		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
 		$queryoptions = array();
 		$queryoptions['mediaparent'] = '%';
