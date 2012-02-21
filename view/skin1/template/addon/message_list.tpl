@@ -2,11 +2,11 @@
     
     <div class="section-content padding1">
         <div class="ben-left">
-        	<a class="ben-button" href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/message/folder/inbox">Hộp thư đến</a>
-            <a class="ben-button" href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/message/folder/send">Thư đã gửi</a>
+        	<a class="ben-button" href="<?php echo $this->document->createLink('message','folder','inbox')?>">Hộp thư đến</a>
+            <a class="ben-button" href="<?php echo $this->document->createLink('message','folder','send')?>">Thư đã gửi</a>
         </div>
     	<div class="ben-right">
-        	<a class="ben-button" href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/compose">Soạn tin</a>&nbsp;
+        	<a class="ben-button" href="<?php echo $this->document->createLink('compose')?>">Soạn tin</a>&nbsp;
             <a class="ben-button" onclick="deletelist()">Xóa</a>&nbsp;
         </div>
         <div class="clearer">&nbsp;</div>
@@ -34,7 +34,7 @@
                 	<tr <?php echo $read?>>
                     	<td class="ben-center"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['messageid']?>]" value="<?php echo $item['messageid']?>" ></td>
                     	
-                        <td><a href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/message/<?php echo $item['messageid']?>"><?php echo $item['title']?>&nbsp;</a></td>
+                        <td><a href="<?php echo $this->document->createLink('message',$item['messageid'])?>"><?php echo $item['title']?>&nbsp;</a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['senddate'])?>&nbsp;</td>
                         <td><?php if($item['attachment']) echo '<img src="'.HTTP_SERVER.DIR_IMAGE.'icon/dinhkem.png">';?>&nbsp;</td>
                         

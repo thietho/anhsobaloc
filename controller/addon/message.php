@@ -6,7 +6,7 @@ class ControllerAddonMessage extends Controller
 	function __construct() 
 	{
 		if(!$this->member->isLogged())
-			$this->response->redirect(HTTP_SERVER."site/".$this->member->getSiteId()."/login/");
+			$this->response->redirect($this->document->createLink("login"));
 		//$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
 		$this->data['DIR_UPLOADATTACHMENT'] = HTTP_SERVER."index.php?route=common/uploadattachment";
 		$this->load->model('core/message');

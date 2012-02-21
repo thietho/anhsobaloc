@@ -13,7 +13,7 @@
         <tbody>
         	<?php foreach($orders as $order){ ?>
             <tr>
-            	<td><a href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/checkoutcomplete/<?php echo $order['orderid']?>"><?php echo $order['orderid']?></a></td>
+            	<td><a href="<?php echo $this->document->createLink('checkoutcomplete',$order['orderid'])?>"><?php echo $order['orderid']?></a></td>
                 <td><?php echo $order['customername']?></td>
                 <td><?php echo $order['address']?></td>
                 <td><?php echo $order['phone']?></td>

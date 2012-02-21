@@ -3,7 +3,7 @@ class ControllerPageDetail extends Controller
 {
 	function __construct() 
 	{
-		$this->iscache = true;
+		//$this->iscache = true;
 		$arr=array();
 		foreach($_GET as $key => $val)
 			$arr[] = $key."=".$val;
@@ -30,6 +30,9 @@ class ControllerPageDetail extends Controller
 				{
 					case "":
 						$this->data['module'] = $this->loadModule('addon/'.$this->document->sitemapid);
+					break;
+					case "group":
+						$this->data['module'] = $this->loadModule('group/'.$this->document->sitemapid);
 					break;
 					case "module/information":
 						$this->data['module'] = $this->loadModule('module/information');
@@ -111,10 +114,12 @@ class ControllerPageDetail extends Controller
 						{
 							$template = array(
 											  'template' => "module/product_list.tpl",
-											  'width' => 170,
-											  'height' =>170
+											  'width' => 150,
+											  'height' =>150,
+											  'paging' => true,
+											  'sorting' =>true
 											  );
-							$arr = array($this->document->sitemapid,9,"",$template);
+							$arr = array($this->document->sitemapid,12,"",$template);
 							$this->data['module'] = $this->loadModule('module/productlist','index',$arr);
 	
 						}
@@ -179,7 +184,7 @@ class ControllerPageDetail extends Controller
 		//Rigth sitebar
 		$this->data['rightsitebar']['login'] = $this->loadModule('sitebar/login');
 		$this->data['rightsitebar']['search'] = $this->loadModule('sitebar/search');
-		//$this->data['rightsitebar']['cart'] = $this->loadModule('sitebar/cart');
+		$this->data['rightsitebar']['cart'] = $this->loadModule('sitebar/cart');
 		$this->data['rightsitebar']['banner'] = $this->loadModule('sitebar/banner');
 		$this->data['rightsitebar']['question'] = $this->loadModule('sitebar/question');
 	}

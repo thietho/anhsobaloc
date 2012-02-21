@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="" xml:lang="">
+<head>
+<link type="image/x-icon" href="http://localhost:81/anhsobaloc/view/skin1/image/logo-small.gif" rel="icon">
+<link type="image/x-icon" href="http://localhost:81/anhsobaloc/view/skin1/image/logo-small.gif" rel="shortcut icon">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="INDEX,FOLLOW" />
+<meta http-equiv="REFRESH" content="5400" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />		
+<title>Ảnh số Ba Lộc - Ảnh số Ba Lộc</title>
+
+</head>
+
+<!--[if lt IE 7]>
+	<link href="view/skin1/css/ie_style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="view/skin1/js/ie_png.js"></script>
+    <script type="text/javascript">
+       ie_png.fix('.png');
+	</script>
+<![endif]-->
+
+<link rel='stylesheet' type='text/css' href='http://localhost:81/anhsobaloc/view/skin1/css/style.css'>
+<link rel='stylesheet' type='text/css' href='http://localhost:81/anhsobaloc/view/skin1/css/blockui.css'>
+<link rel='stylesheet' type='text/css' href='http://localhost:81/anhsobaloc/view/skin1/css/jquery-ui.css'>
+<link rel='stylesheet' type='text/css' href='http://localhost:81/anhsobaloc/view/skin1/css/jquery.tabs.css'>
+
+<link rel='stylesheet' type='text/css' href='http://localhost:81/anhsobaloc/view/skin1/css/niceform.css'>
+<link rel='stylesheet' type='text/css' href='http://localhost:81/anhsobaloc/view/skin1/css/product.css'>
+
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/jquery.js'></script>
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/jquery.blockUI.js'></script>
+
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.bgiframe-2.1.2.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.core.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.widget.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.mouse.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.button.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.draggable.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.position.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.resizable.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.ui.dialog.js"></script>
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.effects.core.js"></script>
+
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/maxheight.js'></script>
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/jquery.tabs.pack.js'></script>
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/ui.datepicker.js'></script>
+
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/component/ckeditor/ckeditor.js'></script>
+<script language="javascript">
+var HTTP_SERVER = 'http://localhost:81/anhsobaloc/';
+</script>
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/common.js'></script>
+<script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/cart.js'></script>
+
+<script type="text/javascript" src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="http://localhost:81/anhsobaloc/view/skin1/js/jquery.fancybox-1.3.4.js"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost:81/anhsobaloc/view/skin1/css/jquery.fancybox-1.3.4.css" media="screen" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		/*
+		*   Examples - images
+		*/
+
+		
+
+		$(".zoom").fancybox({
+			'overlayShow'	: true,
+			'transitionIn'	: 'elastic',
+			'transitionOut'	: 'elastic'
+		});
+
+		
+	});
+</script>
+<script language="javascript">
+$(function() {
+	$(".ben-datepicker").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'dd-mm-yy',
+			
+			});
+	});
+</script>
+<body>
+<div id="ben-main">
+    
+    <div id="ben-header">
+    <div id="ben-top">
+        <div class="ben-left" id="ben-logo">
+            <img src="http://localhost:81/anhsobaloc/view/skin1/image/logo.gif" alt="" />
+        </div>
+    
+        <div class="ben-left" id="ben-site-title">
+            <h1>Ảnh số Ba Lộc</h1>
+        </div>
+    
+        <div class="clearer">&nbsp;</div>
+        
+        <div class="ben-navigation">
+    
+            <ul id="ben-main-nav">
+                <li><a class='current-tab' href='http://localhost:81/anhsobaloc/'>Trang chủ</a></li><li><a  href='http://localhost:81/anhsobaloc/gioithieu.html'>Giới thiệu</a></li><li><a  href='http://localhost:81/anhsobaloc/sanpham.html'>Sản phẩm</a><ul><li><a  href='http://localhost:81/anhsobaloc/inanhktstudt.html'>In ảnh kỹ thuật số</a></li><li><a  href='http://localhost:81/anhsobaloc/phuchoianhcu.html'>Phục hồi ảnh cũ, xử lý ảnh</a></li><li><a  href='http://localhost:81/anhsobaloc/designalbum.html'>Design album</a></li><li><a  href='http://localhost:81/anhsobaloc/giacongalbum.html'>Gia công album, ép laminate</a></li><li><a  href='http://localhost:81/anhsobaloc/quayphim.html'>Quay phim &amp; chụp ảnh</a></li></ul></li><li><a  href='http://localhost:81/anhsobaloc/tintuc.html'>Tin tức</a></li><li><a  href='http://localhost:81/anhsobaloc/gallery.html'>Thư viện</a><ul><li><a  href='http://localhost:81/anhsobaloc/thuvienanhcuoi.html'>Ảnh cưới</a></li><li><a  href='http://localhost:81/anhsobaloc/thuvienanhphuchoi.html'>Ảnh phục hồi</a></li></ul></li><li><a  href='http://localhost:81/anhsobaloc/lienhe.html'>Liên hệ</a></li>            </ul>
+    
+            <div class="clearer">&nbsp;</div>
+    
+        </div>
+        
+    </div>
+</div>
+
+<script src="http://localhost:81/anhsobaloc/view/skin1/js/menu.js" language="javascript"></script>
+	
+	<div id="ben-content">
+    	<div class="ben-three-columns">
+	<div class="ben-sidebar ben-left">
+    	        <script type='text/javascript' language='javascript' src='http://localhost:81/anhsobaloc/view/skin1/js/menu-collapsed.js'></script>
+                    <div class="ben-section">
+                    	
+                        <div class="ben-section-content">
+                        	<ul id="menu">
+                                <li><div class='collape'><a  href='http://localhost:81/anhsobaloc/inanhktstudt.html'>In ảnh kỹ thuật số</a><div class="clearer">^&nbsp;</div></div></li><li><div class='collape'><a  href='http://localhost:81/anhsobaloc/phuchoianhcu.html'>Phục hồi ảnh cũ, xử lý ảnh</a><div class="clearer">^&nbsp;</div></div></li><li><div class='collape'><a  href='http://localhost:81/anhsobaloc/designalbum.html'>Design album</a><div class="clearer">^&nbsp;</div></div></li><li><div class='collape'><a  href='http://localhost:81/anhsobaloc/giacongalbum.html'>Gia công album, ép laminate</a><div class="clearer">^&nbsp;</div></div></li><li><div class='collape'><a  href='http://localhost:81/anhsobaloc/quayphim.html'>Quay phim &amp; chụp ảnh</a><div class="clearer">^&nbsp;</div></div></li>                            </ul>
+                        </div>
+                    </div>
+<script language="javascript">
+$(document).ready(function(){
+		$("#").show();
+	});
+</script>                <div class="ben-section">
+
+	<div class="ben-section-title">Hổ trợ online</div>
+    
+    <div class="ben-section-content">
+    	<table>
+	<tbody>
+		<tr>
+			<td>
+				<strong>Mr.Hùng</strong></td>
+		</tr>
+		<tr>
+			<td>
+				<a href="ymsgr:sendim?hungtran2309" _base_target="_top"> <img width="80px" border="0" src="http://opi.yahoo.com/online?u=hungtran2309&amp;m=g&amp;t=1&amp;l=us" _base_target="_top"> </a></td>
+			<td>
+				<strong>Tel: 0985.102.526</strong></td>
+		</tr>
+		
+	</tbody>
+</table>    	
+    	
+    </div>
+
+</div>                <style>
+#container td
+{
+	border:thin solid;
+	padding:2px;
+	text-align:right;
+}
+#container th
+{
+	border:thin solid;
+	padding:2px;
+}
+</style>
+</style>
+<div class="ben-section">
+
+	<div class="ben-section-title">Thông tin cần biết</div>
+    
+    <div class="ben-section-content">
+    	 <div id="container">
+            <ul class="tabs-nav">
+                <li class="tabs-selected"><a href="#fragment-tigia"><span>Tỉ giá</span></a></li>
+                <li class="tabs"><a href="#fragment-giavang"><span>Giá vàng</span></a></li>
+            </ul>
+            <div id="fragment-tigia" class="tabs-container">
+            	        
+      <p>
+      Từ
+       <select id="formrate">
+        	<option value="1">VND</option>
+			<option value="20810">USD</option>
+			<option value="22084.6">AUD</option>
+			<option value="27415.01">EUR</option>
+			<option value="256.76">JPY</option>
+			<option value="32607.71">GBP</option>
+          
+        </select>
+        Đến
+        <select id="torate">
+        	<option value="1">VND</option>
+			<option value="20810" selected="selected">USD</option>
+			<option value="22084.6" >AUD</option>
+			<option value="27415.01" >EUR</option>
+			<option value="256.76" >JPY</option>
+			<option value="32607.71" >GBP</option>
+        </select>
+        
+      </p>
+       
+       
+       
+       <p></p>
+       <p>
+       	<input type="text" id="amount" class="ben-textbox number" />&nbsp;&nbsp;
+        <input type="button" class="ben-button" value="Qui đổi" onclick="changeRate()"/>
+       </p>
+       
+       
+      
+      
+      
+      
+      <p></p>
+      <p>
+        <input type="text" id="result" class="ben-textbox number" readonly="readonly"/>
+      </p>
+<script language="javascript">
+function changeRate()
+{
+	var result = eval($("#amount").val().replace(/,/g,"")) * eval($("#formrate").val()) / eval($("#torate").val());
+	$("#result").val(numberView(result));
+}
+$(document).ready(function() {
+  // Handler for .ready() called.
+  	$(".number").keyup(function (e)
+		{
+			//alert(formateNumber($(this).val()))
+			num = formateNumber($(this).val().replace(/,/g,""));
+			$(this).val(num)
+		});
+	$(".number").keypress(function (e)
+		{
+			
+		  return isNumber(e.which);
+		});
+});
+	
+</script>
+        <table cellspacing="1" border="0" class="tbl-exch">
+        <tbody>
+            <tr class="title_tygia">
+                <th width="50px">Mã NT</th>
+                <th width="60px">Mua</th>
+                <th width="60px">Bán</th>
+            </tr>
+            <tr>
+                <td class="code">USD</td>
+                <td class="number">20,810.00</td>
+                <td class="number">20,860.00</td>
+            </tr>
+
+            <tr>
+                <td class="code">AUD</td>
+                <td class="number">22,084.60</td>
+                <td class="number">22,540.16</td>
+            </tr>
+
+            <tr>
+                <td class="code">EUR</td>
+                <td class="number">27,415.01</td>
+                <td class="number">27,840.59</td>
+            </tr>
+
+            <tr>
+                <td class="code">JPY</td>
+                <td class="number">256.76</td>
+                <td class="number">263.11</td>
+            </tr>
+
+            <tr>
+                <td class="code">GBP</td>
+                <td class="number">32,607.71</td>
+                <td class="number">33,247.28</td>
+            </tr>
+
+    
+        </tbody>
+        </table>
+        <div class="ben-text-left ben-other">(Nguồn: vietcombank)</div>            </div>
+            <div id="fragment-giavang" class="tabs-container">
+            	<center>
+	<div class="goldrate ben-section-content ben-text-left">
+		 <div>Tỷ giá ngày: 21-02-2012</div> <em>Bảng tỷ giá lần 01 cập nhật 08:00 </em> <table cellspacing="1" cellpadding="1" border="0"><tr class="title"><td>Loại</td><td>Mua</td><td>Bán</td><td>F4</td></tr><tr class="row2"><td><b>Vàng SBJ</b></td><td><b>4.435.000</b></td><td><b>4.475.000</b></td><td>&nbsp;</td></tr><tr class="row1"><td><b>Vàng SJC</b></td><td><b>4.435.000</b></td><td><b>4.475.000</b></td><td>&nbsp;</td></tr><tr class="row2"><td>Vàng 24 K</td><td>4.320.000</td><td>4.475.000</td><td>&nbsp;</td></tr><tr class="row1"><td>Vàng 95 %</td><td>4.049.000</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr class="row2"><td>Vàng 18 K (75%)</td><td>3.182.000</td><td>3.371.000</td><td>&nbsp;</td></tr><tr class="row1"><td>Vàng 14 K (58.3%)</td><td>2.485.000</td><td>2.635.000</td><td>&nbsp;</td></tr><tr class="row2"><td>Vàng 10 K (41.7%)</td><td>1.761.000</td><td>1.891.000</td><td>&nbsp;</td></tr><tr class="row1"><td>USD</td><td>20.900</td><td>21.000</td><td>&nbsp;</td></tr></table>  		<div class="ben-text-left ben-other">(Nguồn: sacombank)</div>
+    </div>
+   
+</center>
+            </div>
+         </div>
+    	
+    	
+    </div>
+
+</div>
+<script language="javascript">
+$(document).ready(function() {
+	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
+});
+</script>                <div class="ben-section">
+
+	<div class="ben-section-title">Liên kết website</div>
+    
+    <div class="ben-section-content">
+    	<select onchange="window.open( this.value,'','','')">
+        	<option value=""></option>
+        	            <option value="http://vnexpress.net/">vnexpress</option>
+                    </select>
+    	
+    	
+    </div>
+
+</div>                <div class="ben-section">
+
+	<div class="ben-section-title">Số lượt truy cập</div>
+    
+    <div class="ben-section-content">
+    	3    	
+    	
+    </div>
+
+</div>            </div>
+    
+	<div class="ben-left" id="ben-maincontent">
+    	<div class="ben-section">
+        
+        	<div class=" ben-section-title">Homepage</div>
+            
+            <div class=" ben-section-content">
+            
+            	            	<div class="ben-product-list">
+        	            <div id="listpoduct">
+                <div  class="ben-left product">
+            <table>
+                <tr>
+                    <td>
+                                                                                                                        <a class="islink" href="http://localhost:81/anhsobaloc/thuvienanhcuoi/anh-cuoi-dep.html"><img src='http://localhost:81/anhsobaloc/file/cache/upload_17fthuylam1_150x150.png' class='ben-center' /></a>
+                                                
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div align="center"><a href="http://localhost:81/anhsobaloc/thuvienanhcuoi/anh-cuoi-dep.html"><h6>Anh cưới đẹp</h6></a></div>
+                        <div align="center">0 VNĐ</div>
+                        <div align="center">
+                            <a href="http://localhost:81/anhsobaloc/thuvienanhcuoi/anh-cuoi-dep.html">Chi tiết</a><!-- || <a onclick="cart.add('default13164887491')">Đặt hàng</a>-->
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
+            
+        </div>
+                <div class="clearer">&nbsp;</div>
+    </div>
+        
+    
+    
+    <div class="clearer">&nbsp;</div>
+    	    <div class="clearer">&nbsp;</div>
+    </div>            </div>
+            
+            
+        	
+        </div>
+    </div>
+    
+    <div class="ben-sidebar ben-right">
+    	        <div id="ben-member" class="ben-section">
+</div>
+<script language="javascript">
+$(document).ready(function(e) {
+	$("#ben-member").load("http://localhost:81/anhsobaloc/?route=sitebar/login/login");
+});
+</script>                <div class="ben-section">
+
+	<div class="ben-section-title">Tìm kiếm</div>
+    
+    <div class="ben-section-content">
+    	<input type="text" class="ben-textbox" id="txt_search" name="txt_search" value="">
+        <input type="button" class="ben-button" id="btnSearch" value="Tìm">
+    </div>
+</div>
+<script language="javascript">
+$("#btnSearch").click(function(){
+	var keyword = trim($("#txt_search").val()," ");
+	if(keyword!="")
+		window.location = HTTP_SERVER+"search/keyword/"+keyword+".html";							   
+});
+</script>                <div id="ben-cart" class="ben-section">
+	<div class="ben-section-title">Giỏ hàng</div>
+    <div class="ben-section-content">
+        <div id="sitebarcartlist">
+        </div>
+        <a href="http://localhost:81/anhsobaloc/cart.html">Xem giỏ hàng</a>
+    </div>
+    
+</div>
+<script language="javascript">
+$(document).ready(function() {
+	$("#sitebarcartlist").load(HTTP_SERVER+"?route=sitebar/cart/getList");
+});
+</script>                                            </div>
+    
+    <div class="clearer">&nbsp;</div>
+
+</div>    </div>
+    
+    <div id="ben-footer">
+
+    <div class="ben-left" id="ben-footer-left">
+        
+        <img src="http://localhost:81/anhsobaloc/view/skin1/image/logo-small.gif" alt="" class="ben-left" />
+        
+        <p>&copy; 2010 Customer Name. All rights Reserved</p>
+
+        <p class="ben-other">
+        	<a target="_blank" href="http://ben-solution.com">Website powered</a> by <a target="_blank" href="http://ben-solution.com">www.ben-solution.com</a></p>
+        
+        <div class="clearer">&nbsp;</div>
+
+    </div>
+
+    <!--<div class="ben-right" id="ben-footer-right">
+
+        <p class="ben-small">
+        	<a href="index.php?route=page/home">Home</a> <span class="ben-text-separator">|</span> 
+            <a href="index.php?route=pagesample/leftsidebar">Left Sidebar</a> <span class="ben-text-separator">|</span> 
+            <a href="index.php?route=pagesample/singlecolumn">Single Column</a> <span class="ben-text-separator">|</span> 
+            <a href="index.php?route=pagesample/threecolumn">Three Column</a> <span class="ben-text-separator">|</span> 
+            <strong><a href="index.php?route=pagesample/styledemo">Style Demo</a></strong> <span class="ben-text-separator">|</span> 
+            <a href="#top" class="ben-other">Page Top &uarr;</a>
+        </p>
+    
+    </div>-->
+
+    <div class="clearer">&nbsp;</div>
+
+</div> 
+	
+</div>
+	<div id="ben-popup" style="display:none">
+        <div id="ben-popup-content"></div>
+        
+    </div>
+</body>
+
+</html>

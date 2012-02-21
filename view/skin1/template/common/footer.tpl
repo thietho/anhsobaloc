@@ -7,7 +7,7 @@
         <p>&copy; 2010 Customer Name. All rights Reserved</p>
 
         <p class="ben-other">
-        	<a target="_blank" href="http://ben-solution.com">Website Design</a> by <a target="_blank" href="http://ben-solution.com">www.ben-solution.com</a></p>
+        	<a target="_blank" href="http://ben-solution.com">Website powered</a> by <a target="_blank" href="http://ben-solution.com">www.ben-solution.com</a></p>
         
         <div class="clearer">&nbsp;</div>
 

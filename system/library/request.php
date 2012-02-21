@@ -7,7 +7,10 @@ final class Request {
 	public $server = array();
 	
   	public function __construct() {
+		$_GET = array_merge($_GET,$this->getPara());
 		$this->get    = &$this->clean($_GET);
+		
+		
 		$this->post   = &$this->clean($_POST);
 		$this->cookie = &$this->clean($_COOKIE);
 		$this->files  = &$this->clean($_FILES);
@@ -25,6 +28,21 @@ final class Request {
 		}
 	
 		return $data;
+	}
+	
+	public function getPara()
+	{
+		$uri = $_SERVER['REQUEST_URI'];
+		$arr = split("\?",$uri);
+		
+		$listpara = split("&",$arr[1]);
+		$para = array();
+		foreach($listpara as $val)
+		{
+			$ar = split("=",$val);	
+			$para[$ar[0]] = $ar[1];
+		}
+		return $para;
 	}
 }
 ?>

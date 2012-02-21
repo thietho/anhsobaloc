@@ -25,7 +25,7 @@ class ControllerSitebarBanner extends Controller
 		{
 			$index += 1;
 			
-			$link = HTTP_SERVER."site/".$siteid."/".$sitemapid."/".$media['mediaid'];
+			$link = $this->document->createLink($sitemapid,$media['alias']);
 			
 			$imagethumbnail = "";
 			if($media['imagepath'] != ""  )

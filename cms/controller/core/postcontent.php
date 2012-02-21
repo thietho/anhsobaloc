@@ -26,7 +26,13 @@ class ControllerCorePostcontent extends Controller
 		{
 			$this->data['permissionDelete'] = false;
 		}
-	 	
+		
+	 	$this->load->model("core/user");
+		$this->load->model("core/media");
+		$this->load->model("core/sitemap");
+		$this->load->model("core/file");
+		$this->load->model("core/category");
+		$this->load->helper('image');
    	}
 	
 	function index()
@@ -34,11 +40,7 @@ class ControllerCorePostcontent extends Controller
 		if(!$this->data['permissionAccess'])
 			$this->response->redirect("?route=common/permission");
 		
-		$this->load->model("core/user");
-		$this->load->model("core/media");
-		$this->load->model("core/sitemap");
-		$this->load->model("core/file");
-		$this->load->helper('image');
+		
 		
 		if (!$this->user->isLogged()) {
 			$this->redirect($this->url->https('page/index'));
@@ -73,13 +75,31 @@ class ControllerCorePostcontent extends Controller
 		
 		$this->data = array_merge($this->data, $this->language->getData());
 		
-		$sitemap = $this->model_core_sitemap->getItem($sitemapid, $siteid);		
+		$sitemap = $this->model_core_sitemap->getItem($sitemapid, $siteid);	
+		
+		
+		$this->data['nhomhuong'] = array();
+		$this->model_core_category->getTree("nhomhuong",$this->data['nhomhuong']);
+		unset($this->data['nhomhuong'][0]);
+		
+		$this->data['nhanhieu'] = array();
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
+		unset($this->data['nhanhieu'][0]);
+		
+		$this->data['statuspro'] = array();
+		$this->model_core_category->getTree("status",$this->data['statuspro']);
+		unset($this->data['statuspro'][0]);
+		
 		$this->data['post'] =array();
 		//Save
 		if (($this->request->post) && ($this->validate())) {
 			
 			$this->savepost();
-			$this->redirect("index.php?route=".$route."&sitemapid=".$sitemapid);
+			if($sitemapid)
+				$this->redirect("?route=".$route."&sitemapid=".$sitemapid);
+			else
+				$this->redirect("?route=core/media");
+			
 		}
 		else
 		{
@@ -89,11 +109,11 @@ class ControllerCorePostcontent extends Controller
 				
 				//$this->data['post'] = $this->model_core_media->getInformationMedia($sitemapid, "content");
 				$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
-				$this->data['post']['mediatype'] = "information";
+				
 				
 				$this->data['post']=$this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
-				
+				$this->data['post']['mediatype'] = "information";
 				if($this->data['post']['title'] == '' && $route='module/information')
 				{
 					$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
@@ -104,9 +124,10 @@ class ControllerCorePostcontent extends Controller
 			{
 				//$this->data['post'] = $this->model_core_media->getInformationMedia($sitemapid, "content");
 				$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
-				$this->data['post']['mediatype'] = "contact";
+				
 				$this->data['post'] = $this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
+				$this->data['post']['mediatype'] = "contact";
 				if($this->data['post']['title'] == '' && $route='module/contact')
 				{
 					$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
@@ -120,6 +141,8 @@ class ControllerCorePostcontent extends Controller
 			else
 			{
 				$this->data['post'] = $this->model_core_media->getItem($mediaid);
+				$this->data['properties'] = $this->string->referSiteMapToArray($this->data['post']['groupkeys']);
+				
 				if($mediaid == "")
 				{
 					$this->data['post']['mediaid'] = $this->model_core_media->insert($data);
@@ -139,6 +162,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['hasFile'] = true;
 		$this->data['hasEmail'] = false;
 		$this->data['hasTabMap'] = true;
+		$this->data['hasTabComment'] = false;
 		//Define product
 		$this->data['hasPrice'] = false;
 		$this->data['hasSubInfor'] = true;
@@ -153,9 +177,12 @@ class ControllerCorePostcontent extends Controller
 		
 		if($route == "module/product")
 		{
-			$this->data['hasPrice'] = true;
-			$this->data['hasSubInfor'] = true;
+			$this->data['hasProperties'] = true;
+			$this->data['hasPrice'] = false;
+			$this->data['hasSubInfor'] = false;
+			$this->data['hasProductPrice'] = true;
 			$this->data['hasSource'] = false;
+			$this->data['hasTabComment'] = true;
 		}
 		if($route == "module/video")
 		{
@@ -177,7 +204,7 @@ class ControllerCorePostcontent extends Controller
 			$this->data['heading_title'] = $sitemap['sitemapname'];
 			$this->data['hasTabMap'] = false;
 			$this->data['hasTitle'] = true;
-			$this->data['hasSummary'] = true;
+			$this->data['hasSummary'] = false;
 			$this->data['hasFile'] = true;
 			$this->data['hasSource'] = false;
 			$this->data['hasSubInfor'] = true;
@@ -192,6 +219,7 @@ class ControllerCorePostcontent extends Controller
 			$this->data['hasSummary'] = false;
 			$this->data['hasFile'] = false;
 			$this->data['hasSource'] = false;
+			$this->data['hasSubInfor'] = false;
 			//$this->data['post']['title'] = $sitemap['sitemapname'];
 			$this->data['DIR_CANCEL'] = HTTP_SERVER."index.php";
 			$this->data['hasEmail'] = true;
@@ -217,6 +245,8 @@ class ControllerCorePostcontent extends Controller
 		$this->data['summary'] = $this->data['post']['summary'];
 		$this->data['price'] = $this->data['post']['price'];
 		$this->data['description'] = $this->data['post']['description'];
+		$this->data['alias'] = $this->data['post']['alias'];
+		$this->data['keyword'] = $this->data['post']['keyword'];
 		$this->data['author'] = $this->data['post']['author'];
 		$this->data['source'] = $this->data['post']['source'];
 		$this->data['refersitemap'] = $this->data['post']['refersitemap'];
@@ -289,12 +319,17 @@ class ControllerCorePostcontent extends Controller
 		
 		$data['title'] = $this->data['post']['title'];
 		$data['summary'] = $this->data['post']['summary'];
+		
 		$data['price'] = str_replace(",","",$this->data['post']['price']);
+		if($data['price'] == "")
+			$data['price'] = $this->data['post']['mainprice'];
 		$data['mediaparent'] = $this->data['post']['mediaparent'];
 		$data['description'] = $this->data['post']['description'];
+		$data['alias'] = $this->data['post']['alias'];
+		$data['keyword'] = $this->data['post']['keyword'];
 		$data['author'] = $this->data['post']['author'];
 		$data['source'] = $this->data['post']['source'];
-		
+		$data['groupkeys'] = $this->getProperties($this->data['post']);
 		$data['status'] = $this->data['post']['status'];	
 		$data['imageid'] = $this->data['post']['imageid'];
 		$data['imagepath'] = $this->data['post']['imagepath'];
@@ -341,12 +376,12 @@ class ControllerCorePostcontent extends Controller
 			foreach($listdelfile as $item)
 				$this->model_core_file->deleteFile($item);
 		$this->model_core_media->clearTempFile();
-		if($route=="module/contact")
+		/*if($route=="module/contact")
 		{
 			$this->model_core_media->saveInformation($data['mediaid'], "email1", $this->data['post']['email1']);
 			$this->model_core_media->saveInformation($data['mediaid'], "email2", $this->data['post']['email2']);
 			$this->model_core_media->saveInformation($data['mediaid'], "email3", $this->data['post']['email3']);
-		}
+		}*/
 		
 		$this->data['output'] = "true";
 		$this->template="common/output.tpl";
@@ -360,6 +395,15 @@ class ControllerCorePostcontent extends Controller
 			//$this->redirect("index.php");
 		//}
 		
+	}
+	
+	private function getProperties($data)
+	{
+		$arr = $data['loaisp'];
+		$arr['nhomhuong'] = $data['nhomhuong'];
+		$arr['nhanhieu'] = $data['nhanhieu'];
+		$groupkeys = $this->string->arrayToString($arr);
+		return $groupkeys;	
 	}
 	
 	public function updatePos()
@@ -405,7 +449,7 @@ class ControllerCorePostcontent extends Controller
 		$this->load->model("core/media");
 		$this->load->helper('image');
 		$mediaid = $this->request->get['mediaid'];
-		$this->data['child']=$this->model_core_media->getListByParent($mediaid,"Order by position");
+		$this->data['child']=$this->model_core_media->getListByParent($mediaid," AND mediatype = 'subinfor' Order by position");
 		
 		//$this->data['subImage'] = $this->string->array_Filter($this->data['child'],"mediatype","image");
 		
@@ -415,6 +459,48 @@ class ControllerCorePostcontent extends Controller
 		} 
 		$this->id='post';
 		$this->template='core/subinfor_list.tpl';	
+		$this->render();
+	}
+	
+	public function loadPrice()
+	{
+		$this->load->model("core/media");
+		$this->load->helper('image');
+		$mediaid = $this->request->get['mediaid'];
+		$this->data['child']=$this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
+		foreach($this->data['child'] as $key => $item)
+		{
+			$para = $this->string->referSiteMapToArray($item['summary']);
+			foreach($para as $val)
+			{
+				$ar = split("=",$val);
+				$this->data['child'][$key][$ar[0]] = $ar[1];	
+			}
+			$media = $this->model_core_media->getItem($this->data['child'][$key]['makhuyenmai']);
+			$this->data['child'][$key]['tenkhuyenmai'] = $media['title'];
+			$this->data['child'][$key]['mainprice'] = ($this->data['child'][$key]['khuyenmai']!=0)?$this->data['child'][$key]['khuyenmai']:$this->data['child'][$key]['gia'];
+		}
+		$this->id='post';
+		$this->template='core/price_list.tpl';	
+		$this->render();
+	}
+	
+	public function getPrice()
+	{
+		$this->load->model("core/media");
+		$this->load->helper('image');
+		$mediaid = $this->request->get['mediaid'];
+		$media=$this->model_core_media->getItem($mediaid);
+		$para = $this->string->referSiteMapToArray($media['summary']);
+		foreach($para as $val)
+		{
+			$ar = split("=",$val);
+			$media[$ar[0]] = $ar[1];	
+		}
+		
+		$this->data['output'] = json_encode(array('price' => $media));
+		$this->id='post';
+		$this->template="common/output.tpl";
 		$this->render();
 	}
 	

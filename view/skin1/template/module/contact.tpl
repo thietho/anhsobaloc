@@ -26,14 +26,14 @@ function sendMessage()
 				}
 				else
 				{
-					alert("Thông tin của bạn đã gửi đến chúng tôi")
-					//linkto("?")
+					alert("<?php echo $war_contactsuccess?>")
+					window.location.reload();
 				}
 			}
 	);
 }
 </script>
-<h2><?php echo $post['title']?></h2>
+<div class="ben-post">
 <p>
     <?php echo $post['description']?>
 </p>
@@ -44,32 +44,33 @@ function sendMessage()
 <div>
     <input type="hidden" name="sitemapid" value="<?php echo $this->document->sitemapid;?>" />
     <p>
-        <label for="input-1">Họ tên</label><br/>
+        <label for="input-1"><?php echo $text_fullname?></label><br/>
         <input type="text" name="fullname" id="fullname" class="ben-textbox" size="60" onkeypress='GetKey(event)'/>
     </p>
     
     <p>
-        <label for="input-1">Email</label><br/>
+        <label for="input-1"><?php echo $text_email?></label><br/>
         <input type="text" name="email" id="email" class="ben-textbox" size="60" onkeypress='GetKey(event)'/>
     </p>
 
     <p>
-        <label for="input-1">Địa chỉ</label><br/>
+        <label for="input-1"><?php echo $text_address?></label><br/>
         <input type="text" name="address" id="address" class="ben-textbox" size="60" onkeypress='GetKey(event)'/>
     </p>
     
     <p>
-        <label for="input-1">Điện thoại</label><br/>
+        <label for="input-1"><?php echo $text_phone?></label><br/>
         <input type="text" name="phone" id="phone" class="ben-textbox" size="60" onkeypress='GetKey(event)'/>
     </p>
 
     <p>
-        <label for="input-3">Lời nhắn</label><br/>
-        <textarea name="description" id="description" rows="10" cols="90"></textarea>
+        <label for="input-3"><?php echo $text_note?></label><br/>
+        <textarea name="description" id="description" class="ben-textbox" rows="10" cols="90"></textarea>
     </p>
 	<p>
-        
-        <a href="#" class="ben-button" onclick="sendMessage()">Gửi đến chúng tôi</a>
+        <input type="button" class="ben-button" value="<?php echo $button_send?>" onclick="sendMessage()"/>
+        <input type="reset" class="ben-button" value="<?php echo $button_reset?>"/>
     </p>
 </div>			
 </form>
+</div>

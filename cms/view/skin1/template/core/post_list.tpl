@@ -40,7 +40,7 @@
                 	<tr>
                     	<td><?php echo $media['firstcolumn']?>&nbsp;</td>
                         <td><b><?php echo $media['title']?></b>&nbsp;</td>
-                        <td><?php echo $media['summary']?>&nbsp;</td>
+                        <td><?php echo html_entity_decode($media['summary'])?>&nbsp;</td>
                         <td><?php echo $media['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($permissionEdit){?>

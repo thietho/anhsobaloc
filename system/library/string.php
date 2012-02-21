@@ -259,8 +259,9 @@ final class String
 	function arrayToString($arr)
 	{
 		$s="";
-		foreach($arr as $item)
-			$s.="[".$item."]";
+		if(count($arr))
+			foreach($arr as $item)
+				$s.="[".$item."]";
 		return $s;
 	}
 	
@@ -419,10 +420,16 @@ final class String
 		$s="";
 		for($i=0;$i < strlen($str) ; $i++)
 		{
-			if((ord($str[$i])>=97 && ord($str[$i])<= 122) || (ord($str[$i])>=48 && ord($str[$i])<= 57))
-				$s .= $str[$i];
-			else 
-				$s .=" ";				
+			
+			if(ord($str[$i])!=32)
+			{
+				if((ord($str[$i])>=97 && ord($str[$i])<= 122 && ord($str[$i])!=32) || (ord($str[$i])>=48 && ord($str[$i])<= 57))
+					$s .= $str[$i];
+				else 
+					$s .="";
+			}
+			else
+				$s.=" ";
 		}
 		
 		return $s;

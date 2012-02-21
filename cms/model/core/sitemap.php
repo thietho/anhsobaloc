@@ -13,17 +13,28 @@ class ModelCoreSitemap extends Model
 							'module/download'=>'Download',
 							'module/contact'=>'Contact',
 							'module/link'=>'Web URL',
+							'module/traning'=>'Traning',
 							'module/question'=>'Questions',
 							'module/location'=>'Location',
 							
-							'group/domain'=>'Domain page',
 							);
 	private $moduleaddon = array(
 								 /*"core/changeskin" => "Change skin",*/
+								 "core/category" => "Quản lý danh mục",
+								 "core/media" => "Quản lý thông tin",
+								 "addon/sitemap" => "Quản lý cấu trúc website",
+								 "core/comment" => "Đánh giá",
 								 "addon/order" => "Order management <span id='orderwarring'></span>",
 								 "core/member" => "Member management",
+								 'core/message' => 'Message',
 								 "core/user" => "User management"
 								 );
+	public $moduleuser = array(
+							'group' => 'None',
+							'module/information' => 'Information Page',
+							'module/news'=>'News',
+							'module/product'=>'Product'
+							);
 	public function getModules()
 	{
 		return $this->module;
@@ -31,6 +42,10 @@ class ModelCoreSitemap extends Model
 	public function getModuleAddons()
 	{
 		return $this->moduleaddon;
+	}
+	public function getModuleName($moduleid)
+	{
+		return $this->module[$moduleid];
 	}
 	public function getItem($sitemapid, $siteid, $where="")
 	{
@@ -229,7 +244,7 @@ class ModelCoreSitemap extends Model
 		$sitemapparent = $this->db->escape(@$data['sitemapparent']);
 		$sitemapname = $this->db->escape(@$data['sitemapname']);
 		$othername = $this->db->escape(@$data['othername']);
-		$position=(int)@$data['position'];
+		
 		$moduleid=$this->db->escape(@$data['moduleid']);
 		$imageid=(int)@$data['imageid'];
 		$imagepath = $this->db->escape(@$data['imagepath']);
@@ -239,7 +254,7 @@ class ModelCoreSitemap extends Model
 						"sitemapparent",
 						"sitemapname",
 						"othername",
-						"position",
+						
 						"moduleid",
 						"imageid",
 						"imagepath",
@@ -250,7 +265,7 @@ class ModelCoreSitemap extends Model
 						$sitemapparent,
 						$sitemapname,
 						$othername,
-						$position,
+						
 						$moduleid,
 						$imageid,
 						$imagepath,
@@ -317,6 +332,36 @@ class ModelCoreSitemap extends Model
 			foreach($rows as $row)
 			{
 				$this->getTreeSitemap($row['sitemapid'], $data, $siteid, $level, $path, $parentpath);
+			}
+	}
+	
+	function getTreeSitemapUser($id, &$data, $siteid, $level=-1, $path="", $parentpath="")
+	{
+		$arr=$this->getItem($id, $siteid);
+		
+		$rows = $this->getListByParent($id, $siteid);
+		
+		$arr['countchild'] = count(rows);
+		
+		if($arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
+		
+		if($id!="" && $arr['status'] != 'Hide')
+		{
+			$level += 1;
+			$path .= "-".$id;
+			
+			$arr['level'] = $level;
+			$arr['path'] = $path;
+			$arr['parentpath'] = $parentpath;
+			
+			array_push($data,$arr);
+		}
+		
+		
+		if(count($rows))
+			foreach($rows as $row)
+			{
+				$this->getTreeSitemapUser($row['sitemapid'], $data, $siteid, $level, $path, $parentpath);
 			}
 	}
 	

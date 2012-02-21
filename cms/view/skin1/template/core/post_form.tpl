@@ -21,6 +21,9 @@
              <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $mediaid?>" />
              <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $mediatype?>" />
              <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $refersitemap?>" />
+             
+             <input type="hidden" id="handler" />
+             <input type="hidden" id="outputtype" />
         </div>
         <div class="clearer">&nbsp;</div>
         
@@ -30,6 +33,9 @@
             
         	<ul>
                 <li><a href="#fragment-content"><span><?php echo $tab_editcontent?></span></a></li>
+                <?php if($hasProperties) {?>
+                <li><a href="#fragment-properties"><span>Properties</span></a></li>
+                <?php }?>
                 <li><a href="#fragment-detail"><span>Detail</span></a></li>
                 <?php if($hasVideo) {?>
                 <li><a href="#fragment-video"><span>Video</span></a></li>
@@ -37,14 +43,17 @@
                 <?php if($hasSubInfor) {?>
                 <li><a href="#fragment-subinfor"><span>Information</span></a></li>
                 <?php }?>
+                <?php if($hasProductPrice) {?>
+                <li><a href="#fragment-productprice"><span><?php echo $text_price?></span></a></li>
+                <?php }?>
                 <?php if($hasTabMap) {?>
                 <li><a href="#fragment-map"><span><?php echo $tab_map?></span></a></li>
-                
-                 <?php } ?>
-                 
-                <?php if($hasEmail) {?>
-                <li><a href="#fragment-email"><span>Email</span></a></li>
                 <?php } ?>
+                <?php if($hasTabComment) {?>
+                <li><a href="#fragment-comment"><span>Đánh giá</span></a></li>
+                <?php } ?>
+                 
+                
                 
             </ul>
            
@@ -58,20 +67,36 @@
                         <?php if($hasTitle) {?>
                         <p>
                             <label><?php echo $entry_title?></label><br>
-                            <input class="text" type="text" name="title" value="<?php echo $title?>" size="60" />
+                            <input class="text" type="text" id="title" name="title" value="<?php echo $title?>" size="60" />
+                        </p>
+                        <p>
+                            <label><?php echo $text_alias?></label><br>
+                            <input class="text" type="text" id="alias" name="alias" value="<?php echo $alias?>" size="60" />
+                        </p>
+<script>
+$('#title').change(function(e) {
+	
+    $.ajax({
+			url: "?route=common/api/getAlias&title=" + toBasicText(this.value),
+			cache: false,
+			success: function(html)
+			{
+				$("#alias").val(html);
+			}
+	});
+});
+</script>
+                        <p>
+                            <label><?php echo $text_keyword?></label><br>
+                            <textarea class="text" rows="3" cols="70" name="keyword"><?php echo $keyword?></textarea>
                         </p>
                         <?php } ?>
                         
-                        <?php if($hasSummary) {?>
-                        <p>
-                            <label><?php echo $entry_summary?></label><br>
-                            <textarea class="text" rows="3" cols="70" name="summary"><?php echo $summary?></textarea>
-                        </p>
-                        <?php } ?>
+                       
                     	<?php if($hasPrice) {?>
                         <p>
-                            <label>Price</label><br>
-                            <input class="text number" type="text" name="price" value="<?php echo $this->string->numberFormate($price)?>" size="60" />
+                            <label><?php echo $text_price?></label><br>
+                            <input class="text number" type="text" name="price" value="<?php echo $price?>" size="60" />
                         </p>
                         <?php } ?>
                     </div>
@@ -80,8 +105,8 @@
                     	
                     	<p id="pnImage">
                             <label for="image"><?php echo $entry_image?></label><br />
-                            <a id="btnAddImage" class="button"><?php echo $entry_selectphoto?></a><br />
-                            <img id="preview" src="<?php echo $imagethumbnail?>" />
+                            <a  class="button" onclick="browserFileImage()"><?php echo $entry_selectphoto?></a><br />
+                            <img id="imagepreview" src="<?php echo $imagethumbnail?>" />
                             <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $imagepath?>" />
                             <input type="hidden" id="imageid" name="imageid" value="<?php echo $imageid?>" />
                             <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $imagethumbnail?>" />
@@ -126,7 +151,17 @@
                     
                     
                     
-              
+              		<?php if($hasSummary) {?>
+                    <p>
+                        <label><?php echo $entry_summary?></label><br>
+                        <textarea class="text" rows="3" cols="70" id="summary" name="summary"><?php echo $summary?></textarea>
+<script language="javascript">
+$(document).ready(function(e) {
+    setCKEditorType('summary',2);
+});
+</script>
+                    </p>
+                    <?php } ?>
                     <?php if($hasSource) {?>
                     <p>
                         <label><?php echo $entry_source?></label><br>
@@ -136,6 +171,40 @@
                 
                 </div>
                 
+            </div>
+            <div id="fragment-properties">
+            	<div>
+                	
+                	<p>
+                    	<label>Perfumes</label><br />
+                        <select name="nhomhuong">
+                        	<option value=""></option>
+                        	<?php foreach($nhomhuong as $it){ ?>
+                        	<option value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'selected="selected"':''; ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                        	<?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                    	<label>Brand</label><br />
+                        <select name="nhanhieu">
+                        	<option value=""></option>
+                        	<?php foreach($nhanhieu as $it){ ?>
+                        	<option value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'selected="selected"':''; ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                        	<?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                    	<label><?php echo $text_status?></label>
+                        <?php foreach($statuspro as $it){ ?>
+                        <div>
+                        	
+                        	<?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?>
+                            <input type="checkbox"  name="loaisp[<?php echo $it['categoryid']?>]" value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'checked="checked"':''; ?> />
+                            <?php echo $it['categoryname']?>
+                        </div>
+                        <?php } ?>
+                    </p>
+                </div>
             </div>
             <div id="fragment-detail">
             	<a class="button" onclick="browserFileEditor()">Select image</a>
@@ -199,6 +268,182 @@ $(document).ready(function() {
 })
 </script>
             <?php }?>
+            <?php if($hasProductPrice) {?>
+            <div id="fragment-productprice">
+            	<input type="hidden" name="price_mediaid" id="price_mediaid" />
+            	<div>
+                	<p>
+                        Tiêu đề:<br />
+                        <input class="text" type="text" name="price_title" id="price_title" value="" size="40" />
+                    </p>
+                    <p>
+                        Code sản phẩm:<br />
+                        <input class="text" type="text" name="price_code" id="price_code" value="" size="40" onchange="price.loadPrice(this.value)"/> <input type="button" class="button" value="Lấy giá" onclick="price.loadPrice($('#price_code').val())" />
+                    </p>
+                    <p>
+                        Giá thị trường:<br />
+                        <input class="text number" type="text" name="price_thitruong" id="price_thitruong" value="" size="40" />
+                    </p>
+                    <p>
+                        Giá:<br />
+                        <input class="text number" type="text" name="price_gia" id="price_gia" value="" size="40" />
+                    </p>
+                    <p>
+                        Khuyến mãi:<br />
+                        <input class="text number" type="text" name="price_khuyenmai" id="price_khuyenmai" value="" size="40" />
+                    </p>
+                    <p>
+                    	Chương trình khuyến mãi:
+                        <input type="hidden" name="machuongtrinh" id="machuongtrinh"/>
+                        <span id="tenchuongtrinh"></span>
+                        <input type="button" class="button" id="btnSelectKhuyenMai" value="Chọn chương trình khuyến mãi" />
+                    </p>
+                    <p>
+                    	<input type="button" class="button" id="btnSavePrice" value="<?php echo $button_save?>"/>
+                        <input type="button" class="button" value="<?php echo $button_cancel?>"/>
+                    </p>
+                </div>
+                <div id="pricelist">
+                </div>
+            </div>
+<script language="javascript">
+$(document).ready(function(e) {
+   $("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
+});
+$("#btnSavePrice").click(function(){
+	 price.save();
+});
+
+$('#btnSelectKhuyenMai').click(function(e) {
+    price.selectChuongTrinh();
+});
+var price = new Price();
+function Price()
+{
+	this.loadPrice = function(code)
+	{
+		$.getJSON("<?php echo HTTP_SERVER?>ric/getSanPham.php?masanpham="+code, 
+			function(data) 
+			{
+				if(data.sanpham == false)
+					alert('Không tồn tại code sản phẩm này');
+				else
+					$('#price_gia').val(formateNumber(data.sanpham.HH_GiaBan+""));
+				
+				
+			});
+	}
+	
+	this.save = function()
+	{
+		var price = $("#price_gia").val().replace(/,/g,"");
+		if($("#price_khuyenmai").val()!= 0)
+			price = $("#price_khuyenmai").val().replace(/,/g,"")
+		$.post("?route=core/postcontent/savepost", 
+					{
+						mediaid : $("#price_mediaid").val(), 
+						mediaparent : $("#mediaid").val(),
+						title : $("#price_title").val(), 
+						mediatype : 'price',
+						summary : "[code="+ $('#price_code').val() +"][thitruong="+ $("#price_thitruong").val().replace(/,/g,"") +"][gia="+ $("#price_gia").val().replace(/,/g,"") +"][khuyenmai="+ $("#price_khuyenmai").val().replace(/,/g,"") +"][makhuyenmai="+ $('#machuongtrinh').val() +"]",
+						price : price
+					},
+			function(data){
+				if(data=="true")
+				{
+					$("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
+					$("#price_mediaid").val("");
+					$("#price_code").val("");
+					$("#price_title").val("");
+					$("#price_thitruong").val(0);
+					$("#price_gia").val(0);
+					$("#price_khuyenmai").val(0);
+					$('#machuongtrinh').val('');
+					$('#tenchuongtrinh').html('');
+					
+				}
+				else
+				{
+					$("#subimageerror").html(data);
+					$("#subimageerror").show('slow');
+				}
+				
+			});
+	}
+	this.edit = function(mediaid)
+	{
+		$.getJSON("?route=core/postcontent/getPrice&mediaid="+mediaid, 
+			function(data) 
+			{
+				
+				$("#price_mediaid").val(data.price.mediaid);
+				$("#price_title").val(data.price.title);
+				$("#price_code").val(data.price.code);
+				$("#price_thitruong").val(formateNumber(formateNumber(data.price.thitruong)));
+				$("#price_gia").val(formateNumber(formateNumber(data.price.gia)));
+				$("#price_khuyenmai").val(formateNumber(data.price.khuyenmai));
+				
+				price.loadKhuyenMai(data.price.makhuyenmai);
+				numberReady();
+				
+			});
+	}
+	this.remove = function(mediaid)
+	{
+		//$.blockUI({ message: "<h1>Please wait...</h1>" });
+		$.ajax({
+			url: "?route=core/postcontent/removeSubImage&mediaid="+mediaid, 
+			cache: false,
+			success: function(html)
+			{
+				$("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
+			}
+		});
+	}
+	this.selectChuongTrinh = function()
+	{
+		$('#popup-content').load('?route=core/mediapopup&sitemapid=tinkhuyenmai',
+			function()
+			{
+				showPopup('#popup', 350, 500, true );
+			});
+	}
+	
+	this.loadKhuyenMai = function(makhuyenmai)
+	{
+		if(makhuyenmai != '')
+		{
+			$.getJSON("?route=core/media/getMedia&col=mediaid&val=" + makhuyenmai, 
+			function(data) 
+			{
+				$('#machuongtrinh').val(data.medias[0].mediaid);
+				$('#tenchuongtrinh').html(data.medias[0].title);
+				$.unblockUI();
+			});
+		}
+		
+			
+	}
+}
+
+
+
+function selectCallBack()
+{
+	var arr = new Array();
+	$('.selectmedia').each(function(index, element) {
+		if(this.checked == true)
+		{
+			arr.push(this.value);	
+		}
+		
+    });	
+	
+	price.loadKhuyenMai(arr[0]);
+
+}
+</script>
+            <?php }?>
             <?php if($hasTabMap) {?>
             <div id="fragment-map">
                 <div>
@@ -216,23 +461,30 @@ $(document).ready(function() {
                 </div>
             </div>
             <?php } ?>
-            
-            <?php if($hasEmail) {?>
-                <div id="fragment-email">
-                    <p>
-                        <label>Email 1</label><br>
-                        <input class="text" type="text" name="email1" value="<?php echo $email1?>" size="60" />
-                    </p>
-                    <p>
-                        <label>Email 2</label><br>
-                        <input class="text" type="text" name="email2" value="<?php echo $email2?>" size="60" />
-                    </p>
-                    <p>
-                        <label>Email 3</label><br>
-                        <input class="text" type="text" name="email3" value="<?php echo $email3?>" size="60" />
-                    </p>
+            <?php if($hasTabComment) {?>
+            <div id="fragment-comment">
+            	<div id="listcommet">
                 </div>
+            </div>
+<script language="javascript">
+function Comment()
+{
+	this.loadComment = function(mediaid)
+	{
+		$('#listcommet').load('?route=core/comment&mediaid='+mediaid+"&popup=true");
+	}
+}
+function callbackLoadCommnet()
+{
+	objComment.loadComment('<?php echo $mediaid?>');
+}
+var objComment = new Comment();
+$(document).ready(function(e) {
+    objComment.loadComment('<?php echo $mediaid?>');
+});
+</script>
             <?php } ?>
+            
         
         </div>
         
@@ -241,7 +493,7 @@ $(document).ready(function() {
     </div>
 
 </div>
-<div id="popup" class="hidden"></div>
+
 <script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
 <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
 
@@ -249,15 +501,17 @@ $(document).ready(function() {
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
 $(document).ready(function() { 
-	setCKEditorType('editor1',2);
 	
+	setCKEditorType('editor1',2);
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	
 });
 </script>
 <?php if($hasFile) {?>
-<script src="<?php echo DIR_JS?>uploadpreview.js" type="text/javascript"></script>
+
+<?php if($hasSubInfor) {?>
 <script src="<?php echo DIR_JS?>uploadsubimage.js" type="text/javascript"></script>
+<?php } ?>
 <script src="<?php echo DIR_JS?>uploadattament.js" type="text/javascript"></script>
 <?php }?>
 <?php if($hasVideo) {?>
@@ -275,7 +529,7 @@ function postSubInfor()
 						mediaid : $("#sub_mediaid").val(), 
 						mediaparent : $("#mediaid").val(),
 						title : $("#sub_title").val(), 
-						
+						mediatype : 'subinfor',
 						description : $("#sub_description").val(),
 						imageid : $("#sub_imageid").val(),
 						imagepath : $("#sub_imagepath").val()
@@ -338,16 +592,29 @@ function removeSubInfor(mediaid)
 	
 }
 
-function browserFileEditor()
+function browserFileImage()
 {
     //var re = openDialog("?route=core/file",800,500);
+	$('#handler').val('image');
+	$('#outputtype').val('image');
 	showPopup("#popup", 800, 500);
 	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
 	$("#popup").load("?route=core/file")
 		
 }
 
-function addImageToDescription()
+function browserFileEditor()
+{
+    //var re = openDialog("?route=core/file",800,500);
+	$('#handler').val('editor1');
+	$('#outputtype').val('editor');
+	showPopup("#popup", 800, 500);
+	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
+	$("#popup").load("?route=core/file")
+		
+}
+
+function addImageTo()
 {
 	var str= trim($("#listselectfile").val(),",");
 	var arr = str.split(",");
@@ -359,26 +626,43 @@ function addImageToDescription()
 			$.getJSON("?route=core/file/getFile&fileid="+arr[i], 
 				function(data) 
 				{
-					
-					width = "";
-					if(data.file.width >600)
-						width = 'width="600px"'
-					var value = "<img src='<?php echo HTTP_IMAGE?>"+data.file.filepath+"' " + width +"/>";
-					
-					var oEditor = CKEDITOR.instances['editor1'] ;
-					
-					
-					// Check the active editing mode.
-					if (oEditor.mode == 'wysiwyg' )
+					switch($('#outputtype').val())
 					{
-						// Insert the desired HTML.
-						oEditor.insertHtml( value ) ;
-						$("#listselectfile").val('');
-						var temp = oEditor.getData()
-						oEditor.setData( temp );
+						case 'editor':
+							width = "";
+							
+							var value = "<img src='<?php echo HTTP_IMAGE?>"+data.file.filepath+"'/>";
+							
+							var oEditor = CKEDITOR.instances[$('#handler').val()] ;
+							
+							
+							// Check the active editing mode.
+							if (oEditor.mode == 'wysiwyg' )
+							{
+								// Insert the desired HTML.
+								oEditor.insertHtml( value ) ;
+								$("#listselectfile").val('');
+								var temp = oEditor.getData()
+								oEditor.setData( temp );
+							}
+							else
+								alert( 'You must be on WYSIWYG mode!' ) ;
+							break;
+						case 'image':
+							var handler = $('#handler').val();
+							$('#'+handler+'id').val(data.file.fileid)
+							$('#'+handler+'path').val(data.file.filepath)
+							$.getJSON("?route=core/file/getFile&fileid="+data.file.fileid+"&width=200", 
+							function(file) 
+							{
+								$('#'+handler+'thumbnail').val(file.file.imagepreview)
+								$('#'+handler+'preview').attr('src',file.file.imagepreview)
+							});
+							
+							
+							break;
+						
 					}
-					else
-						alert( 'You must be on WYSIWYG mode!' ) ;
 				});
 		}
 	}

@@ -46,7 +46,7 @@
       
       <p><?php echo $currencyexchange_text_result?></p>
       <p>
-        <input type="text" id="result" class="ben-textbox" readonly="readonly"/>
+        <input type="text" id="result" class="ben-textbox number" readonly="readonly"/>
       </p>
 <script language="javascript">
 function changeRate()

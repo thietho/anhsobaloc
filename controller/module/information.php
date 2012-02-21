@@ -22,6 +22,7 @@ class ControllerModuleInformation extends Controller
 		}
 		
 		$this->data['post']['description'] = html_entity_decode($this->data['post']['description']);
+		$this->data['child'] = $this->model_core_media->getListByParent($this->member->getSiteId().$sitemapid," AND mediatype = 'subinfor' Order by position");
 		
 		$this->id="information";
 		$this->template="module/information.tpl";

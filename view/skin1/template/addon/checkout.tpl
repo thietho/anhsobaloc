@@ -1,3 +1,4 @@
+<?php if(count($medias)){ ?>
 <div>
 <table class="ben-table">
 	<thead>
@@ -14,14 +15,14 @@
 	<?php 
     	$sum = 0;
     	foreach($medias as $media) {
-        $sum = $media['price'] * $media['qty'];
+        $sum += $media['price'] * $media['qty'];
     ?>
         <tr>
             <td><img src="<?php echo $media['imagethumbnail']?>" class="ben-center"/></td>
             <td><?php echo $media['title']?></td>
-            <td class="number"><?php echo $this->string->numberFormate($media['price'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($media['price'])?><?php echo $this->document->setup['Currency']?></td>
             <td class="number"><?php echo $this->string->numberFormate($media['qty'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($media['price'] * $media['qty'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($media['price'] * $media['qty'])?><?php echo $this->document->setup['Currency']?></td>
             
         </tr>
     <?php } ?>
@@ -32,7 +33,7 @@
             <td></td>
             <td></td>
             <td>Tông cộng</td>
-            <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sum)?><?php echo $this->document->setup['Currency']?></td>
         </tr>
     </tfoot>
 </table>
@@ -84,7 +85,7 @@ $("#btnCheckout").click(function(){
 			var arr = data.split("-")
 			if(arr[0] == "true")
 			{
-				window.location = HTTP_SERVER+"site/<?php echo $this->member->getSiteId()?>/checkoutcomplete/"+arr[1];
+				window.location = HTTP_SERVER+"checkoutcomplete/"+arr[1]+".html";
 			}
 			else
 			{
@@ -98,3 +99,6 @@ $("#btnCheckout").click(function(){
 	);					   
 });
 </script>
+<?php }else{ ?>
+Chưa có sản phẩm trong giỏ hàng
+<?php } ?>

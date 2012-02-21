@@ -176,7 +176,12 @@ function toMonth(month)
 	else
 		return month;
 }
-
+function stringtoNumber(str)
+{
+	str = (""+str).replace(/,/g,"");
+	var num = str*1;
+	return num;
+}
 function formateNumber(num)
 {
 	ar = (""+num).split("\.");
@@ -212,6 +217,7 @@ function formateNumber(num)
 function numberView(str)
 {
 	str = (""+str).replace(/,/g,"");
+	str = parseFloat(str);
 	var obj = new Number(str);
 	num=obj.toFixed(2);
 	ar = (""+num).split("\.");
@@ -238,7 +244,7 @@ function numberView(str)
 	divnum = arr.join(",");
 	divnum = trim(divnum,",")
 	divnum = divnum.replace("-,","-")
-	if(mod == undefined)
+	if(mod == undefined || mod == 0)
 		return divnum;
 	else
 		return divnum+"\."+mod;
@@ -297,3 +303,11 @@ function numberMod()
 $(document).ready(function(){
 	numberMod()		   
 });
+
+function printObject(o) {
+  var out = '';
+  for (var p in o) {
+    out += p + ': ' + o[p] + '\n';
+  }
+  alert(out);
+}

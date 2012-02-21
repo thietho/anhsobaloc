@@ -7,8 +7,9 @@ class ControllerSitebarCatalogue extends Controller
 		$this->data['sitemap'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
 		$this->data['menu'] = $this->getMenu($sitemapid,$status);
 		$this->data['path'] = $this->model_core_sitemap->getPath($this->document->sitemapid, $siteid);
-		unset($this->data['path'][0]);
-		unset($this->data['path'][1]);
+		//print_r($this->data['path']);
+		//unset($this->data['path'][0]);
+		//unset($this->data['path'][1]);
 		
 		$this->id="content";
 		$this->template="sitebar/catalogue.tpl";
@@ -37,7 +38,7 @@ class ControllerSitebarCatalogue extends Controller
 			if($item['moduleid'] != "group" && $item['moduleid'] != "homepage")
 			{
 				//$link='<a class="left" href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" title="[Detail]">'.$item['sitemapname'].'</a>';
-				$link = "<a  href='".HTTP_SERVER."site/".$siteid."/".$item['sitemapid']."'>".$item['sitemapname']."</a>";
+				$link = "<a  href='".$this->document->createLink($item['sitemapid'])."'>".$item['sitemapname']."</a>";
 			}
 			
 			$str .= "<li>";
@@ -50,7 +51,7 @@ class ControllerSitebarCatalogue extends Controller
 				$str .= '<div class="clearer">&nbsp;</div>';
 				$str .= "</div>";
 				
-				$str .= "<ul id='".$parentid."'>";
+				$str .= "<ul id='".$item['sitemapid']."'>";
 				$str .= $this->getMenu($item['sitemapid'],$status);
 				$str .= "</ul>";
 			}

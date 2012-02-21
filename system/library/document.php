@@ -23,6 +23,11 @@ final class Document {
 						   'pending' => "Đang chờ thanh toán",
 						   'completed' => "Đã thanh toán"
 						   );
+	public $status_comment = array(
+						   'new' => "Chưa duyệt",
+						   'published' => "Duyệt",
+						   'denial' => "Không duyệt"
+						   );
 	private $filepath;
 	public function __construct() 
 	{
@@ -86,6 +91,67 @@ final class Document {
 		$fp = fopen($this->filepath, 'w');
 		fwrite($fp, $str);
 		fclose($fp);
+	}
+	
+	public function getSiteMap($sitemapid,$siteid,$name="sitemapname")
+	{
+		$query = $this->db->query("Select `sitemap`.* 
+									from `sitemap` 
+									where sitemapid ='".$sitemapid."' AND siteid = '".$siteid."'");
+		return $query->row[$name];	
+	}
+	
+	public function getCategory($categoryid,$name="categoryname")
+	{
+		$query = $this->db->query("Select `category`.* 
+									from `category` 
+									where categoryid ='".$categoryid."' ");
+		return $query->row[$name];	
+	}
+	
+	public function getMedia($mediaid,$name="title")
+	{
+		$query = $this->db->query("Select `media`.* 
+									from `media` 
+									where mediaid ='".$mediaid."' ");
+		return $query->row[$name];	
+	}
+	
+	public function createLink($sitemap="",$id="",$key = "",$val = "")
+	{
+		$link = HTTP_SERVER;
+		if($sitemap)
+			$link.= $sitemap;
+		if($id)
+			$link.= '/'.$id;
+		if($key)
+			$link.= '/'.$key;
+		if($val)
+			$link.= '/'.$val;
+		return $link.'.html';
+	}
+	
+	public function getPara()
+	{
+		$uri = $_SERVER['REQUEST_URI'];
+		$arr = split("\?",$uri);
+		
+		$listpara = split("&",$arr[1]);
+		$para = array();
+		foreach($listpara as $val)
+		{
+			$ar = split("=",$val);	
+			$para[$ar[0]] = $ar[1];
+		}
+		return $para;
+	}
+	public function getURI()
+	{
+		$uri = $_SERVER['REQUEST_URI'];
+		//$arr = split("\?",$uri);
+		
+		
+		return $uri;
 	}
 	
 }

@@ -8,6 +8,7 @@ class ControllerCommonUploadattachment extends Controller
 		//$this->data['output'] = json_encode(array('files' => $_FILES));
 		
 		$datas = array();
+		//print_r($_FILES['image2']['name']);
 		foreach($_FILES['image2']['name'] as $key => $item)
 		{
 			if($_FILES['image2']['name'][$key] != "")

@@ -20,8 +20,7 @@
     <title>Ben Solution Content Management System</title>
     <script src="<?php echo DIR_JS?>menu-collapsed.js" type="text/javascript"></script>
     
-    <link rel='stylesheet' type='text/css' href='<?php echo DIR_CSS?>fileuploader.css'>
-    <script src="<?php echo DIR_JS?>fileuploader.js" type="text/javascript"></script>
+    
 </head>
 <!--[if lt IE 7]>
 	<link rel='stylesheet' type='text/css' href='<?php echo DIR_CSS?>jquery.tabs-ie.css'>
@@ -66,7 +65,12 @@
         </div>
     
     </div>
-
+	<div id="popup" style="display:none">
+        <div id="popup-content"></div>
+        <div class="right">
+            <input type="button" class="button" value="Đóng" onclick="closePopup()" />
+        </div>
+    </div>
 </body>
 
 </html>

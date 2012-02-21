@@ -157,10 +157,13 @@ class Pager
 				$start = 1;
 		}
 		$data_paginations=array();
+		$char = '?';
+		if(strpos($uri,$char))
+			$char = '&';
 		if($pager->numPages > 1 && $page >1)
 		{
-			array_push($data_paginations,"<a href='".HTTP_SERVER.$uri."page/1"."'>|<</a>");
-			array_push($data_paginations,"<a href='".HTTP_SERVER.$uri."page/".($page - 1)."' ><</a>");	
+			array_push($data_paginations,"<a href='".$uri.$char."page=1"."'>|<</a>");
+			array_push($data_paginations,"<a href='".$uri.$char."page=".($page - 1)."' ><</a>");	
 		}
 		
 		for ($j = $start; $j <= $end; $j++) 
@@ -172,13 +175,13 @@ class Pager
 			}
 			else
 			{
-				array_push($data_paginations,"<a href='".HTTP_SERVER.$uri."page/".$j."'>".$j."</a>");
+				array_push($data_paginations,"<a href='".$this->createQueryString($uri,"page",$j)."'>".$j."</a>");
 			}
 		}
 		if($pager->numPages > 1 && $page<$pager->numPages )
 		{
-			array_push($data_paginations,"<a href='".HTTP_SERVER.$uri."page/".($page + 1)."'>></a>");
-			array_push($data_paginations,"<a href='".HTTP_SERVER.$uri."page/".$pager->numPages."'>>|</a>");
+			array_push($data_paginations,"<a href='".$uri.$char."page=".($page + 1)."'>></a>");
+			array_push($data_paginations,"<a href='".$uri.$char."page=".$pager->numPages."'>>|</a>");
 		}
 		$data_pagenumber=$page."/".$pager->numPages;
 		$playout=" <div class='ben-page'>";
@@ -190,6 +193,31 @@ class Pager
 		
 		return $playout;
 	}
+	
+	function createQueryString($url,$strkey, $setvalue)
+	{
+		$arr = split("\?",$url);
+		
+		$listpara = split("&",$arr[1]);
+		
+		$para = array();
+		foreach($listpara as $val)
+		{
+			$ar = split("=",$val);	
+			$para[$ar[0]] = $ar[1];
+		}
+		
+		$para[$strkey] = $setvalue;
+		$arrstr = array();
+		foreach($para as $key => $val)
+		{
+			if($key)
+				$arrstr[] = $key."=".$val;	
+		}
+		$qry = implode("&",$arrstr);
+		return $arr[0]."?".$qry;
+	}
+	
 	function getURLQueryString($strkey, $setvalue)
 	{
 		$address = $_SERVER['QUERY_STRING'];
@@ -214,6 +242,8 @@ class Pager
 		if($result != '?') { $result .= "&"; }
 		return $result .= "$strkey=$setvalue";
 	}
+	
+	
 }
 
 ?>

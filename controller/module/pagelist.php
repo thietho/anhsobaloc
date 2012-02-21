@@ -15,10 +15,19 @@ class ControllerModulePagelist extends Controller
 		$to = $count;
 		
 		//Get list
+		$child = array();
+		$this->model_core_sitemap->getTreeSitemap($sitemapid,$child,$this->member->getSiteId());
+		$listsitemap = array();
+		if(count($child))
+		{
+			foreach($child as $item)
+				$listsitemap[] = $item['sitemapid'];
+		}
+		
 		$queryoptions = array();
 		$queryoptions['mediaparent'] = '%';
 		$queryoptions['mediatype'] = '%';
-		$queryoptions['refersitemap'] = $sitemapid;
+		$queryoptions['refersitemap'] = $listsitemap;
 		
 		if($mediaid == "")
 		{
@@ -37,19 +46,20 @@ class ControllerModulePagelist extends Controller
 			{
 				$index += 1;
 				
-				$link = HTTP_SERVER."site/".$siteid."/".$sitemapid."/".$media['mediaid'];
+				$link = $this->document->createLink($sitemapid,$media['alias']);
 				
 				$imagethumbnail = "";
-				if($media['imagepath'] != "" && $template['width'] >0 )
+				//if($media['imagepath'] != "" && $template['width'] >0 )
 				{
 					$imagethumbnail = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
 				}
 	
-				
+				$startdate = $this->model_core_media->getInformation($media['mediaid'],"startdate");
 				$this->data['medias'][] = array(
 					'mediaid' => $media['mediaid'],
 					'title' => $media['title'],
-					'summary' => $media['summary'],
+					'summary' => html_entity_decode($media['summary']),
+					'startdate' => $this->date->formatMySQLDate($startdate),
 					'imagethumbnail' => $imagethumbnail,
 					'statusdate' => $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/"),
 					'link' => $link
@@ -69,7 +79,7 @@ class ControllerModulePagelist extends Controller
 			for($i=0;$i<count($this->data['othernews']);$i++)
 			{
 				$this->data['othernews'][$i]['statusdate'] = $this->date->formatMySQLDate($this->data['othernews'][$i]['statusdate'], 'longdate', "/");
-				$link = HTTP_SERVER."site/".$siteid."/".$sitemapid."/".$this->data['othernews'][$i]['mediaid'];
+				$link = $this->document->createLink($sitemapid,$this->data['othernews'][$i]['alias']);
 				$this->data['othernews'][$i]['link'] = $link;
 			}
 			

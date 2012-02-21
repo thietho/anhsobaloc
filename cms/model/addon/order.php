@@ -8,7 +8,7 @@ class ModelAddonOrder extends Model
 									from `order` 
 									where orderid ='".$orderid."' ".$where);
 		$data['order'] = $query->row;
-		$sql = "Select `order_product`.*,title, imagepath
+		$sql = "Select `order_product`.*,mediaparent,title, imagepath
 									from `order_product` , media
 									where order_product.mediaid = media.mediaid and orderid = '".$orderid."'";
 		$query = $this->db->query($sql);

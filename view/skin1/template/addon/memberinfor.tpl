@@ -10,7 +10,7 @@
 	cursor:pointer;
 }
 </style>
-<div>
+<div class="ben-post">
 	<form id="frmRegister" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
     	<table>

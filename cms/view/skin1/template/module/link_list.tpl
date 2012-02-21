@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title">Quản lý liên kết</div>
+	<div class="section-title">Link Management</div>
     
     <div class="section-content">
     	
@@ -11,7 +11,7 @@
             	<input class="button" value="Select" type="button" onclick="selectChiPhi()">
                 <input type="hidden" id="selectchiphi" name="selectchiphi" />
                 <?php }else{ ?>
-                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
+                <input class="button" value="Add" type="button" onclick="linkto('<?php echo $insert?>')">
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>  
                 <?php } ?>
             </div>
@@ -27,10 +27,11 @@
                             <?php } ?>
                         </th>
                         
-                        <th>Tiêu đề</th>
-                        <th>Ngày tạo</th>
+                        <th><?php echo $text_title?></th>
+                        <th>Link</th>
+                        <th>Image</th>
                         <?php if($dialog!=true){ ?>              
-                        <th width="10%">Control</th>                                  
+                        <th width="10%"><?php echo $text_control?></th>                                  
                         <?php } ?>
                     </tr>
         
@@ -43,7 +44,8 @@
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['mediaid']?>]" value="<?php echo $item['mediaid']?>" ></td>
                         
                         <td><?php echo $item['title']?></td>
-                        <td><?php echo $item['statusdate']?></td>
+                        <td><?php echo $item['Link']?></td>
+                        <td><img src="<?php echo $item['imagethumbnail']?>" /></td>
                         <?php if($dialog!=true){ ?>
                         <td class="link-control">
                             <a class="button" href="<?php echo $item['link_edit']?>" title="<?php echo $item['text_edit']?>"><?php echo $item['text_edit']?></a>

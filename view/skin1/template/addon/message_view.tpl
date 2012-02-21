@@ -26,5 +26,5 @@
 ?>
 					
 </div>
-<a class="ben-button" href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/message">Trở về</a>
+<a class="ben-button" href="<?php echo $this->document->createLink('message')?>">Trở về</a>
 <div class="clearer">&nbsp;</div>

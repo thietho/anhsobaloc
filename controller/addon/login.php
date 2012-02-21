@@ -5,7 +5,7 @@ class ControllerAddonLogin extends Controller
 	public function index()
 	{
 		$this->document->sitebar['login'] = "hide";
-		$this->document->breadcrumb .= "Đăng nhập tài khoảng";
+		$this->document->breadcrumb .= $this->data['text_login'];
 		
 		$this->id="content";
 		$this->template="addon/login.tpl";
@@ -29,7 +29,7 @@ class ControllerAddonLogin extends Controller
 				$this->data['output'] = "true";
 			}
 			else
-				$this->data['output'] = "Mật khẩu không đúng";
+				$this->data['output'] = $this->data['war_passwordnotcorrect'];
 		}
 		else
 		{
@@ -49,18 +49,18 @@ class ControllerAddonLogin extends Controller
 		
     	if(trim($data['username']) == "")
 		{
-      		$this->error['username'] = "Bạn chưa nhập tên đăng nhập";
+      		$this->error['username'] = $this->data['war_usernamenotnull'];
     	}
 		else
 		{
 			$this->load->model('core/user');
 			$activecode = $this->model_core_user->getInformation(trim($data['username']),"activecode");
 			if($activecode != "")
-				$this->error['username'] = "Tài khoảng của bạn chưa được kích hoạt! <a href='".HTTP_SERVER."site/".$this->member->getSiteId()."/active'>Kích hoạt tài khoảng click vào đây</a>";
+				$this->error['username'] = $this->data['war_accountnotactive1']." <a href='".$this->document->createLink('active')."'>".$this->data['war_accountnotactive2']."</a>";
 		}
 		if(trim($data['password']) =="")
 		{
-      		$this->error['password'] = "Bạn chưa nhập mật khẩu";
+      		$this->error['password'] = $this->data['war_passwordnotnull'];
     	}
 		
 		if (count($this->error)==0) {

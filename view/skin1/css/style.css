@@ -412,10 +412,10 @@ z-index:100;
 #ben-main-nav a{
 display:block;
 padding:3px 5px;
-border:1px solid #009F6B;
+border:1px solid #CCCCCC;
 color:#fff;
 text-decoration:none;
-background-color:#009F6B;
+background-color:#CCCCCC;
 }
 
 #ben-main-nav a:hover{
@@ -622,7 +622,7 @@ ul#menu li {
 }
 
 ul#menu li div {
-  background: #009F6B;
+  background: #666666;
   color: #FFF;	
   padding: 0.4em;
 }
@@ -689,5 +689,8 @@ ul#menu li ul li div:hover {
 /* *************************************************** */
 /* *************************************************** */
 /* *************************************************** */
-
+#ben-popup-content
+{
+	padding:10px;	
+}
 

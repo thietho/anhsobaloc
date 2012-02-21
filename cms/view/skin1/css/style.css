@@ -744,6 +744,11 @@ a.button.selected{
 	font-weight:bold;
 }
 
+.new td
+{
+	font-weight:bold;
+}
+
 .loadingimage{
 background-image:url(../image/loadingimage.gif) !important ;
 background-position:center center;
@@ -754,4 +759,13 @@ height:100px;
 .number
 {
 	text-align:right !important;	
+}
+#popup-content
+{
+	padding:5px;	
+}
+
+.map-sitemap-item
+{
+	width:230px;	
 }

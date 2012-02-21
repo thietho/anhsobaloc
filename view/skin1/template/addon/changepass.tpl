@@ -38,7 +38,7 @@ $("#btnChangepass").click(function(){
 			if(data == "true")
 			{
 				alert("Bạn đã đổi mật khẩu thành công!");
-				window.location = "<?php echo HTTP_SERVER?>site/default/memberinfor";
+				window.location = "<?php echo $this->document->createLink('memberinfor')?>";
 			}
 			else
 			{

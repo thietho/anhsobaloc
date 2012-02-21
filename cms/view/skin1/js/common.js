@@ -10,10 +10,7 @@ function linkto(url)
 {
 	window.location = url
 }
-function createInput(type,name,value,stype)
-{
-	return '<input type="'+type+'" name="'+name+'" value="'+value+'" "'+stype+'">';
-}
+
 function searchMatrix(matrix,col,need)
 {
 	for(i=0;i < matrix.length ;i++)
@@ -182,6 +179,11 @@ function toMonth(month)
 
 function formateNumber(num)
 {
+	if(num =="")
+		return 0;
+	
+	num = num.replace(/,/g,"");
+	
 	ar = (""+num).split("\.");
 	div = ar[0];
 	mod = ar[1];
@@ -226,6 +228,21 @@ function rtrim(str, chars) {
 	return str.replace(new RegExp("[" + chars + "]+$", "g"), "");
 }
 
+function toBasicText(str)
+{
+	var iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?"; 
+	for (var i = 0; i < str.length; i++) 
+	{ 
+		if (iChars.indexOf(str.charAt(i)) != -1) 
+		{ 
+			
+			str = str.replace(str.charAt(i),"");
+		}
+		//alert(str.charAt(i))
+	}
+	return str;
+}
+
 function isNumber(char)
 {
 	if( char!=8 && char!=0 && (char<45 || char>57) )
@@ -242,15 +259,8 @@ function getFileExt(filepath)
 	return arr[arr.length-1];
 }
 
-$(document).ready(function(){
-	
-	$(".error").each(function(index){
-		if($(this).text() == "")
-		{
-			$(this).hide();	
-		}
-	});
-	
+function numberReady()
+{
 	$(".number").keyup(function (e)
 	{
 		num = formateNumber($(this).val().replace(/,/g,""));
@@ -262,6 +272,21 @@ $(document).ready(function(){
 	  	return isNumber(e.which);
 	});
 
-
-						   
+	
+}
+$(document).ready(function(){
+	
+	$(".error").each(function(index){
+		if($(this).text() == "")
+		{
+			$(this).hide();	
+		}
+	});
+	
+	numberReady();
+	$(".number").each(function(index){
+		//alert(formateNumber($(this).val()))
+		$(this).val(formateNumber($(this).val()))
+		
+	});					   
 });

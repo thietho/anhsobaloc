@@ -15,7 +15,7 @@
             <td></td>
             <td>
                 <p>
-                    <input type="button" class="ben-button" id="btnLoginSiteBar" value="Đăng nhập"> <a href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/register">Đăng ký</a>
+                    <input type="button" class="ben-button" id="btnLoginSiteBar" value="Đăng nhập"> <a href="<?php echo $this->document->createLink('register')?>">Đăng ký</a>
                 </p>
                 
                 <input type="checkbox" name="remember" value="1"> Ghi nhớ
@@ -41,7 +41,7 @@ $("#btnLoginSiteBar").click(function(){
 			else
 			{
 				
-				window.location = "<?php echo HTTP_SERVER?>site/default/login";
+				window.location = "<?php echo $this->document->createLink('login')?>";
 				
 				
 			}

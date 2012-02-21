@@ -14,21 +14,26 @@
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
-        	<div>  
+        	<div>
+            	<h3>Thông tin chung</h3>
             	<p>
-            		<label>Title</label><br />
+            		<label>Tiêu đề trang</label><br />
 					<input type="text" name="Title" value="<?php echo $item['Title']?>" class="text" size=60 />
             	</p>
                 <p>
-            		<label>Slogan</label><br />
+            		<label>Khẩu hiệu thương mại</label><br />
 					<input type="text" name="Slogan" value="<?php echo $item['Slogan']?>" class="text" size=60 />
             	</p>
                   
                 <p>
-            		<label>Currency</label><br />
+            		<label>Tiền tệ</label><br />
 					<input type="text" name="Currency" value="<?php echo $item['Currency']?>" class="text" size=60 />
             	</p>
                 
+                <p>
+            		<label>Email liên hệ</label><br />
+					<input type="text" name="EmailContact" value="<?php echo $item['EmailContact']?>" class="text" size=60 />
+            	</p>
             </div>
             
         </form>

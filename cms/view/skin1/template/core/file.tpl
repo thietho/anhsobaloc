@@ -118,14 +118,14 @@ function saveSelect()
 	})
 	//window.close();
 	$.unblockUI();
-	addImageToDescription();
+	addImageTo();
 }
 
 function callbackUploadFile()
 {
 	new AjaxUpload(jQuery('#btnAddImagePopup'), {
 		action: DIR_UPLOADATTACHMENT,
-		name: 'image2',
+		name: 'image2[]',
 		responseType: 'json',
 		onChange: function(file, ext){
 		},
@@ -142,24 +142,13 @@ function callbackUploadFile()
 		},
 		onComplete: function(file, response){
 			//alert(response);
-			if(response.files.error == 'none')
-			{
-				$('#errorupload').hide();
-				$("#result").load("?route=core/file/getList");
-				//$('input#attimageid'+imageindex).val(response.files.imageid);
-				//$('#attachment').append()
-				/*$('input#imagepath').val(response.files.imagepath);
-				$('input#imagethumbnail').val(response.files.imagethumbnail);
-				$('#preview').attr("src", response.files.imagethumbnail);
-				$('#errorupload').hide();*/
+			
+			$('#errorupload').hide();
+			$("#result").load("?route=core/file/getList");
+			
 				
-				
-			}
-			else
-			{
-				$('#errorupload').html(response.files.error);
-				$('#errorupload').show();
-			}
+			
+			
 			$('#pnImage').show();
 			$('.loadingimage').hide();
 			

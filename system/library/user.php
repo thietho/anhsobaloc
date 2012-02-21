@@ -194,6 +194,8 @@ final class User {
 	{
 		if( $_SESSION['safemode'])
 			return true;
+		if($this->usertypeid == 'admin')
+			return true;
 		$allow = false;
 		if (count($this->permission)) 
 		{

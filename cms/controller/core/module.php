@@ -55,7 +55,7 @@ class ControllerCoreModule extends Controller
 				
 				break;
 			case "edit":
-				$this->data['title']="Edit Module";
+				$this->data['title']=$this->data['text_editmodule'];
 				if(isset($this->request->post['moduleid']))
 				{
 					$this->update();
@@ -96,7 +96,7 @@ class ControllerCoreModule extends Controller
 		$this->data["modules"]=array();
 		foreach($list as $resutl )
 		{
-			$controlEdit = $this->model_common_control->getControlEdit("controlEdit","controlEdit","[Edit]","?route=core/module&formtype=edit&id=".$resutl['moduleid']);
+			$controlEdit = $this->model_common_control->getControlEdit("controlEdit","controlEdit","[<?php echo $button_edit?>]","?route=core/module&formtype=edit&id=".$resutl['moduleid']);
 			$controlDelete = $this->model_common_control->getControlDelete("controlDelete","controlDelete","[Delete]","?route=core/module&formtype=delete&id=".$resutl['moduleid']);
 			
 			$this->data["modules"][]=array(

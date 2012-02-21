@@ -1,18 +1,20 @@
 <?php
 class ControllerModuleLink extends Controller
 {
-	private $error = array();
-	
-	public function index()
+	//private $error = array();
+	function __construct() 
 	{
-		$sitemapid = $this->request->get['sitemapid'];
-		if(!$this->user->hasPermission($sitemapid, "access"))
-		{
-			$this->response->redirect("?route=common/permission");
-		}
+		$this->data['permissionAccess'] = true;
 		$this->data['permissionAdd'] = true;
 		$this->data['permissionEdit'] = true;
 		$this->data['permissionDelete'] = true;
+		
+		$sitemapid = $this->request->get['sitemapid'];
+		
+		if(!$this->user->hasPermission($sitemapid, "access"))
+		{
+			$this->data['permissionAccess'] = false;
+		}
 		if(!$this->user->hasPermission($sitemapid, "add"))
 		{
 			$this->data['permissionAdd'] = false;
@@ -25,12 +27,21 @@ class ControllerModuleLink extends Controller
 		{
 			$this->data['permissionDelete'] = false;
 		}
-		//$this->load->language('quanlykho/khachhang');
-		//$this->data = array_merge($this->data, $this->language->getData());
+		
+	 	$this->load->model("core/user");
+		$this->load->model("core/media");
+		$this->load->model("core/sitemap");
+		$this->load->model("core/file");
+		$this->load->model("core/category");
+		$this->load->helper('image');
+   	}
+	public function index()
+	{
+		
 		
 		$this->document->title = $this->language->get('heading_title');
 		
-		$this->load->model("core/media");
+		
 		$this->getList();
 	}
 	
@@ -118,6 +129,7 @@ class ControllerModuleLink extends Controller
 		$where = implode("",$arr);*/
 		
 		$rows = $this->model_core_media->getList($where);
+		//echo count($rows);
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
@@ -134,14 +146,10 @@ class ControllerModuleLink extends Controller
 		{
 			$this->data['datas'][$i] = $rows[$i];
 			
-			/*$loaikhachhang = $this->document->loaikhachhang[$rows[$i]['loaikhachhang']];
-			$this->data['datas'][$i]['loaikhachhang'] = $loaikhachhang;*/
-			
-			/*$khuvuc = $this->model_quanlykho_nhom->getItem($rows[$i]['khuvuc']);
-			$this->data['datas'][$i]['khuvuc'] = $khuvuc['tennhom'];*/
-		
+			$this->data['datas'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['datas'][$i]['imagepath'], 100, 100);
 			$this->data['datas'][$i]['link_edit'] = $this->url->http('module/link/update&sitemapid='.$sitemapid.'&id='.$this->data['datas'][$i]['mediaid']);
 			$this->data['datas'][$i]['text_edit'] = "Sửa";
+			$this->data['datas'][$i]['Link'] = $this->model_core_media->getInformation($this->data['datas'][$i]['mediaid'],"Link");
 			
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
@@ -159,6 +167,7 @@ class ControllerModuleLink extends Controller
 	
 	private function getForm()
 	{
+		$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
 		$sitemapid = $this->request->get['sitemapid'];
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
@@ -167,6 +176,7 @@ class ControllerModuleLink extends Controller
 		{
       		$this->data['item'] = $this->model_core_media->getItem($this->request->get['id']);
 			$this->data['item']['Link'] = $this->model_core_media->getInformation($this->request->get['id'],"Link");
+			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
     	}
 		else
 		{

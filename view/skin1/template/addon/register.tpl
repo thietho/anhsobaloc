@@ -1,5 +1,5 @@
 <script src='<?php echo HTTP_SERVER.DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
-<div>
+<div class="ben-post">
 	<form id="frmRegister" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
     	<table class="ben-form">
@@ -46,7 +46,7 @@
             </tr>
             <tr>
             	<td></td>
-                <td><textarea></textarea></td>
+                <td><textarea class="ben-textbox" readonly="readonly">Điều khoảng đăng ký</textarea></td>
             </tr>
             <tr>
             	<td></td>

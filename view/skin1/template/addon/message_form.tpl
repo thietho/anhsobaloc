@@ -86,7 +86,7 @@ function sendMessage()
 		function(data){
 			if(data == "true")
 			{
-				window.location = HTTP_SERVER+"site/<?php echo $this->member->getSiteId()?>/message";
+				window.location = "<?php echo $this->document->createLink('message')?>";
 			}
 			else
 			{

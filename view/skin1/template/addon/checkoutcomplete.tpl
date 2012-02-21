@@ -54,9 +54,9 @@
         <tr>
             <td><img src="<?php echo $media['imagethumbnail']?>" class="ben-center"/></td>
             <td><?php echo $media['title']?></td>
-            <td class="number"><?php echo $this->string->numberFormate($media['price'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($media['price'])?><?php echo $this->document->setup['Currency']?></td>
             <td class="number"><?php echo $this->string->numberFormate($media['quantity'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($media['subtotal'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($media['subtotal'])?><?php echo $this->document->setup['Currency']?></td>
             
         </tr>
     <?php } ?>
@@ -67,7 +67,7 @@
             <td></td>
             <td></td>
             <td>Tông cộng</td>
-            <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sum)?><?php echo $this->document->setup['Currency']?></td>
         </tr>
     </tfoot>
 </table>

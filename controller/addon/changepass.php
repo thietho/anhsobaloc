@@ -41,7 +41,7 @@ class ControllerAddonChangepass extends Controller
 		$member = $this->model_core_user->getItem($this->member->getId());
     	if(trim($data['oldpassword']) == "")
 		{
-      		$this->error['oldpassword'] = "Bạn chưa nhập mật khẩu";
+      		$this->error['oldpassword'] = $this->data['war_passwordnotnull'];
     	}
 		else
 		{

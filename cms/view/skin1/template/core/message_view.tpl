@@ -21,13 +21,7 @@
         <div class="clearer">&nbsp;</div>
         
         
-        <div id="container">
-        	
-            
-        	<ul>
-                <li><a href="#fragment-1"><span>Message</span></a></li>
-            </ul>
-           
+        <div id="container">           
             
             <div id="fragment-1">
             	

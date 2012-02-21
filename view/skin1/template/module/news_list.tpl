@@ -1,5 +1,4 @@
-<h2><?php echo $sitemap['sitemapname']?></h2>
-<div class="ben-item-separator"></div>
+
 
 <?php foreach($medias as $media) {?>
 <div class="ben-post">
@@ -8,9 +7,10 @@
     <?php }?>
     <a href="<?php echo $media['link']?>"><h3><?php echo $media['title']?></h3></a>
     <div class="ben-post-date"><?php echo $media['statusdate']?></div>
-    <div class="ben-post-body">
+    <div class="ben-post-summary">
         <p><?php echo $media['summary']?></p>
     </div>
+    <a href="<?php echo $media['link']?>" class="ben-right"><?php echo $button_view?></a>
     <div class="clearer">&nbsp;</div>
 </div>
 <?php } ?>

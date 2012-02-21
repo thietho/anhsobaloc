@@ -8,9 +8,9 @@ class ModelCoreFile extends Model
 		return $query->row;
 	}
 	
-	public function getFiles()
+	public function getFiles($where = "")
 	{
-		$query = $this->db->query('Select * from `file`');
+		$query = $this->db->query('Select * from `file` WHERE 1=1 ' .$where);
 		return $query->rows;
 	}
 	
@@ -27,7 +27,7 @@ class ModelCoreFile extends Model
 		return $query->rows;
 	}
 	
-	public function nextID()
+	private function nextID()
 	{
 		return $this->db->getNextId("file","fileid");
 	}
@@ -262,8 +262,9 @@ class ModelCoreFile extends Model
 		$arfile = split('\.', $file['name'] );
 		$datafile = array();
 		//Filename
-		$filename = $arfile[0];
-		$extension = strtolower($arfile[1]);
+		$filename = $this->string->chuyenvekodau($arfile[0]);
+		
+		$extension = strtolower($arfile[count($arfile)-1]);
 		//convert byte sang KB
 		$filesize=($file['size'])/1024;
 
@@ -360,7 +361,7 @@ class ModelCoreFile extends Model
 	{
 		$arfile = split('\.', $file['name'] );
 		$name=$arfile[0];
-	 	$ext = $arfile[1];
+	 	$ext = $arfile[count($arfile)-1];
 		$ext=strtolower($ext);
 		$total=substr_count($data['filetypeid'], ',')+1;
 		if($this->checkExtension($ext, $data['filetypeid']))

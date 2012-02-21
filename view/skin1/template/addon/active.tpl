@@ -1,4 +1,4 @@
-<div>
+<div class="ben-post">
 	<form id="frmActive" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
     	<table>
@@ -31,7 +31,7 @@ $("#btnActive").click(function(){
 			if(data == "true")
 			{
 				alert("Bạn đã kích hoạt tài khoảng thành công!");
-				window.location = "<?php echo HTTP_SERVER?>site/default/login";
+				window.location = "<?php echo $this->document->createLink('login')?>";
 			}
 			else
 			{

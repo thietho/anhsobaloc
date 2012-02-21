@@ -4,7 +4,7 @@ class ControllerAddonCheckout extends Controller
 	private $error = array();
 	public function index()
 	{
-		$this->document->breadcrumb .= "Thông tin đơn hàng";
+		$this->document->breadcrumb .= $this->data['text_orderinformation'];
 		$this->getList();
 		$this->getMemberInfor();
 		$this->id="content";
@@ -68,18 +68,18 @@ class ControllerAddonCheckout extends Controller
 		
 		if(trim($data['customername']) =="")
 		{
-      		$this->error['customername'] = "Bạn chưa nhập họ tên";
+      		$this->error['customername'] = $this->data['war_fullnamenotnull'];
     	}
 		
 		if ($data['email'] == "") 
 		{
-      		$this->error['email'] = "Bạn chưa nhập email";
+      		$this->error['email'] = $this->data['war_emailnotnull'];
     	}
 		else
 		{
 			if(!$this->validation->_checkEmail($data['email']))
 			{
-				$this->error['email'] = "Email không đúng định dạng";
+				$this->error['email'] = $this->data['war_emailnotformate'];
 			}
 		}
 

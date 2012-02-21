@@ -1,4 +1,4 @@
-<div>
+<div class="ben-post">
     <form id="frmLogin" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
         <table>
@@ -14,7 +14,7 @@
                 <td class="ben-right"></td>
                 <td>
                     <p>
-                        <input type="button" class="ben-button" id="btnLogin" value="Đăng nhập"> <a href="<?php echo HTTP_SERVER?>site/<?php echo $this->member->getSiteId()?>/register">Đăng ký</a>
+                        <input type="button" class="ben-button" id="btnLogin" value="Đăng nhập"> 
                     </p>
                     
                     <input type="checkbox" name="remember" value="1"> Ghi nhớ

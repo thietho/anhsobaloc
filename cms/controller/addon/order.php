@@ -17,10 +17,11 @@ class ControllerAddonOrder extends Controller
 	public function view()
 	{
 		$this->load->language('addon/order');
-		$this->data = array_merge($this->data, $this->language->getData());
 		
-		$orderid = $this->request->get['orderid'];
+		$this->data = array_merge($this->data, $this->language->getData());
 		$this->load->model("addon/order");
+		$this->load->model('core/media');
+		$orderid = $this->request->get['orderid'];
 		$this->load->helper('image');
 		$this->data = $this->model_addon_order->getItem($orderid);
 		if($this->data['order']['status']=='')
@@ -29,8 +30,19 @@ class ControllerAddonOrder extends Controller
 			$this->data['order']['text_active'] = "Checked";
 		foreach($this->data['detail'] as $key => $item)
 		{
-			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], 180, 180)."' >";
-			$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+			$parent = $this->model_core_media->getItem($item['mediaparent']);
+			if(count($parent)==0)
+			{
+				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], 180, 180)."' >";
+				$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+				$this->data['detail'][$key]['title'] = $item['title'];
+			}
+			else
+			{
+				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($parent['imagepath'], 180, 180)."' >";
+				$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+				$this->data['detail'][$key]['title'] = $parent['title'] ." - ". $item['title'];
+			}
 		}
 		
 		$this->id='content';

@@ -11,6 +11,6 @@
 $("#btnSearch").click(function(){
 	var keyword = trim($("#txt_search").val()," ");
 	if(keyword!="")
-		window.location = HTTP_SERVER+"site/<?php echo $this->member->getSiteId()?>/search/keyword/"+keyword;							   
+		window.location = HTTP_SERVER+"search/keyword/"+keyword+".html";							   
 });
 </script>

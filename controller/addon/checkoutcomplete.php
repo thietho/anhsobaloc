@@ -22,9 +22,23 @@ class ControllerAddonCheckoutcomplete extends Controller
 		$this->data['order'] = $data['order'];
 		foreach($data['detail'] as $item)
 		{
+			$parent = $this->model_core_media->getItem($item['mediaparent']);
 			$mediaid = $item['mediaid'];
 			$media = $this->model_core_media->getItem($mediaid);
-			$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
+			
+			if(count($parent)==0)
+			{
+				
+				
+				$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);	
+			}
+			else
+			{
+				$media['imagethumbnail'] = HelperImage::resizePNG($parent['imagepath'], 100, 100);	
+				$media['title'] = $parent['title'] ." - ". $item['title'];
+			}
+			
+			
 			$media['price'] = $item['price'];
 			$media['quantity'] = $item['quantity'];
 			$media['discount'] = $item['discount'];

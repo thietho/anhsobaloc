@@ -145,7 +145,7 @@
 				{
 					$btnAddMember = "";
 				}
-				$controlEdit = $this->model_common_control->getControlEdit("controlEdit","controlEdit","[Edit]","?route=core/usertype/edit&id=".$resutl['usertypeid']);
+				$controlEdit = $this->model_common_control->getControlEdit("controlEdit","controlEdit","[<?php echo $button_edit?>]","?route=core/usertype/edit&id=".$resutl['usertypeid']);
 				$controlDelete = $this->model_common_control->getControlDelete("controlDelete","controlDelete","[Delete]","?route=core/usertype&formtype=delete&id=".$resutl['usertypeid']);
 				
 				

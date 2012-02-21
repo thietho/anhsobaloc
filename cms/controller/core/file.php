@@ -93,14 +93,16 @@ class ControllerCoreFile extends Controller
 	
 	function getFile()
 	{
+		$width = (int)$this->request->get['width'];
+		$height = (int)$this->request->get['height'];
 		$this->load->model("core/file");
 		$this->load->helper('image');
 		$fileid = $this->request->get['fileid'];
 		$file=$this->model_core_file->getFile($fileid);
-		/*if($this->string->isImage($file['extension']))
-			$file['imagepreview'] = HelperImage::resizePNG($file['filepath'], 180, 180);
+		if($this->string->isImage($file['extension']))
+			$file['imagepreview'] = HelperImage::resizePNG($file['filepath'], $width, $height);
 		else
-			$file['imagepreview'] = DIR_IMAGE."icon/dinhkem.png";*/
+			$file['imagepreview'] = DIR_IMAGE."icon/dinhkem.png";
 		$this->data['output'] = json_encode(array('file' => $file));
 		$this->id='post';
 		$this->template="common/output.tpl";

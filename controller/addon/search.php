@@ -5,7 +5,7 @@ class ControllerAddonSearch extends Controller
 	public function index()
 	{
 		$keyword = $this->request->get['keyword'];
-		$this->document->breadcrumb .= "Kết quả tìm kiếm với từ khóa: '$keyword'";
+		$this->document->breadcrumb .= "Tìm kiếm";
 		$this->getList($keyword);
 		$this->id="content";
 		$this->template="addon/search.tpl";
@@ -54,7 +54,7 @@ class ControllerAddonSearch extends Controller
 					$arr = $this->string->referSiteMapToArray($media['refersitemap']);
 					$sitemapid = $arr[0];
 				}
-				$link = HTTP_SERVER."site/".$siteid."/".$sitemapid."/".$media['mediaid'];
+				$link = $this->document->createLink($sitemapid,$media['mediaid']);
 				
 				$imagethumbnail = "";
 				if($media['imagepath'] != "" && $template['width'] >0 )

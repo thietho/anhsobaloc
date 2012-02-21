@@ -10,7 +10,15 @@ class ModelCoreMedia extends ModelCoreFile
 		return $query->row;
 	}
 	
-	public function getList($where="", $from=0, $to=5)
+	public function getByAlias($alias, $where="")
+	{
+		$query = $this->db->query("Select `media`.* 
+									from `media` 
+									where alias ='".$alias."' ".$where);
+		return $query->row;
+	}
+	
+	public function getList($where="", $from=0, $to=0)
 	{
 		
 		$sql = "Select `media`.* 
@@ -177,7 +185,23 @@ class ModelCoreMedia extends ModelCoreFile
 		$where="mediaid = '".$mediaid."'";
 		$this->db->updateData('media',$field,$value,$where);
 	}
-	
+	public function updateCol($mediaid,$col,$val)
+	{
+		$mediaid = $mediaid;
+		$col = $col;
+		$val = $val;
+		
+		
+		$field=array(
+						$col
+					);
+		$value=array(
+						$val
+					);
+		
+		$where="mediaid = '".$mediaid."'";
+		$this->db->updateData('media',$field,$value,$where);
+	}
 	public function initialization($mediaid,$mediatype)
 	{
 		
@@ -313,6 +337,8 @@ class ModelCoreMedia extends ModelCoreFile
 		$summary=$this->db->escape(@$data['summary']);
 		$price=$this->db->escape(@$data['price']);
 		$description=(@$data['description']);
+		$alias=$this->db->escape(@$data['alias']);
+		$keyword=$this->db->escape(@$data['keyword']);
 		$author=$this->db->escape(@$data['author']);
 		$source=$this->db->escape(@$data['source']);		
 		$imageid=(int)@$data['imageid'];
@@ -339,6 +365,8 @@ class ModelCoreMedia extends ModelCoreFile
 						'summary',
 						'price',
 						'description',
+						'alias',
+						'keyword',
 						'author',
 						'source',
 						'imageid',
@@ -358,6 +386,8 @@ class ModelCoreMedia extends ModelCoreFile
 						$summary,
 						$price,
 						$description,
+						$alias,
+						$keyword,
 						$author,
 						$source,
 						$imageid,
