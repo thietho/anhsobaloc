@@ -182,8 +182,8 @@ function formateNumber(num)
 	if(num =="")
 		return 0;
 	
-	num = num.replace(/,/g,"");
-	
+	num = String(num).replace(/,/g,"");
+	num = Number(num);
 	ar = (""+num).split("\.");
 	div = ar[0];
 	mod = ar[1];
@@ -243,6 +243,16 @@ function toBasicText(str)
 	return str;
 }
 
+function getPrefix(letter,n)
+{
+	var s = "";
+	for(i=0;i<n;i++)
+	{
+		s+=letter;	
+	}
+	return s;
+}
+
 function isNumber(char)
 {
 	if( char!=8 && char!=0 && (char<45 || char>57) )
@@ -271,7 +281,27 @@ function numberReady()
 		
 	  	return isNumber(e.which);
 	});
-
+	
+	$('.number').focus(function(e) {
+        if(this.value == 0)
+			this.value = "";
+    });
+	$('.number').blur(function(e) {
+        if(this.value == "")
+			this.value = 0;
+    });
+	$(".ben-datepicker").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'dd-mm-yy'
+			});
+	$(".number").each(function(index){
+		//alert(formateNumber($(this).val()))
+		$(this).val(formateNumber($(this).val()))
+		
+	});	
+	
+		
 	
 }
 $(document).ready(function(){
@@ -284,9 +314,5 @@ $(document).ready(function(){
 	});
 	
 	numberReady();
-	$(".number").each(function(index){
-		//alert(formateNumber($(this).val()))
-		$(this).val(formateNumber($(this).val()))
-		
-	});					   
+					   
 });

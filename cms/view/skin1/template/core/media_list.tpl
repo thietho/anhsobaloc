@@ -1,7 +1,7 @@
 <script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
 <div class="section">
 
-	<div class="section-title">Quãn lý bài viết</div>
+	<div class="section-title">Quản lý bài viết</div>
     
     <div class="section-content">
     	
@@ -69,7 +69,7 @@
                         <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
                         
                         <th>Tiêu đề</th>
-                        <th>Tắt giả</th>
+                        <th>Tắc giả</th>
                         <th>Loại</th>
                         <th>Danh muc</th>
                         <th>Ngày</th>

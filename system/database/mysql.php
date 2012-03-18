@@ -106,6 +106,7 @@ final class MySQL {
 			is_array($values) ? $sql .= implode("','",$values) : $sql .= "'".$values."'";
 			$sql .= "')";
 			$this->query($sql);
+			return $this->getLastId();
 		}
 		
 	}

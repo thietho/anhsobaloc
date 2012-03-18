@@ -6,7 +6,7 @@
     
     <div class="section-content padding1">
     
-    	<form name="InsertContent"  action="" method="post" enctype="multipart/form-data">
+    	<form name="frmPost" id="frmPost"  action="" method="post" enctype="multipart/form-data">
     
     	<div class="left">
             
@@ -15,7 +15,7 @@
         </div>
         
     	<div class="right">
-        	<input class="button" type="submit" value="<?php echo $button_save?>" />
+        	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
             <a class="button" href="<?php echo $DIR_CANCEL?>"><?php echo $button_cancel?></a>
              <input type="hidden" id="status" name="status" value="<?php echo $status?>" />
              <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $mediaid?>" />
@@ -32,7 +32,7 @@
         	
             
         	<ul>
-                <li><a href="#fragment-content"><span><?php echo $tab_editcontent?></span></a></li>
+                <li class="tabs-selected"><a href="#fragment-content" ><span><?php echo $tab_editcontent?></span></a></li>
                 <?php if($hasProperties) {?>
                 <li><a href="#fragment-properties"><span>Properties</span></a></li>
                 <?php }?>
@@ -43,6 +43,15 @@
                 <?php if($hasSubInfor) {?>
                 <li><a href="#fragment-subinfor"><span>Information</span></a></li>
                 <?php }?>
+                <?php if($hasTabImages){ ?>
+                <li><a href="#fragment-images"><span>Images</span></a></li>
+                <?php } ?>
+                <?php if($hasTabVideos){ ?>
+                <li><a href="#fragment-videos"><span>Videos</span></a></li>
+                <?php } ?>
+                <?php if($hasTabDocuments){ ?>
+                <li><a href="#fragment-documents"><span>Tài liệu</span></a></li>
+                <?php } ?>
                 <?php if($hasProductPrice) {?>
                 <li><a href="#fragment-productprice"><span><?php echo $text_price?></span></a></li>
                 <?php }?>
@@ -116,6 +125,7 @@ $('#title').change(function(e) {
                         <div id="errorupload" class="error" style="display:none"></div>
                         
                         <div class="loadingimage" style="display:none"></div>
+                        <?php if($hasAttachment){ ?>
                         <p>
                         	<a id="btnAddAttachment" class="button"><?php echo $entry_attachment?></a><br />
                         </p>
@@ -123,7 +133,7 @@ $('#title').change(function(e) {
                         </p>
                     	
                         <span id="delfile"></span>
-                        
+                        <?php } ?>
                     </div>
                     <?php }?>
 <script language="javascript">
@@ -260,14 +270,132 @@ $(document).ready(function(e) {
                 </div>
                 <div id="subinforlist">
                 </div>
-            </div>
+<script language="javascript">
+function postSubInfor()
+{
+	var oEditor = CKEDITOR.instances['sub_description'] ;
+	var pageValue = oEditor.getData();
+	$('textarea#sub_description').val(pageValue);
+	$.post("?route=core/postcontent/savepost", 
+					{
+						mediaid : $("#sub_mediaid").val(), 
+						mediaparent : $("#mediaid").val(),
+						title : $("#sub_title").val(), 
+						mediatype : 'subinfor',
+						description : $("#sub_description").val(),
+						imageid : $("#sub_imageid").val(),
+						imagepath : $("#sub_imagepath").val()
+					},
+		function(data){
+			if(data=="true")
+			{
+				$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
+				$("#sub_mediaid").val("");
+				$("#sub_title").val("");
+				$("#sub_summary").val("");
+				$("#sub_author").val("");
+				$("#sub_imageid").val("");
+				$("#sub_imagepath").val("");
+				$("#sub_preview").attr("src", "");
+				var oEditor = CKEDITOR.instances.sub_description ;
+				oEditor.setData("") ;
+				$("#subimageerror").hide('slow');
+			}
+			else
+			{
+				$("#subimageerror").html(data);
+				$("#subimageerror").show('slow');
+			}
+			
+		});
+}
+function editeSubInfor(mediaid)
+{
+	
+	$.getJSON("?route=core/postcontent/getSubInfor&mediaid="+mediaid, 
+			function(data) 
+			{
+				//alert(data.subimage.imagepreview);
+				$("#sub_mediaid").val(data.subinfor.mediaid);
+				$("#sub_title").val(data.subinfor.title);
+				$("#sub_summary").val(data.subinfor.summary);
+				$("#sub_author").val(data.subinfor.author);
+				$("#sub_imageid").val(data.subinfor.imageid);
+				$("#sub_imagepath").val(data.subinfor.imagepath);
+				$("#sub_imagethumbnail").val(data.subinfor.imagepreview);
+				$("#sub_preview").attr("src", data.subinfor.imagepreview);
+				var oEditor = CKEDITOR.instances.sub_description ;
+				oEditor.setData(data.subinfor.description);
+				
+			});
+}
+
+function removeSubInfor(mediaid)
+{
+	//$.blockUI({ message: "<h1>Please wait...</h1>" });
+	$.ajax({
+		url: "?route=core/postcontent/removeSubImage&mediaid="+mediaid, 
+		cache: false,
+		success: function(html)
+		{
+			$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
+		}
+	});
+	
+}
+</script>
 <script language="javascript">
 $(document).ready(function() { 
 	setCKEditorType('sub_description',2);
 	$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
 })
 </script>
+            </div>
             <?php }?>
+            <?php if($hasTabImages){ ?>
+            <div id="fragment-images">
+            	<p>
+            		<a class="button" onclick="galery.browsFie()">Chọn hình</a>
+                </p>
+                <table>
+                	<thead>
+                    	<tr>
+                        	<th>Title</th>
+                            <th>Detail</th>
+                            <th>Images</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+<script language="javascript">
+function Gallery()
+{
+	this.index = 0;
+	this.browsFie = function()
+	{
+		$('#handler').val('listimages');
+		$('#outputtype').val('images');
+		showPopup("#popup", 800, 500);
+		$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
+		$("#popup").load("?route=core/file")
+	}
+	this.addImage(mediaid)
+	{
+		
+	}
+}
+var galery = new Gallery();
+</script>
+            </div>
+            <?php } ?>
+            <?php if($hasTabVideos){ ?>
+            <div id="fragment-videos">
+            </div>
+            <?php } ?>
+            <?php if($hasTabDocuments){ ?>
+            <div id="fragment-documents">
+            </div>
+            <?php } ?>
             <?php if($hasProductPrice) {?>
             <div id="fragment-productprice">
             	<input type="hidden" name="price_mediaid" id="price_mediaid" />
@@ -305,7 +433,6 @@ $(document).ready(function() {
                 </div>
                 <div id="pricelist">
                 </div>
-            </div>
 <script language="javascript">
 $(document).ready(function(e) {
    $("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
@@ -443,6 +570,8 @@ function selectCallBack()
 
 }
 </script>
+            </div>
+
             <?php }?>
             <?php if($hasTabMap) {?>
             <div id="fragment-map">
@@ -498,6 +627,37 @@ $(document).ready(function(e) {
 <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
 
 <script type="text/javascript" charset="utf-8">
+function save()
+{
+	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	var oEditor = CKEDITOR.instances['editor1'] ;
+	var pageValue = oEditor.getData();
+	$('textarea#editor1').val(pageValue);
+	<?php if($hasSummary) {?>
+	var oEditor = CKEDITOR.instances['summary'] ;
+	var pageValue = oEditor.getData();
+	$('textarea#summary').val(pageValue);
+	<?php } ?>
+	$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
+		function(data){
+			if(data=="true")
+			{
+				if("<?php echo $_GET['sitemapid']?>"!= "")
+				{
+					var sitemapid = $('#refersitemap').val().replace('[',"");
+					sitemapid = sitemapid.replace("]","");
+					window.location = "?route=<?php echo $this->getRoute()?>&sitemapid=<?php echo $_GET['sitemapid']?>";	
+				}
+				else
+					window.location = "?route=core/media";	
+			}
+			else
+			{
+				$.unblockUI();
+			}
+			
+		});
+}
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
 $(document).ready(function() { 
@@ -512,85 +672,16 @@ $(document).ready(function() {
 <?php if($hasSubInfor) {?>
 <script src="<?php echo DIR_JS?>uploadsubimage.js" type="text/javascript"></script>
 <?php } ?>
+<?php if($hasAttachment){ ?>
 <script src="<?php echo DIR_JS?>uploadattament.js" type="text/javascript"></script>
+<?php } ?>
 <?php }?>
 <?php if($hasVideo) {?>
 <script src="<?php echo DIR_JS?>uploadvideo.js" type="text/javascript"></script>
 <?php }?>
 
 <script language="javascript">
-function postSubInfor()
-{
-	var oEditor = CKEDITOR.instances['sub_description'] ;
-	var pageValue = oEditor.getData();
-	$('textarea#sub_description').val(pageValue);
-	$.post("?route=core/postcontent/savepost", 
-					{
-						mediaid : $("#sub_mediaid").val(), 
-						mediaparent : $("#mediaid").val(),
-						title : $("#sub_title").val(), 
-						mediatype : 'subinfor',
-						description : $("#sub_description").val(),
-						imageid : $("#sub_imageid").val(),
-						imagepath : $("#sub_imagepath").val()
-					},
-		function(data){
-			if(data=="true")
-			{
-				$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
-				$("#sub_mediaid").val("");
-				$("#sub_title").val("");
-				$("#sub_summary").val("");
-				$("#sub_author").val("");
-				$("#sub_imageid").val("");
-				$("#sub_imagepath").val("");
-				$("#sub_preview").attr("src", "");
-				var oEditor = CKEDITOR.instances.sub_description ;
-				oEditor.setData("") ;
-				$("#subimageerror").hide('slow');
-			}
-			else
-			{
-				$("#subimageerror").html(data);
-				$("#subimageerror").show('slow');
-			}
-			
-		});
-}
-function editeSubInfor(mediaid)
-{
-	
-	$.getJSON("?route=core/postcontent/getSubInfor&mediaid="+mediaid, 
-			function(data) 
-			{
-				//alert(data.subimage.imagepreview);
-				$("#sub_mediaid").val(data.subinfor.mediaid);
-				$("#sub_title").val(data.subinfor.title);
-				$("#sub_summary").val(data.subinfor.summary);
-				$("#sub_author").val(data.subinfor.author);
-				$("#sub_imageid").val(data.subinfor.imageid);
-				$("#sub_imagepath").val(data.subinfor.imagepath);
-				$("#sub_imagethumbnail").val(data.subinfor.imagepreview);
-				$("#sub_preview").attr("src", data.subinfor.imagepreview);
-				var oEditor = CKEDITOR.instances.sub_description ;
-				oEditor.setData(data.subinfor.description);
-				
-			});
-}
 
-function removeSubInfor(mediaid)
-{
-	//$.blockUI({ message: "<h1>Please wait...</h1>" });
-	$.ajax({
-		url: "?route=core/postcontent/removeSubImage&mediaid="+mediaid, 
-		cache: false,
-		success: function(html)
-		{
-			$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
-		}
-	});
-	
-}
 
 function browserFileImage()
 {
@@ -661,7 +752,12 @@ function addImageTo()
 							
 							
 							break;
-						
+						case 'images':
+							var handler = $('#handler').val();
+							alert(data.file.filepath)
+							
+							
+							break;
 					}
 				});
 		}

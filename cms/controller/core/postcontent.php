@@ -160,16 +160,21 @@ class ControllerCorePostcontent extends Controller
 		$this->data['hasSummary'] = true;
 		$this->data['hasSource'] = true;
 		$this->data['hasFile'] = true;
+		$this->data['hasAttachment'] = true;
 		$this->data['hasEmail'] = false;
 		$this->data['hasTabMap'] = true;
 		$this->data['hasTabComment'] = false;
+		
 		//Define product
 		$this->data['hasPrice'] = false;
 		$this->data['hasSubInfor'] = true;
 		//Video
 		$this->data['hasVideo'] = false;
 		$this->data['DIR_CANCEL'] = HTTP_SERVER."index.php?route=".$route."&sitemapid=".$sitemapid;
-		
+		//Gallery
+		$this->data['hasTabImages'] = false;
+		$this->data['hasTabVideos'] = false;
+		$this->data['hasTabDocuments'] = false;
 		if($route == "module/download")
 		{
 			$this->data['hasSource'] = false;
@@ -192,7 +197,15 @@ class ControllerCorePostcontent extends Controller
 		{
 			$this->data['hasSource'] = false;
 		}
-		
+		if($route == "module/gallery")
+		{
+			$this->data['hasSource'] = false;
+			$this->data['hasAttachment'] = false;
+			$this->data['hasVideo'] = false;
+			$this->data['hasTabImages'] = true;
+			$this->data['hasTabVideos'] = true;
+			$this->data['hasTabDocuments'] = true;
+		}
 		/*if($mediaid == "")
 		{
 			$this->data['hasSubInfor'] = false;

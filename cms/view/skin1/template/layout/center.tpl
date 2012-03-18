@@ -13,8 +13,22 @@
     
     
     <script src="<?php echo DIR_JS?>jquery.js" type="text/javascript"></script>
-    <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script>
-    <script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
+    <script src="<?php echo DIR_JS?>jquery.ui.core.js"></script>
+	<script src="<?php echo DIR_JS?>jquery.ui.widget.js"></script>
+    <script src="<?php echo DIR_JS?>jquery.ui.mouse.js"></script>
+    <script src="<?php echo DIR_JS?>jquery.ui.draggable.js"></script>
+    <script src="<?php echo DIR_JS?>jquery.ui.droppable.js"></script>
+    <script src="<?php echo DIR_JS?>jquery.ui.sortable.js"></script>
+    
+    <link rel="stylesheet" href="<?php echo DIR_CSS?>jquery.treeview.css" />
+	<script src="<?php echo DIR_JS?>jquery.cookie.js" type="text/javascript"></script>
+    <script src="<?php echo DIR_JS?>jquery.treeview.js" type="text/javascript"></script>
+    <script src="<?php echo DIR_JS?>jquery.treeview.edit.js" type="text/javascript"></script>
+    <script src="<?php echo DIR_JS?>jquery.cookie.js" type="text/javascript"></script>
+
+    <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
+    <script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
+    <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script><script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script><script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
     <script src="<?php echo DIR_JS?>common.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>order.js" type="text/javascript"></script>
     <title>Ben Solution Content Management System</title>
