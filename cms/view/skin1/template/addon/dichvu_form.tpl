@@ -1,6 +1,6 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title">Quản lý loại báo</div>
+	<div class="section-title">Quản lý dịch vụ</div>
     
     <div class="section-content padding1">
     
