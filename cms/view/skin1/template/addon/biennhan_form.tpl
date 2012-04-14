@@ -60,6 +60,8 @@
                     	
                     </tbody>
                 </table>
+                <input type="button" class="button" id="btnThemDong" value="Thêm"/>
+                <input type="hidden" id="delchitietid" name="delchitietid"
             </div>
         </form>
     
@@ -71,6 +73,27 @@
 $('#btnSelectKhachHang').click(function(e) {
     openDialog("?route=core/member&dialog=true",800,500);
 });
+$('#btnThemDong').click(function(e) {
+    biennhan.addRow('','',0,'');
+});
+
+function BienNhan()
+{
+	this.index = 0;
+	this.cbDichVu = '';
+	this.addRow = function(id,dichvuid,sotien,ghichu)
+	{
+		var colchk = '<td></td>';
+		var coldichvu = '<td><select id="dichvuid-'+ this.index +' name="dichvuid['+this.index+']"></select></td>';
+		var colsotien = '<td><input type="text" class="text number" id="sotien-'+this.index+'" name="sotien['+this.index+']" value="'+sotien+'"></td>';
+		var colghichu = '<td><textarea id="ghichuct-'+this.index+'" name="ghichuct['+this.index+']">'+ghichu+'</textarea></td>';
+		var row = '<tr id="row-'+this.index+'">'+colchk+coldichvu+colsotien+colghichu+'</tr>';
+		
+		$('#listdichvu').append(row);
+		this.index++;
+	}
+}
+var biennhan = new BienNhan();
 function save()
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 

@@ -32,7 +32,17 @@
         </ul>
     </div>
 </div>
+<div class="section">
 
+	<div class="section-title">Quản lý biên nhận</div>
+    
+	<div class="content">
+   		<ul class="nicelist">
+        	<li><a href="index.php?route=addon/dichvu">Dịch vu</a></li>
+            <li><a href="index.php?route=addon/biennhan">Biên nhận</a></li>
+        </ul>
+    </div>
+</div>
 <div class="section">
 
 	<div class="section-title"><?php echo $menu_myaccount?></div>
