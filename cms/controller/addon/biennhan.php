@@ -95,9 +95,14 @@ class ControllerAddonBiennhan extends Controller
 		if ((isset($this->request->get['biennhanid'])) ) 
 		{
       		$this->data['item'] = $this->model_addon_biennhan->getItem($this->request->get['biennhanid']);
-			
+			$where = " AND biennhanid = '".$this->request->get['biennhanid']."'";
+			$this->data['data_chitiet'] = $this->model_addon_biennhan->getBienNhanChiTietList($where);
+			print_r($this->data['data_chitiet']);
     	}
-		
+		else
+		{
+			$this->data['item']['ngaylap'] = $this->date->getToday();
+		}
 		
 		$this->id='content';
 		$this->template='addon/biennhan_form.tpl';
@@ -110,19 +115,45 @@ class ControllerAddonBiennhan extends Controller
 	public function save()
 	{
 		$data = $this->request->post;
-		
+		print_r($data);
 		if($this->validateForm($data))
 		{
 			
 			if($data['biennhanid']=="")
 			{
+				if($data['khachhangid'] == "")
+				{
+					$this->load->model('core/user');
+					$user['fullname'] = $data['tenkhachhang'];
+					$user['phone'] = $data['sodienthoai'];
+					$user['email'] = $data['email'];
+					$user['address'] = $data['diachi'];
+					$data['khachhangid'] = $this->model_core_user->insertUser($user);
+					
+					$this->model_core_user->updateCol($data['khachhangid'],'status','active');
+					$this->model_core_user->updateCol($data['khachhangid'],'usertypeid','member');
+				}
 				$data['biennhanid'] = $this->model_addon_biennhan->insert($data);	
 			}
 			else
 			{
 				$this->model_addon_biennhan->update($data);	
 			}
-			
+			//Luu chi tiet bien nhan
+			$arr_id = $data['id'];
+			$arr_dichvuid = $data['dichvuid'];
+			$arr_sotien = $data['sotien'];
+			$arr_ghichu = $data['ghichuct'];
+			foreach($arr_dichvuid as $key => $dichvuid)
+			{
+				$ct['id'] = $arr_id[$key];
+				$ct['biennhanid'] = $data['biennhanid'];
+				$ct['dichvuid'] = $dichvuid;
+				$ct['sotien'] = $arr_sotien[$key];
+				$ct['ghichu'] = $arr_ghichu[$key];
+				$ct['ngaylap'] = $data['ngaylap'];
+				$this->model_addon_biennhan->saveBienNhanChiTiet($ct);
+			}
 			
 			$this->data['output'] = "true";
 		}
@@ -133,6 +164,7 @@ class ControllerAddonBiennhan extends Controller
 				$this->data['output'] .= $item."<br>";
 			}
 		}
+		
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
@@ -154,7 +186,7 @@ class ControllerAddonBiennhan extends Controller
 		if (trim($data['email']) != "") 
 		{
       		if ($this->validation->_checkEmail($data['email']) == false )
-				$err["email"] = "Email không đúng định dạng";
+				$this->error["email"] = "Email không đúng định dạng";
     	}
 		
 		if (count($this->error)==0) {

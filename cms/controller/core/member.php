@@ -158,7 +158,7 @@ class ControllerCoreMember extends Controller
 		$this->template="core/member_list.tpl";
 		$this->layout="layout/center";
 		if($_GET['dialog'] == "true")
-			$this->layout="layout/dialog";
+			$this->layout="";
 		
 		
 		$this->render();

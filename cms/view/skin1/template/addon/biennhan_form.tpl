@@ -8,7 +8,7 @@
         <input type="hidden" name="biennhanid" value="<?php echo $item['biennhanid']?>">	
             <div class="button right">
                 <a class="button save" onclick="save()">Lưu</a>
-                <a class="button cancel" href="?route=addon/dichvu">Bỏ qua</a>    
+                <a class="button cancel" href="?route=addon/biennhan">Bỏ qua</a>    
         	</div>
             <div class="clearer">&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
@@ -16,7 +16,7 @@
                 
                 <p class="left">
                     <label>Ngày lập</label><br />
-                    <input type="text" name="ngaylap" value="<?php echo $item['ngaylap']?>" class="text ben-datepicker"/>
+                    <input type="text" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>" class="text ben-datepicker"/>
                     <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng">
                 </p>
                 <div class="clearer">&nbsp;</div>
@@ -42,11 +42,13 @@
                 <div class="clearer">&nbsp;</div>
                 <p>
                     <label>Ghi chú</label><br />
-                    <textarea name="<?php echo $item['ghichu']?>"></textarea>
+                    <textarea name="ghichu"><?php echo $item['ghichu']?></textarea>
                 </p>
                 <div class="clearer">&nbsp;</div>
             </div>
             <div>
+            	<input type="button" class="button" id="btnThemDong" value="Thêm"/>
+                <input type="hidden" id="delchitietid" name="delchitietid" />
             	<table>
                 	<thead>
                     	<tr>
@@ -60,8 +62,7 @@
                     	
                     </tbody>
                 </table>
-                <input type="button" class="button" id="btnThemDong" value="Thêm"/>
-                <input type="hidden" id="delchitietid" name="delchitietid"
+                
             </div>
         </form>
     
@@ -71,10 +72,53 @@
 
 <script language="javascript">
 $('#btnSelectKhachHang').click(function(e) {
-    openDialog("?route=core/member&dialog=true",800,500);
+	$("#popup").attr('title','Chọn khách hàng');
+				$( "#popup" ).dialog({
+					autoOpen: false,
+					show: "blind",
+					hide: "explode",
+					width: 800,
+					height: 500,
+					modal: true,
+					buttons: {
+						
+						
+						'Đóng': function() {
+							$( this ).dialog( "close" );
+						},
+						'Chọn': function(){
+							$("#listuser input[name*=\'delete\']'").each(function(index, element) {
+								if(this.checked == true)
+								{
+                                	$.getJSON("?route=core/user/getUser&userid="+this.value,function(data){
+										$('#khachhangid').val(data.id);
+										$('#tenkhachhang').val(data.fullname);
+										$('#sodienthoai').val(data.phone);
+										$('#email').val(data.email);
+										$('#diachi').val(data.address);
+										
+									});
+								}
+                            });
+							$( this ).dialog( "close" );
+						},
+						
+					}
+				});
+			
+				
+				$("#popup-content").load("?route=core/member&dialog=true",function(){
+					$("#popup").dialog("open");	
+				});
+    
 });
 $('#btnThemDong').click(function(e) {
     biennhan.addRow('','',0,'');
+});
+$(document).ready(function(e) {
+	biennhan.loadCbDichVu();
+	
+	
 });
 
 function BienNhan()
@@ -83,18 +127,42 @@ function BienNhan()
 	this.cbDichVu = '';
 	this.loadCbDichVu = function()
 	{
-		$.ajax(	
+		$.get("?route=addon/dichvu/getCbDichVu",function(data){
+			biennhan.cbDichVu = data
+			<?php 
+		if(count($data_chitiet))
+		{ 
+			foreach($data_chitiet as $ct)
+			{
+	?>
+				biennhan.addRow("<?php echo $ct['id']?>","<?php echo $ct['dichvuid']?>","<?php echo $ct['sotien']?>","<?php echo $ct['sotien']?>");
+	<?php
+		 	}
+		}
+	 ?>
+		});
 	}
 	this.addRow = function(id,dichvuid,sotien,ghichu)
 	{
 		var colchk = '<td></td>';
-		var coldichvu = '<td><select id="dichvuid-'+ this.index +' name="dichvuid['+this.index+']"></select></td>';
+		var coldichvu = '<td><select id="dichvuid-'+ this.index +'" name="dichvuid['+this.index+']" onchange="biennhan.fillPrice(this.value,'+  this.index +')">'+ this.cbDichVu +'</select></td>';
 		var colsotien = '<td><input type="text" class="text number" id="sotien-'+this.index+'" name="sotien['+this.index+']" value="'+sotien+'"></td>';
 		var colghichu = '<td><textarea id="ghichuct-'+this.index+'" name="ghichuct['+this.index+']">'+ghichu+'</textarea></td>';
 		var row = '<tr id="row-'+this.index+'">'+colchk+coldichvu+colsotien+colghichu+'</tr>';
 		
 		$('#listdichvu').append(row);
+		$('#dichvuid-'+ this.index).val(dichvuid);
 		this.index++;
+		numberReady();
+		
+	}
+	
+	this.fillPrice = function(dichvuid,pos)
+	{
+		$.getJSON("?route=addon/dichvu/getDichVu&dichvuid="+dichvuid,function(data){
+			$('#sotien-'+pos).val(data.giamatdinh);
+			numberReady();
+		});	
 	}
 }
 var biennhan = new BienNhan();
@@ -106,7 +174,7 @@ function save()
 		function(data){
 			if(data == "true")
 			{
-				window.location = "?route=addon/dichvu";
+				window.location = "?route=addon/biennhan";
 			}
 			else
 			{

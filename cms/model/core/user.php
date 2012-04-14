@@ -100,14 +100,11 @@ class ModelCoreUser extends ModelCoreFile
 						$deletedby,
 						$userip
 					);
-		$arr = $this->getItemByUserName($username);
-		if(count($arr)==0)
-		{
-			$this->db->insertData("user",$field,$value);
-			return $userid;
-		}
-		else
-			return $arr['userid'];
+		
+		
+			$id = $this->db->insertData("user",$field,$value);
+			return $id;
+		
 	}
 	
 	public function updateuser($data)
@@ -181,6 +178,22 @@ class ModelCoreUser extends ModelCoreFile
 						$userip
 					);
 		$where="userid = '".$userid."'";
+		$this->db->updateData("user",$field,$value,$where);
+	}
+	
+	public function updateCol($id,$col,$val)
+	{
+		$id=$this->db->escape(@$id);
+		$col=$this->db->escape(@$col);
+		$val=$this->db->escape(@$val);
+		$field=array(
+						$col
+					);
+		$value=array(
+						$val
+					);
+					
+		$where="id = '".$id."'";
 		$this->db->updateData("user",$field,$value,$where);
 	}
 	

@@ -101,7 +101,18 @@ final class String
 			 }
 		}
 		return $randstr;
-   } 
+   	} 
+	
+	function generateRandNum($length)
+	{
+		$randstr = "";
+		for($i=0; $i<$length; $i++)
+		{
+			 $randstr .= mt_rand(0,9);
+			
+		}
+		return $randstr;
+   	} 
 	
 	function findTag($tag,$closetag,$positon,$s)
 	{

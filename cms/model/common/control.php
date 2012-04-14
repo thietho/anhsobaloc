@@ -47,7 +47,7 @@ class ModelCommonControl extends Model
 			$selected = "";
 			if($data[$i][$valuemember] == $selectedvalue) $selected = "selected='selected'";
 			
-			echo $str .= "<option value='".$data[$i][$valuemember]."' ".$selected.">".$data[$i][$displaymember]."</option>";
+			$str .= "<option value='".$data[$i][$valuemember]."' ".$selected.">".$data[$i][$displaymember]."</option>";
 		}
 		return $str;
 	}

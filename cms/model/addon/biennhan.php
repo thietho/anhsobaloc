@@ -1,6 +1,24 @@
 <?php
 class ModelAddonBiennhan extends Model 
 {
+	private $columns = array(
+								'biennhanid',
+								'sobiennhan',
+								'ngaylap',
+								'nguoilap',
+								'khachhangid',
+								'tenkhachhang',
+								'sodienthoai',
+								'email',
+								'diachi',
+								'tongsotien',
+								'giamgia',
+								'phantramgiamgia',
+								'tamung',
+								'ghichu',
+								'tinhtrang',
+								'trangthai'
+							);
 	public function getList($where = "")
 	{
 		$sql = "Select `qlb_biennhan`.* from `qlb_biennhan` where 1=1 ".$where;
@@ -15,66 +33,41 @@ class ModelAddonBiennhan extends Model
 		return $query->row;
 	}
 	
+	private function creatSoBienNhan($prefix)
+	{
+		$code = '';
+		do
+		{
+			$code = $prefix.$this->string->generateRandNum(9);
+			$where = " AND sobiennhan = '".$code."'";
+			$list = $this->getList($where);
+		}
+		while(count($list)>0);
+		return $code;
+	}
 	
 	public function insert($data)
 	{
-		/*$biennhanid=$this->db->escape(@$data['biennhanid']);
-		$ngaylap=$this->db->escape(@$data['ngaylap']);		
-		$nguoilap=$this->user->getUserId();
-		$khachhangid=$this->db->escape(@$data['khachhangid']);
-		$tenkhachhang=$this->db->escape(@$data['tenkhachhang']);
-		$sodiachi=$this->db->escape(@$data['sodiachi']);
-		$email=$this->db->escape(@$data['email']);
-		$diachi=$this->db->escape(@$data['diachi']);
-		$tongsotien=$this->db->escape(@$this->string->toNumber($data['tongsotien']));
-		$giamgia=$this->db->escape(@$this->string->toNumber($data['giamgia']));
-		$phantramgiamgia=$this->db->escape(@$this->string->toNumber($data['phantramgiamgia']));
-		$tamung=$this->db->escape(@$this->string->toNumber($data['tamung']));
-		$ghichu=$this->db->escape(@$data['ghichu']);		
-		$field=array(
-						'biennhanid',
-						'ngaylap',
-						'nguoilap',
-						'khachhangid',
-						'tenkhachhang',
-						'sodiachi',
-						'email',
-						'diachi',
-						'tongsotien',
-						'giamgia',
-						'phantramgiamgia',
-						'tamung',
-						'ghichu'
-					);
-		$value=array(
-						$biennhanid,
-						$ngaylap,
-						$nguoilap,
-						$khachhangid,
-						$tenkhachhang,
-						$sodiachi,
-						$email,
-						$diachi,
-						$tongsotien,
-						$giamgia,
-						$phantramgiamgia,
-						$ghichu
-					);*/
-		
-		
+		$now = $this->date->getToday();
+		$year = $this->date->getYear($now);
+		$month = $this->date->getMonth($now);
+		$data['sobiennhan']=$this->creatSoBienNhan($year.$month);
+		$data['nguoilap'] = $this->user->getId();
+		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
 		$data['tongsotien']=$this->db->escape(@$this->string->toNumber($data['tongsotien']));
 		$data['giamgia']=$this->db->escape(@$this->string->toNumber($data['giamgia']));
 		$data['phantramgiamgia']=$this->db->escape(@$this->string->toNumber($data['phantramgiamgia']));
 		$data['tamung']=$this->db->escape(@$this->string->toNumber($data['tamung']));
-		
-		foreach($data as $key => $val)
+		$data['trangthai']='new';
+		$data['trangthai']='active';
+		foreach($this->columns as $val)
 		{
 			if($val!="")
 			{
-				$field[] = $key;
-				$value[] = $this->db->escape($val);	
+				$field[] = $val;
+				$value[] = $this->db->escape($data[$val]);	
 			}
-		}		
+		}
 		$getLastId = $this->db->insertData("qlb_biennhan",$field,$value);
 				
 		return $getLastId;
@@ -84,22 +77,23 @@ class ModelAddonBiennhan extends Model
 	public function update($data)
 	{		
 		
-		//$data['nguoilap']=$this->user->getUserId();
+		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
 		$data['tongsotien']=$this->db->escape(@$this->string->toNumber($data['tongsotien']));
 		$data['giamgia']=$this->db->escape(@$this->string->toNumber($data['giamgia']));
 		$data['phantramgiamgia']=$this->db->escape(@$this->string->toNumber($data['phantramgiamgia']));
 		$data['tamung']=$this->db->escape(@$this->string->toNumber($data['tamung']));
 		
-		foreach($data as $key => $val)
+		foreach($this->columns as $val)
 		{
+	
 			if($val!="")
 			{
-				$field[] = $key;
-				$value[] = $this->db->escape($val);	
+				$field[] = $val;
+				$value[] = $this->db->escape($data[$val]);	
 			}
 		}
 					
-		$where="biennhanid = '".$nhanvien['biennhanid']."'";
+		$where="biennhanid = '".$data['biennhanid']."'";
 		$this->db->updateData("qlb_biennhan",$field,$value,$where);
 	}	
 		
@@ -151,6 +145,7 @@ class ModelAddonBiennhan extends Model
 	public function saveBienNhanChiTiet($data)
 	{
 		$data['sotien']=$this->db->escape(@$this->string->toNumber($data['sotien']));
+		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
 		foreach($data as $key => $val)
 		{
 			if($val!="")

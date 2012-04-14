@@ -157,8 +157,8 @@ class ControllerAddonDichvu extends Controller
 	{
 		$where = " Order by tendichvu";
 		$data_dichvu = $this->model_addon_dichvu->getList($where);
-		
-		$this->data['output'] = $this->model_common_control->getDataCombobox($data_dichvu, "tendichvu", "dichvuid");
+		$this->data['output'] ="<option value=''></option>";
+		$this->data['output'] .= $this->model_common_control->getDataCombobox($data_dichvu, "tendichvu", "dichvuid");
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();

@@ -19,13 +19,14 @@
     <script src="<?php echo DIR_JS?>jquery.ui.draggable.js"></script>
     <script src="<?php echo DIR_JS?>jquery.ui.droppable.js"></script>
     <script src="<?php echo DIR_JS?>jquery.ui.sortable.js"></script>
+    <script src="<?php echo DIR_JS?>jquery.ui.position.js"></script>
     
     <link rel="stylesheet" href="<?php echo DIR_CSS?>jquery.treeview.css" />
 	<script src="<?php echo DIR_JS?>jquery.cookie.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.treeview.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.treeview.edit.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.cookie.js" type="text/javascript"></script>
-
+	<script src="<?php echo DIR_JS?>jquery.ui.dialog.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
     <script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
     <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script><script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script><script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
@@ -81,9 +82,7 @@
     </div>
 	<div id="popup" style="display:none">
         <div id="popup-content"></div>
-        <div class="right">
-            <input type="button" class="button" value="Đóng" onclick="closePopup()" />
-        </div>
+        
     </div>
 </body>
 

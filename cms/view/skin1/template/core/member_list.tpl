@@ -7,8 +7,10 @@
         <form action="" method="post" id="listuser" name="listuser">
         
         	<div class="button right">
-               
+               	<?php if($_GET['dialog'] != 'true'){ ?>
+                
             	<input class="button" type="button" name="delete_all" value="Delete" onclick="deleteUser()"/>  
+                <?php }?>
             </div>
             <div class="clearer">^&nbsp;</div>
             
@@ -20,8 +22,10 @@
                         
                         <th width="25%">User name</th>
                         <th width="25%">Full name</th>
-                        <th width="25%">Status</th>                    
+                        <th width="25%">Status</th>
+                        <?php if($_GET['dialog'] != 'true'){ ?>                 
                         <th width="10%">Control</th>                                  
+                        <?php } ?>
                     </tr>
         
         
@@ -35,10 +39,12 @@
                         <td><?php echo $user['username']?></td>
                         <td><?php echo $user['fullname']?></td>
                 		<td><?php echo $user['status']?></td>
+                        <?php if($_GET['dialog'] != 'true'){ ?>
                         <td class="link-control">
                             <a class="button" href="<?php echo $user['link_edit']?>" title="<?php echo $user['text_edit']?>"><?php echo $user['text_edit']?></a>
                             <a class="button" onclick="activeUser('<?php echo $user['userid']?>')" ><?php echo $user['text_active']?></a>
                         </td>
+                        <?php } ?>
                     </tr>
         <?php
             }

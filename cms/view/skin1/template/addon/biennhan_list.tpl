@@ -40,12 +40,12 @@
                         <td><?php echo $item['ngaylap']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
                         <td><?php echo $item['sodienthoai']?></td>
-                        <td><?php echo $item['sobiennhan']?></td>
-                        <td><?php echo $item['tinhtrang']?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tongsotien'])?></td>
+                        <td><?php echo $item['tinhtrang']?></td>
+                        
                 		
                         <td class="link-control">
-                            <input type="button" class="button" name="btnEdit" value="Sữa" onClick="window.location='<?php echo $item['link_edit']?>'">
+                            <input type="button" class="button" name="btnEdit" value="Sửa" onClick="window.location='<?php echo $item['link_edit']?>'">
                         </td>
                     </tr>
         <?php
