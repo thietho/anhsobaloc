@@ -48,11 +48,12 @@
             </div>
             <div>
             	<input type="button" class="button" id="btnThemDong" value="Thêm"/>
+                <input type="button" class="button" id="btnXoaDong" value="Xóa"/>
                 <input type="hidden" id="delchitietid" name="delchitietid" />
             	<table>
                 	<thead>
                     	<tr>
-                        	<th width="1%"><input type="checkbox"></th>
+                        	<th width="1%"><input type="checkbox" onclick="$('.chitietbn').attr('checked', this.checked);"></th>
                             <th>Tên dịch vụ</th>
                             <th>Số tiền</th>
                             <th>Ghi chú</th>
@@ -61,6 +62,45 @@
                     <tbody id="listdichvu">
                     	
                     </tbody>
+                   	<tfoot>
+                    	<tr>
+                        	<td></td>
+                            <td></td>
+                            <td class="number">Tổng cộng: <span id="total"></span></td>
+                            <td></td>
+                        </tr>
+                    	
+                        <tr>
+                        	<td></td>
+                            <td></td>
+                            <td class="number">Giảm giá: <input type="text" class="text number" id="giamgia" name="giamgia" value="<?php echo $item['giamgia']?>"/></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                            <td></td>
+                            <td class="number">Phần trăm giảm giá: <input type="text" class="text number" id="phantramgiamgia" name="phantramgiamgia" value="<?php echo $item['phantramgiamgia']?>"/></td>
+                            <td>%</td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                            <td></td>
+                            <td class="number">Tổng tiền: <span id="totalfinal"></span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                            <td></td>
+                            <td class="number">Tạm ứng: <input type="text" class="text number" id="tamung" name="tamung" value="<?php echo $item['tamung']?>"/></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                        	<td></td>
+                            <td></td>
+                            <td class="number">Còn lại: <span id="remain"></span></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
                 
             </div>
@@ -115,27 +155,51 @@ $('#btnSelectKhachHang').click(function(e) {
 $('#btnThemDong').click(function(e) {
     biennhan.addRow('','',0,'');
 });
+$('#btnXoaDong').click(function(e) {
+    $('.chitietbn').each(function(index, element) {
+        if(this.checked == true)
+		{
+			var pos = $(this).attr('ref');
+			biennhan.removeRow(pos);
+		}
+    });
+});
+
+$('#tamung').keyup(function(e) {
+    biennhan.getTotal();
+});
+$('#giamgia').keyup(function(e) {
+    biennhan.getTotal();
+	var giamgia = Number(String($('#giamgia').val()).replace(/,/g,""));
+	var phantramgiamgia = giamgia/biennhan.sum*100;
+	$('#phantramgiamgia').val(formateNumber(phantramgiamgia));
+});
+$('#phantramgiamgia').keyup(function(e) {
+    var phantramgiamgia = Number(String($('#phantramgiamgia').val()).replace(/,/g,""));
+	var giamgia = phantramgiamgia * biennhan.sum /100;
+	$('#giamgia').val(formateNumber(giamgia));
+	biennhan.getTotal();
+});
 $(document).ready(function(e) {
 	biennhan.loadCbDichVu();
-	
-	
 });
 
 function BienNhan()
 {
 	this.index = 0;
 	this.cbDichVu = '';
+	
 	this.loadCbDichVu = function()
 	{
 		$.get("?route=addon/dichvu/getCbDichVu",function(data){
 			biennhan.cbDichVu = data
-			<?php 
+	<?php 
 		if(count($data_chitiet))
 		{ 
 			foreach($data_chitiet as $ct)
 			{
 	?>
-				biennhan.addRow("<?php echo $ct['id']?>","<?php echo $ct['dichvuid']?>","<?php echo $ct['sotien']?>","<?php echo $ct['sotien']?>");
+				biennhan.addRow("<?php echo $ct['id']?>","<?php echo $ct['dichvuid']?>","<?php echo $ct['sotien']?>","<?php echo $ct['ghichu']?>");
 	<?php
 		 	}
 		}
@@ -144,9 +208,9 @@ function BienNhan()
 	}
 	this.addRow = function(id,dichvuid,sotien,ghichu)
 	{
-		var colchk = '<td></td>';
+		var colchk = '<td><input type="checkbox" class="chitietbn" ref="'+ this.index +'" value="'+id+'"><input type="hidden" id="id-'+this.index+'" name="id['+this.index+']" value="'+id+'"></td>';
 		var coldichvu = '<td><select id="dichvuid-'+ this.index +'" name="dichvuid['+this.index+']" onchange="biennhan.fillPrice(this.value,'+  this.index +')">'+ this.cbDichVu +'</select></td>';
-		var colsotien = '<td><input type="text" class="text number" id="sotien-'+this.index+'" name="sotien['+this.index+']" value="'+sotien+'"></td>';
+		var colsotien = '<td class="number"><input type="text" class="text number tinhtong" id="sotien-'+this.index+'" name="sotien['+this.index+']" value="'+sotien+'"></td>';
 		var colghichu = '<td><textarea id="ghichuct-'+this.index+'" name="ghichuct['+this.index+']">'+ghichu+'</textarea></td>';
 		var row = '<tr id="row-'+this.index+'">'+colchk+coldichvu+colsotien+colghichu+'</tr>';
 		
@@ -154,7 +218,17 @@ function BienNhan()
 		$('#dichvuid-'+ this.index).val(dichvuid);
 		this.index++;
 		numberReady();
-		
+		this.getTotal();
+		$('.tinhtong').keyup(function(e) {
+			biennhan.getTotal();
+		});
+	}
+	
+	this.removeRow = function(pos)
+	{
+		var id = $('#id-'+pos).val();
+		$('#delchitietid').val($('#delchitietid').val()+","+id);
+		$('#row-'+pos).remove();
 	}
 	
 	this.fillPrice = function(dichvuid,pos)
@@ -162,7 +236,24 @@ function BienNhan()
 		$.getJSON("?route=addon/dichvu/getDichVu&dichvuid="+dichvuid,function(data){
 			$('#sotien-'+pos).val(data.giamatdinh);
 			numberReady();
+			biennhan.getTotal();
 		});	
+	}
+	this.getTotal = function()
+	{
+		biennhan.sum = 0;
+		$('.tinhtong').each(function(index, element) {
+        	var num = String(this.value).replace(/,/g,"");
+			biennhan.sum += Number(num);
+			$('#total').html(formateNumber(biennhan.sum));
+			//Giam gia
+			var giamgia = Number(String($('#giamgia').val()).replace(/,/g,""));
+			var phantramgiamgia = Number(String($('#phantramgiamgia').val()).replace(/,/g,""));
+			$('#totalfinal').html(formateNumber(biennhan.sum - giamgia))
+			var tamung = String($('#tamung').val()).replace(/,/g,"");
+			
+			$('#remain').html(formateNumber(biennhan.sum - Number(tamung)));
+    	});
 	}
 }
 var biennhan = new BienNhan();
@@ -172,7 +263,8 @@ function save()
 	
 	$.post("?route=addon/biennhan/save", $("#frm").serialize(),
 		function(data){
-			if(data == "true")
+			var arr = data.split("-");
+			if(arr[0] == "true")
 			{
 				window.location = "?route=addon/biennhan";
 			}

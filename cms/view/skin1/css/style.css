@@ -143,7 +143,7 @@ th {font-weight: bold;}
 thead th {background: #C3D9FF;}
 th,td,caption {padding: 4px 10px 4px 5px;}
 tr.even td {background: #F2F6FA;}
-tfoot {font-style: italic;}
+tfoot {}
 caption {background: #EEE;}
 
 table.data-table {

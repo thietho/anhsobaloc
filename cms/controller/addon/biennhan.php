@@ -97,7 +97,7 @@ class ControllerAddonBiennhan extends Controller
       		$this->data['item'] = $this->model_addon_biennhan->getItem($this->request->get['biennhanid']);
 			$where = " AND biennhanid = '".$this->request->get['biennhanid']."'";
 			$this->data['data_chitiet'] = $this->model_addon_biennhan->getBienNhanChiTietList($where);
-			print_r($this->data['data_chitiet']);
+			
     	}
 		else
 		{
@@ -110,12 +110,21 @@ class ControllerAddonBiennhan extends Controller
 		$this->render();
 	}
 	
-	
+	public function view()
+	{
+		$this->data['item'] = $this->model_addon_biennhan->getItem($this->request->get['biennhanid']);
+		$where = " AND biennhanid = '".$this->request->get['biennhanid']."'";
+		$this->data['data_chitiet'] = $this->model_addon_biennhan->getBienNhanChiTietList($where);
+		$this->id='content';
+		$this->template='addon/biennhan_view.tpl';
+		
+		$this->render();
+	}
 	
 	public function save()
 	{
 		$data = $this->request->post;
-		print_r($data);
+		
 		if($this->validateForm($data))
 		{
 			
@@ -139,11 +148,22 @@ class ControllerAddonBiennhan extends Controller
 			{
 				$this->model_addon_biennhan->update($data);	
 			}
+			//Xoa chi tiet bien nhan
+			if($data['delchitietid']!="")
+			{
+				$arr_idct = split(',',$data['delchitietid']);
+				foreach($arr_idct as $id)
+				{
+					$this->model_addon_biennhan->deleteBienNhanChiTiet($id);	
+				}
+			}
+			
 			//Luu chi tiet bien nhan
 			$arr_id = $data['id'];
 			$arr_dichvuid = $data['dichvuid'];
 			$arr_sotien = $data['sotien'];
 			$arr_ghichu = $data['ghichuct'];
+			$sum = 0;
 			foreach($arr_dichvuid as $key => $dichvuid)
 			{
 				$ct['id'] = $arr_id[$key];
@@ -153,9 +173,11 @@ class ControllerAddonBiennhan extends Controller
 				$ct['ghichu'] = $arr_ghichu[$key];
 				$ct['ngaylap'] = $data['ngaylap'];
 				$this->model_addon_biennhan->saveBienNhanChiTiet($ct);
+				$sum +=$this->string->toNumber($ct['sotien']);
 			}
-			
-			$this->data['output'] = "true";
+			$tongsotien = $sum - $this->string->toNumber($data['giamgia']);
+			$this->model_addon_biennhan->updateCol($data['biennhanid'],'tongsotien',$tongsotien);
+			$this->data['output'] = "true-".$data['biennhanid'];
 		}
 		else
 		{

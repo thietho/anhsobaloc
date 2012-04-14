@@ -25,6 +25,8 @@
                         <th>Tên khách hàng</th>
                         <th>Số điện thoại</th>
                         <th>Tổng số tiền</th>
+                        <th>Tạm ứng</th>
+                        <th>Còn lại</th>
                         <th>Tình trạng</th>
                         <th width="10%"></th>                                  
                     </tr>
@@ -35,17 +37,20 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['dichvuid']?>]" value="<?php echo $item['dichvuid']?>" ></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['dichvuid']?>]" value="<?php echo $item['biennhanid']?>" ></td>
                         <td><?php echo $item['sobiennhan']?></td>
-                        <td><?php echo $item['ngaylap']?></td>
+                        <td><?php echo  $this->date->formatMySQLDate($item['ngaylap'])?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
                         <td><?php echo $item['sodienthoai']?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tongsotien'])?></td>
-                        <td><?php echo $item['tinhtrang']?></td>
+                        <td class="number"><?php echo $this->string->numberFormate($item['tamung'])?></td>
+                        <td class="number"><?php echo $this->string->numberFormate($item['tongsotien']-$item['tamung'])?></td>
+                        <td><?php echo $this->document->tinhtrangbiennhan[$item['tinhtrang']]?></td>
                         
                 		
                         <td class="link-control">
                             <input type="button" class="button" name="btnEdit" value="Sửa" onClick="window.location='<?php echo $item['link_edit']?>'">
+                            <input type="button" class="button" value="Xem" onclick="view('<?php echo $item['biennhanid']?>')"/>
                         </td>
                     </tr>
         <?php
@@ -82,5 +87,9 @@ function deleteorder()
 		);
 	}
 }
-
+function view(biennhanid)
+{
+	
+	openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid,800,500)
+}
 </script>

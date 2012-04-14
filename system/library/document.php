@@ -23,6 +23,11 @@ final class Document {
 						   'pending' => "Đang chờ thanh toán",
 						   'completed' => "Đã thanh toán"
 						   );
+	public $tinhtrangbiennhan = array(
+						   'new' => "Biên nhận mới",
+						   'completed' => "Đã thự hiện xong",
+						   'done' => "Đã giao cho khách hàng"
+						   );
 	public $status_comment = array(
 						   'new' => "Chưa duyệt",
 						   'published' => "Duyệt",

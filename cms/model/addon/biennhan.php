@@ -58,15 +58,13 @@ class ModelAddonBiennhan extends Model
 		$data['giamgia']=$this->db->escape(@$this->string->toNumber($data['giamgia']));
 		$data['phantramgiamgia']=$this->db->escape(@$this->string->toNumber($data['phantramgiamgia']));
 		$data['tamung']=$this->db->escape(@$this->string->toNumber($data['tamung']));
-		$data['trangthai']='new';
+		$data['tinhtrang']='new';
 		$data['trangthai']='active';
 		foreach($this->columns as $val)
-		{
-			if($val!="")
-			{
-				$field[] = $val;
-				$value[] = $this->db->escape($data[$val]);	
-			}
+		{			
+			$field[] = $val;
+			$value[] = $this->db->escape($data[$val]);	
+			
 		}
 		$getLastId = $this->db->insertData("qlb_biennhan",$field,$value);
 				
@@ -86,7 +84,7 @@ class ModelAddonBiennhan extends Model
 		foreach($this->columns as $val)
 		{
 	
-			if($val!="")
+			if($data[$val]!="")
 			{
 				$field[] = $val;
 				$value[] = $this->db->escape($data[$val]);	
@@ -145,7 +143,9 @@ class ModelAddonBiennhan extends Model
 	public function saveBienNhanChiTiet($data)
 	{
 		$data['sotien']=$this->db->escape(@$this->string->toNumber($data['sotien']));
+		$data['sotien']=$this->db->escape(@$this->string->toNumber($data['sotien']));
 		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
+		
 		foreach($data as $key => $val)
 		{
 			if($val!="")
@@ -157,7 +157,7 @@ class ModelAddonBiennhan extends Model
 				
 		
 		
-		if((int)$id==0)
+		if((int)$data['id']==0)
 		{
 			
 			$this->db->insertData("qlb_biennhanchitiet",$field,$value);
@@ -192,9 +192,10 @@ class ModelAddonBiennhan extends Model
 	public function deleteBienNhanChiTiet($id)
 	{
 		$id = $this->db->escape(@$id);		
-		$this->updateBienNhanChiTiet($id,"trangthai",'deleted');
-		/*$where="id = '".$id."'";
-		$this->db->deleteData('qlb_biennhanchitiet',$where);		*/
+		
+		$where="id = '".$id."'";
+		$this->db->deleteData('qlb_biennhanchitiet',$where);
 	}
+	
 }
 ?>
