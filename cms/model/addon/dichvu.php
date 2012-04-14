@@ -1,6 +1,12 @@
 <?php
 class ModelAddonDichvu extends Model 
 {
+	private $columns = array(
+								'dichvuid',
+								'tendichvu',
+								'giamatdinh',
+								'trangthai'
+							);
 	public function getList($where = "")
 	{
 		$sql = "Select `qlb_dichvu`.* from `qlb_dichvu` where 1=1 ".$where;
@@ -19,12 +25,13 @@ class ModelAddonDichvu extends Model
 	public function insert($data)
 	{
 		$data['giamatdinh']=$this->string->toNumber($data['giamatdinh']);
-		foreach($data as $key => $val)
+		$data['trangthai']="active";
+		foreach($this->columns as $val)
 		{
 			if($val!="")
 			{
-				$field[] = $key;
-				$value[] = $this->db->escape($val);	
+				$field[] = $val;
+				$value[] = $this->db->escape($data[$val]);	
 			}
 		}
 		
@@ -37,12 +44,12 @@ class ModelAddonDichvu extends Model
 	public function update($data)
 	{		
 		$data['giamatdinh']=$this->string->toNumber($data['giamatdinh']);
-		foreach($data as $key => $val)
+		foreach($this->columns as $val)
 		{
 			if($val!="")
 			{
-				$field[] = $key;
-				$value[] = $this->db->escape($val);	
+				$field[] = $val;
+				$value[] = $this->db->escape($data[$val]);	
 			}
 		}
 		

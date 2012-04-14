@@ -141,9 +141,20 @@ class ControllerAddonBiennhan extends Controller
 	private function validateForm($data)
 	{
 		
-		if (trim($data['tendichvu']) == "") 
+		if (trim($data['tenkhachhang']) == "") 
 		{
-      		$this->error['tendichvu'] = "Bạn chưa nhập tên dịch vụ";
+      		$this->error['tenkhachhang'] = "Bạn chưa nhập tên khách hàng";
+    	}
+		
+		if (trim($data['sodienthoai']) == "") 
+		{
+      		$this->error['sodienthoai'] = "Bạn chưa nhập tên khách hàng";
+    	}
+		
+		if (trim($data['email']) != "") 
+		{
+      		if ($this->validation->_checkEmail($data['email']) == false )
+				$err["email"] = "Email không đúng định dạng";
     	}
 		
 		if (count($this->error)==0) {

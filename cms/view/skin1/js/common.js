@@ -316,3 +316,33 @@ $(document).ready(function(){
 	numberReady();
 					   
 });
+function printObject(o) {
+  var out = '';
+  for (var p in o) {
+    out += p + ': ' + o[p] + '\n';
+  }
+  alert(out);
+}
+function logout()
+{
+	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+	$.get(HTTP_SERVER+"?route=sitebar/login/logout", 
+		function(data){
+			if(data == "true")
+			{
+				alert("Bạn đã đăng xuất thành công!");
+				//window.location = "<?php echo HTTP_SERVER?>site/default/login";
+				window.location = HTTP_SERVER;
+			}
+			else
+			{
+				
+				$('#error').html(data).show('slow');
+				
+				
+			}
+			$.unblockUI();
+		}
+	);	
+}

@@ -26,13 +26,28 @@ class ModelCommonControl extends Model
 		return '<a id="'.$id.'" class="'.$name.'" href="'.$link.'" title="'.$title.'"><img src="'.DIR_VIEW.'image/addmember.png"></a>';
 	}
 	
-	public function getComboboxData($id, $data, $selectedvalue)
+	public function getComboboxData($id, $data, $selectedvalue="")
 	{
 		foreach($data as $key => $value)
 		{
 			$selected = "";
 			if($key == $selectedvalue) $selected = "selected='selected'";
+			
 			$str .= "<option value='".$key."' ".$selected.">".$value."</option>";
+		}
+		return $str;
+	}
+	
+	public function getDataCombobox($data, $displaymember, $valuemember,$selectedvalue="")
+	{
+		$str = "";
+		//$str .= "<option value=''>----Chọn tất cả----</option>";
+		for($i=0; $i<count($data); $i++)
+		{
+			$selected = "";
+			if($data[$i][$valuemember] == $selectedvalue) $selected = "selected='selected'";
+			
+			echo $str .= "<option value='".$data[$i][$valuemember]."' ".$selected.">".$data[$i][$displaymember]."</option>";
 		}
 		return $str;
 	}

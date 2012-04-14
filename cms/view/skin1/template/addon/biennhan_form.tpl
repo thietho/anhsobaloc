@@ -81,6 +81,10 @@ function BienNhan()
 {
 	this.index = 0;
 	this.cbDichVu = '';
+	this.loadCbDichVu = function()
+	{
+		$.ajax(	
+	}
 	this.addRow = function(id,dichvuid,sotien,ghichu)
 	{
 		var colchk = '<td></td>';
@@ -98,7 +102,7 @@ function save()
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
-	$.post("?route=addon/dichvu/save", $("#frm").serialize(),
+	$.post("?route=addon/biennhan/save", $("#frm").serialize(),
 		function(data){
 			if(data == "true")
 			{

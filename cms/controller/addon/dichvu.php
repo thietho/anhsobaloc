@@ -5,7 +5,7 @@ class ControllerAddonDichvu extends Controller
    	function __construct() 
 	{
 	 	$this->load->model("addon/dichvu");
-		
+		$this->load->model("common/control");
    	}
 	
 	public function index()
@@ -153,5 +153,25 @@ class ControllerAddonDichvu extends Controller
 		}
 	}
 	
+	public function getCbDichVu()
+	{
+		$where = " Order by tendichvu";
+		$data_dichvu = $this->model_addon_dichvu->getList($where);
+		
+		$this->data['output'] = $this->model_common_control->getDataCombobox($data_dichvu, "tendichvu", "dichvuid");
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	public function getDichVu()
+	{
+		$dichvuid = $this->request->get['dichvuid'];
+		$dichvu = $this->model_addon_dichvu->getItem($dichvuid);
+		$this->data['output'] = json_encode($dichvu);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
