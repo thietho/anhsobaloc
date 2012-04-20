@@ -26,8 +26,15 @@ final class Document {
 	public $tinhtrangbiennhan = array(
 						   'new' => "Biên nhận mới",
 						   'completed' => "Đã thự hiện xong",
-						   'done' => "Đã giao cho khách hàng"
+						   'done' => "Đã giao cho khách hàng",
+						   'destroy' => "Hủy"
 						   );
+	public $tinhtrangcolor = array(
+							'new' => "ffff00",
+							'completed' => "0070c0",
+							'done' => "ffffff",
+							'destroy' => "a5a5a5"
+							);
 	public $status_comment = array(
 						   'new' => "Chưa duyệt",
 						   'published' => "Duyệt",
@@ -119,6 +126,14 @@ final class Document {
 		$query = $this->db->query("Select `media`.* 
 									from `media` 
 									where mediaid ='".$mediaid."' ");
+		return $query->row[$name];	
+	}
+	
+	public function getDichVu($dichvuid,$name="tendichvu")
+	{
+		$query = $this->db->query("Select `qlb_dichvu`.* 
+									from `qlb_dichvu` 
+									where dichvuid ='".$dichvuid."' ");
 		return $query->row[$name];	
 	}
 	

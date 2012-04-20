@@ -169,14 +169,17 @@ class ControllerAddonBiennhan extends Controller
 				$ct['id'] = $arr_id[$key];
 				$ct['biennhanid'] = $data['biennhanid'];
 				$ct['dichvuid'] = $dichvuid;
+				$ct['tendichvu'] = $this->document->getDichVu($dichvuid);
 				$ct['sotien'] = $arr_sotien[$key];
 				$ct['ghichu'] = $arr_ghichu[$key];
 				$ct['ngaylap'] = $data['ngaylap'];
 				$this->model_addon_biennhan->saveBienNhanChiTiet($ct);
 				$sum +=$this->string->toNumber($ct['sotien']);
 			}
-			$tongsotien = $sum - $this->string->toNumber($data['giamgia']);
-			$this->model_addon_biennhan->updateCol($data['biennhanid'],'tongsotien',$tongsotien);
+			$tongtien = $sum - $this->string->toNumber($data['giamgia']);
+			$this->model_addon_biennhan->updateCol($data['biennhanid'],'tongcong',$sum);
+			$this->model_addon_biennhan->updateCol($data['biennhanid'],'tongtien',$tongtien);
+			
 			$this->data['output'] = "true-".$data['biennhanid'];
 		}
 		else

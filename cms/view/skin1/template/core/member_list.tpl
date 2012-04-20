@@ -34,7 +34,7 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $user['userid']?>]" value="<?php echo $user['userid']?>" ></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $user['id']?>]" value="<?php echo $user['id']?>" ></td>
                         
                         <td><?php echo $user['username']?></td>
                         <td><?php echo $user['fullname']?></td>

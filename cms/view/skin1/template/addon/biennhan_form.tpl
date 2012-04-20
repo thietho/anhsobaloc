@@ -19,10 +19,11 @@
                     <input type="text" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>" class="text ben-datepicker"/>
                     <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng">
                 </p>
+                
                 <div class="clearer">&nbsp;</div>
                 <p class="left">
                     <label>Tên khách hàng</label><br />
-                    <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['tenkhachhang']?>">
+                    <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>">
                     <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                 </p>
                 
@@ -40,6 +41,11 @@
                     <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
                 </p>
                 <div class="clearer">&nbsp;</div>
+                <p>
+                    <label>Ngày hẹn</label><br />
+                    <input type="text" name="ngayhen" value="<?php echo $this->date->formatMySQLDate($item['ngayhen'])?>" class="text ben-datepicker"/>
+                    
+                </p>
                 <p>
                     <label>Ghi chú</label><br />
                     <textarea name="ghichu"><?php echo $item['ghichu']?></textarea>
@@ -130,7 +136,7 @@ $('#btnSelectKhachHang').click(function(e) {
 							$("#listuser input[name*=\'delete\']'").each(function(index, element) {
 								if(this.checked == true)
 								{
-                                	$.getJSON("?route=core/user/getUser&userid="+this.value,function(data){
+                                	$.getJSON("?route=core/user/getUser&id="+this.value,function(data){
 										$('#khachhangid').val(data.id);
 										$('#tenkhachhang').val(data.fullname);
 										$('#sodienthoai').val(data.phone);
@@ -252,7 +258,7 @@ function BienNhan()
 			$('#totalfinal').html(formateNumber(biennhan.sum - giamgia))
 			var tamung = String($('#tamung').val()).replace(/,/g,"");
 			
-			$('#remain').html(formateNumber(biennhan.sum - Number(tamung)));
+			$('#remain').html(formateNumber(biennhan.sum - Number(tamung) - giamgia));
     	});
 	}
 }

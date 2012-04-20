@@ -245,8 +245,8 @@ class ControllerCoreUser extends Controller
 	public function getUser()
 	{
 		$this->load->model("core/user");
-		$userid = $this->request->get['userid'];
-		$user=$this->model_core_user->getItem($userid);
+		$id = $this->request->get['id'];
+		$user=$this->model_core_user->getId($id);
 		$this->data['output'] = json_encode($user);
 		$this->id='content';
 		$this->template='common/output.tpl';

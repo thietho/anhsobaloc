@@ -5,13 +5,16 @@ class ModelAddonBiennhan extends Model
 								'biennhanid',
 								'sobiennhan',
 								'ngaylap',
+								'ngayhen',
+								'createdate',
 								'nguoilap',
 								'khachhangid',
 								'tenkhachhang',
 								'sodienthoai',
 								'email',
 								'diachi',
-								'tongsotien',
+								'tongcong',
+								'tongtien',
 								'giamgia',
 								'phantramgiamgia',
 								'tamung',
@@ -35,15 +38,8 @@ class ModelAddonBiennhan extends Model
 	
 	private function creatSoBienNhan($prefix)
 	{
-		$code = '';
-		do
-		{
-			$code = $prefix.$this->string->generateRandNum(9);
-			$where = " AND sobiennhan = '".$code."'";
-			$list = $this->getList($where);
-		}
-		while(count($list)>0);
-		return $code;
+		
+		return $this->db->getNextIdVarChar("qlb_biennhan","sobiennhan",$prefix);
 	}
 	
 	public function insert($data)
@@ -54,7 +50,9 @@ class ModelAddonBiennhan extends Model
 		$data['sobiennhan']=$this->creatSoBienNhan($year.$month);
 		$data['nguoilap'] = $this->user->getId();
 		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
-		$data['tongsotien']=$this->db->escape(@$this->string->toNumber($data['tongsotien']));
+		$data['ngayhen']=$this->db->escape(@$this->date->formatViewDate($data['ngayhen']));
+		$data['createdate'] = $this->date->getToday();
+		$data['tongtien']=$this->db->escape(@$this->string->toNumber($data['tongtien']));
 		$data['giamgia']=$this->db->escape(@$this->string->toNumber($data['giamgia']));
 		$data['phantramgiamgia']=$this->db->escape(@$this->string->toNumber($data['phantramgiamgia']));
 		$data['tamung']=$this->db->escape(@$this->string->toNumber($data['tamung']));
@@ -76,7 +74,8 @@ class ModelAddonBiennhan extends Model
 	{		
 		
 		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
-		$data['tongsotien']=$this->db->escape(@$this->string->toNumber($data['tongsotien']));
+		$data['ngayhen']=$this->db->escape(@$this->date->formatViewDate($data['ngayhen']));
+		$data['tongtien']=$this->db->escape(@$this->string->toNumber($data['tongtien']));
 		$data['giamgia']=$this->db->escape(@$this->string->toNumber($data['giamgia']));
 		$data['phantramgiamgia']=$this->db->escape(@$this->string->toNumber($data['phantramgiamgia']));
 		$data['tamung']=$this->db->escape(@$this->string->toNumber($data['tamung']));
@@ -143,7 +142,6 @@ class ModelAddonBiennhan extends Model
 	public function saveBienNhanChiTiet($data)
 	{
 		$data['sotien']=$this->db->escape(@$this->string->toNumber($data['sotien']));
-		$data['sotien']=$this->db->escape(@$this->string->toNumber($data['sotien']));
 		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
 		
 		foreach($data as $key => $val)
@@ -165,7 +163,7 @@ class ModelAddonBiennhan extends Model
 		}
 		else
 		{			
-			$where="id = '".$id."'";
+			$where="id = '".$data['id']."'";
 			$this->db->updateData('qlb_biennhanchitiet',$field,$value,$where);
 		}
 		return $id;
