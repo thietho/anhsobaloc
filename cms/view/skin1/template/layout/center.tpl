@@ -29,7 +29,9 @@
 	<script src="<?php echo DIR_JS?>jquery.ui.dialog.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
     <script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
-    <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script><script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script><script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
+    <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script>
+	<script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script>
+	<script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
     <script src="<?php echo DIR_JS?>common.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>order.js" type="text/javascript"></script>
     <title>Ben Solution Content Management System</title>

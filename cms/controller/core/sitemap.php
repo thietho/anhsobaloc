@@ -91,7 +91,7 @@ class ControllerCoreSitemap extends Controller
 		$this->load->model("core/file");
 		$this->load->model("core/module");
 		
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validateForm())) {
+		/*if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validateForm())) {
 			$filepath = $this->date->getPath()."/sitemap/";
 			$file=$this->model_core_file->saveFile($_FILES['image'],$filepath,"image");	
 			$data = $this->request->post;
@@ -108,7 +108,7 @@ class ControllerCoreSitemap extends Controller
 			$this->model_core_sitemap->insertSiteMap($data);
 			$this->session->data['success'] = $this->language->get('text_success');
 			$this->redirect($this->url->http('core/sitemap'));
-		}
+		}*/
     
     	$this->getForm();
 	}
@@ -122,7 +122,7 @@ class ControllerCoreSitemap extends Controller
 		$this->load->model("core/file");
 		$this->load->model("core/module");
 		
-    	if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validateForm())) {
+    	/*if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validateForm())) {
 			$filepath = $this->date->getPath()."/sitemap/";
 			$file=$this->model_core_file->saveFile($_FILES['image'],$filepath,"image");	
 			
@@ -136,15 +136,58 @@ class ControllerCoreSitemap extends Controller
 			$this->model_core_sitemap->updateSiteMap($data);
 			$this->session->data['success'] = $this->language->get('text_success');
 			$this->redirect($this->url->http('core/sitemap'));
-		}
+		}*/
     
     	$this->getForm();
   	}
 	
+	public function save()
+	{
+		$data = $this->request->post;
+		
+		if($this->validateForm($data))
+		{
+			$this->load->model("core/sitemap");
+			$data['siteid'] = $this->user->getSiteId();
+			if($data['id']=="")
+			{
+				$data['position'] = $this->model_core_sitemap->nextPosition($data['sitemapparent']);
+				$this->model_core_sitemap->insertSiteMap($data);
+			}
+			else
+			{
+				$this->model_core_sitemap->updateSiteMap($data);
+			}
+			
+			$this->data['output'] = "true";
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$this->data['output'] .= $item."<br>";
+			}
+		}
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
 	private function validateForm()
 	{
+		if ((strlen($this->request->post['sitemapid']) == 0) || (strlen($this->request->post['siteid']) > 50)) {
+      		$this->error['sitemapid'] = "Bạn chưa nhập id";
+    	}
+		else
+		{
+			if($this->validation->_isId(trim($this->request->post['sitemapid'])) == false)
+			{
+				$this->error['sitemapid'] = "ID không hợp lệ";
+			}
+		}
     	if ((strlen($this->request->post['sitemapname']) == 0) || (strlen($this->request->post['siteid']) > 50)) {
-      		$this->error['sitemapname'] = $this->language->get('error_sitemapname');
+      		$this->error['sitemapname'] = "Bạn chưa nhập tên";
     	}
 
 		if (!$this->error) {
@@ -165,30 +208,22 @@ class ControllerCoreSitemap extends Controller
 			$this->data['action'] = $this->url->http('core/sitemap/update&sitemapid=' . $this->request->get['sitemapid']);
 		}
 		
-		$this->data['cancel'] = $this->url->https('core/site');
+		
 		
 		$this->data['status']=$this->model_core_sitemap->listStatus();
 		$this->data['modules']=$this->model_core_sitemap->getModules();
 		
 		if ((isset($this->request->get['sitemapid'])) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-      		$sitemap = $this->model_core_sitemap->getItem($this->request->get['sitemapid'], $this->user->getSiteId());
+			$sitemapid = $this->request->get['sitemapid'];
+      		$sitemap = $this->model_core_sitemap->getItem(urldecode($sitemapid), $this->user->getSiteId());
 			//$sitemap_description = $this->model_core_sitemap->getSiteMapDescription($this->request->get['sitemapid'],$this->language->getId() );
 			//$file =$this->model_core_file->getFile($sitemap['imageid']);
 			
-			$this->data['sitemap']['sitemapid'] = $sitemap['sitemapid'];
-			$this->data['sitemap']['sitemapname'] = $sitemap['sitemapname'];
-			$this->data['sitemap']['sitemapparent'] = $sitemap['sitemapparent'];
-			$this->data['sitemap']['moduleid'] = $sitemap['moduleid'];
-			$this->data['sitemap']['position'] = $sitemap['position'];
-			$this->data['sitemap']['imageid'] = $sitemap['imageid'];
-			$this->data['sitemap']['imagepath'] = $sitemap['imagepath'];
-			$this->data['sitemap']['thumbnail'] = HelperImage::resizePNG($sitemap['imagepath'],180,180);
-			$this->data['sitemap']['status'] = $sitemap['status'];
+			$this->data['sitemap'] = $sitemap;
+			
+			$this->data['sitemap']['thumbnail'] = HelperImage::resizePNG($sitemap['imagepath'],200,200);
+			$this->data['noimage'] = HelperImage::resizePNG("",200,200);
     	}
-		else
-		{
-			$this->data['sitemap'] = $this->request->post;
-		}
 		
 		$list = array();
 		$parent=$this->request->get['parent'];

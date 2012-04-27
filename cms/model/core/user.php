@@ -269,7 +269,7 @@ class ModelCoreUser extends ModelCoreFile
 	public function validatePassword($UserID,$Pass)
 	{
 		$contain=$this->getItem($UserID);
-		//echo $Pass;
+		
 		if(count($contain)==0)
 			return false;
 		else

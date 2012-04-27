@@ -1,4 +1,4 @@
-<div class="ben-three-columns">
+<div class="ben-two-columns">
 	<div class="ben-sidebar ben-left">
     	<?php foreach($leftsitebar as $item){ ?>
         <?php echo $item?>
@@ -22,11 +22,7 @@
         </div>
     </div>
     
-    <div class="ben-sidebar ben-right">
-    	<?php foreach($rightsitebar as $item){ ?>
-        <?php echo $item?>
-        <?php } ?>
-    </div>
+    
     
     <div class="clearer">&nbsp;</div>
 

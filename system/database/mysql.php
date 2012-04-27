@@ -73,7 +73,7 @@ final class MySQL {
 	
 	function getNextIdVarChar($tablename,$tableid,$prefix)
 	{
-		echo $sql="SELECT $tableid FROM `$tablename` WHERE $tableid LIKE '$prefix%'";
+		$sql="SELECT $tableid FROM `$tablename` WHERE $tableid LIKE '$prefix%'";
 		$query= $this->query($sql);
 		$mid=$query->rows;
 		if(count($mid)==0)
@@ -88,7 +88,7 @@ final class MySQL {
 			if($max<intval($mnum[$i]))
 				$max=intval($mnum[$i]);
 		$nextid=$max+1;
-		echo $prefix.$nextid;
+		
 		return $prefix.$nextid;
 	}
 	

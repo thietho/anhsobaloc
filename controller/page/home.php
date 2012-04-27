@@ -15,13 +15,13 @@ class ControllerPageHome extends Controller
 		{
 			//Banner home
 			$template = array(
-						  'template' => "home/banner.tpl",
-						  'width' => 548,
-						  'height' =>548
+						  'template' => "home/bannerhome.tpl",
+						  'width' => 1000,
+						  'height' =>0
 						  );
 		
 			$arr = array("bannerhome",0,"",$template);
-			$this->data['bannerhome'] = $this->loadModule('module/block','getList',$arr);
+			$this->data['bannerhome'] = $this->loadModule('module/block','getLink',$arr);
 			//San pham moi
 			$template = array(
 						  'template' => "module/product_list.tpl",
@@ -60,11 +60,11 @@ class ControllerPageHome extends Controller
 		$this->data['leftsitebar']['hitcounter'] = $this->loadModule('sitebar/hitcounter');
 		
 		//Rigth sitebar
-		$this->data['rightsitebar']['login'] = $this->loadModule('sitebar/login');
+		/*$this->data['rightsitebar']['login'] = $this->loadModule('sitebar/login');
 		$this->data['rightsitebar']['search'] = $this->loadModule('sitebar/search');
 		$this->data['rightsitebar']['cart'] = $this->loadModule('sitebar/cart');
 		$this->data['rightsitebar']['banner'] = $this->loadModule('sitebar/banner');
-		$this->data['rightsitebar']['question'] = $this->loadModule('sitebar/question');
+		$this->data['rightsitebar']['question'] = $this->loadModule('sitebar/question');*/
 	}
 	
 	function getProduct()
@@ -72,7 +72,7 @@ class ControllerPageHome extends Controller
 		$this->load->model('core/sitemap');
 		$this->load->model('core/media');
 		$siteid = $this->member->getSiteId();
-		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+		$sitemaps = $this->model_core_sitemap->getListByModule("module/album", $siteid);
 		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
 		$queryoptions = array();
 		$queryoptions['mediaparent'] = '%';

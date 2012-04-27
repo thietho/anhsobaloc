@@ -79,7 +79,6 @@ class ModelCoreMessage extends ModelCoreFile
 			$this->model_core_message->clearTemp();
 		}
 		
-		//echo "test";
 		//Lay danh sach gui message
 		$datasend = $this->getTarget($to);
 		//print_r($datasend);

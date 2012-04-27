@@ -174,6 +174,7 @@ class ControllerModuleLink extends Controller
 		$this->data['sitemap'] = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
 		if ((isset($this->request->get['id'])) ) 
 		{
+			
       		$this->data['item'] = $this->model_core_media->getItem($this->request->get['id']);
 			$this->data['item']['Link'] = $this->model_core_media->getInformation($this->request->get['id'],"Link");
 			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
@@ -181,10 +182,12 @@ class ControllerModuleLink extends Controller
 		else
 		{
 			$this->data['item']['refersitemap'] = "[".$sitemapid."]";
+			
 			if($mediaid == "")
 			{
 				$this->data['item']['mediaid'] = $this->model_core_media->insert($data);
 			}
+			
 		}
 		
 		$this->id='content';

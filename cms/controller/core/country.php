@@ -37,7 +37,7 @@ class ModelCoreCountry extends Model
 	
 	public function getZoneByCode($code)
 	{
-		echo $sql= "Select * from `zone` where code  = '".$code."'";
+		$sql= "Select * from `zone` where code  = '".$code."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}	

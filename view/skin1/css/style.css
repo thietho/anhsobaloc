@@ -1,4 +1,5 @@
 /*** RESET ***/
+
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, textarea, input, select {margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;}
 table {border-collapse: collapse; border-spacing: 0;}
 caption, th, td {text-align: left; font-weight: normal;}
@@ -26,8 +27,8 @@ html {
 }
 
 body {
-	background: #FFF;
-	color: #444;
+	background:url(../image/bg-body.gif);
+	color: #91908F;
 	font: normal 75% Arial, Tahoma, Helvetica, sans-serif;
 	line-height: 1.5;
 }
@@ -364,7 +365,7 @@ input.ben-button:active {border-style: inset;}
 /* Wrapper */
 #ben-main {
 	margin: 0 auto;
-	width: 1000px;
+	
 }
 
 
@@ -373,11 +374,12 @@ input.ben-button:active {border-style: inset;}
 
 /*---------- HEADER AREA ------------*/
 /* Header */
-#ben-header {padding-top: 0px;border-bottom: 1px solid #DDD;}
+#ben-header {padding-top: 0px;background:url(../image/bg-header.png);border-bottom: 1px solid #FFFFFF;}
 
 /* Optional Top */
 #ben-top{
 	margin: 0 auto;
+	height:106px;
 	width: 1000px;
 	padding-bottom: 0px;
 }
@@ -390,7 +392,7 @@ input.ben-button:active {border-style: inset;}
 }
 #ben-logo img {}
 
-#ben-site-title{padding-top:30px}
+#ben-site-title{padding-top:30px;height:50px;}
 
 /* Splash */
 #ben-splash {padding-top: 32px;}
@@ -399,6 +401,11 @@ input.ben-button:active {border-style: inset;}
 
 /* Main Menu */
 /* Main Level 1 */
+.ben-navigation
+{
+	background:url(../image/bg-mainmenu.gif);
+	border-radius:6px;	
+}
 #ben-main-nav, #ben-main-nav ul{
 margin:0;
 padding:0;
@@ -407,21 +414,24 @@ list-style-position:outside;
 position:relative;
 line-height:1.5em; 
 z-index:100;
+
 }
 
 #ben-main-nav a{
-display:block;
-padding:3px 5px;
-border:1px solid #CCCCCC;
-color:#fff;
-text-decoration:none;
-background-color:#CCCCCC;
+   color: #FFFFFF;
+    display: block;
+    font-weight:bold;
+    font-size: 1.1em;
+    line-height: 19px;
+    padding: 14px 19px;
+    position: relative;
+    text-decoration: none;
+    
+    white-space: nowrap;
 }
 
 #ben-main-nav a:hover{
-background-color:#fff;
-color:#333;
-}
+	background: url("../images/nav-active.gif") repeat-x scroll 0 -83px #1B3E0A;}
 
 #ben-main-nav li{
 float:left;
@@ -430,27 +440,33 @@ margin-left:5px;
 }
 
 #ben-main-nav a.current-tab{
-	background-color:#000000;
-	color:#FFFFFF;
+	 background: url("../images/nav-active.gif") repeat-x scroll 0 -83px #1B3E0A;
 }
 
 #ben-main-nav ul {
-position:absolute;
-display:none;
-width:12em;
-top:2.1em;
+	background: none repeat scroll 0 0 #333333;
+    display: none;
+    left: 0;
+    margin: 0;
+    position: absolute;
 }
 
 #ben-main-nav ul li{
 margin-left:0px;
+border-bottom:#666 thin solid;
 }
-
+#ben-main-nav ul li:last-child{
+	border:none;
+}
 #ben-main-nav li ul a{
-width:12em;
-height:auto;
-float:left;
+	width:14em;
+	height:auto;
+	float:left;
+	padding: 7px 5px 7px 20px;
 }
-
+#ben-main-nav li ul a:hover{
+	background:none;
+}
 #ben-main-nav ul ul{
 top:auto;
 }	
@@ -485,10 +501,10 @@ display:block;
 
 
 /*---------- BODY AREA ------------*/
-#ben-content {margin: 24px auto; width:1000px}
+#ben-content {margin: 30px auto; width:1000px}
 
 #ben-maincontent{}
-.ben-two-columns #ben-maincontent{width: 750px;}
+.ben-two-columns #ben-maincontent{width: 785px;margin-left:5px;}
 .ben-three-columns #ben-maincontent{width:570px; margin-left:5px;}
 .ben-three-columns-right #ben-maincontent{width:520px; margin-right:20px}
 
@@ -536,7 +552,7 @@ display:block;
 
 
 /* Sections */
-.ben-section {margin-bottom: 10px; border:1px solid #DDDDDD}
+.ben-section {margin-bottom: 10px; border:1px solid #DDDDDD;border-radius:6px;background:#fff;}
 .ben-sidebar .ben-section{}
 #ben-maincontent .ben-section{}
 
@@ -545,8 +561,6 @@ display:block;
 #ben-maincontent .ben-section-content{padding:5px 10px}
 
 .ben-section-title {
-	background-color: #F9F9F9;
-	border-top: 2px solid #DDD;
 	color: #7A7A7A;
 	font: bold 1.2em sans-serif;
 	margin-bottom: 5px;
@@ -563,9 +577,11 @@ display:block;
 
 /*---------- FOOTER AREA ------------*/
 #ben-footer {
+	margin:0 auto;
 	border-top: 1px solid #DDD;
 	color: #777;
 	padding: 16px 5px 4px;
+	width:1000px;
 }
 #ben-footer-left {width: 700px;}
 #ben-footer-right {

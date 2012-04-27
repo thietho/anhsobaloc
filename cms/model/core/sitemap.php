@@ -7,7 +7,7 @@ class ModelCoreSitemap extends Model
 							'module/information' => 'Information Page',
 							'module/register' => 'Register Page',
 							'module/news'=>'News',
-							'module/gallery'=>'Gallery',
+							'module/event' => 'Event',
 							'module/banner'=>'Banner',
 							'module/album'=>'Album',
 							'module/video'=>'Video',
@@ -25,9 +25,9 @@ class ModelCoreSitemap extends Model
 								 "core/category" => "Quản lý danh mục",
 								 "core/media" => "Quản lý thông tin",
 								 "addon/sitemap" => "Quản lý cấu trúc website",
-								 "core/comment" => "Đánh giá",
-								 "addon/order" => "Order management <span id='orderwarring'></span>",
-								 "core/member" => "Member management",
+								 /*"core/comment" => "Đánh giá",*/
+								/* "addon/order" => "Order management <span id='orderwarring'></span>",
+								 "core/member" => "Member management",*/
 								 'core/message' => 'Message',
 								 "core/user" => "User management"
 								 );
@@ -196,7 +196,7 @@ class ModelCoreSitemap extends Model
 			if($position!="")
 				$path.="-".$position;
 		}
-		//echo $path."<br>";
+		
 		return $path;
 	}*/
 	
@@ -241,6 +241,7 @@ class ModelCoreSitemap extends Model
 	
 	public function updateSiteMap($data)
 	{
+		$id=$this->db->escape(@$data['id']);
 		$sitemapid=$this->db->escape(@$data['sitemapid']);
 		$siteid=$this->db->escape(@$data['siteid']);
 		$sitemapparent = $this->db->escape(@$data['sitemapparent']);
@@ -253,6 +254,7 @@ class ModelCoreSitemap extends Model
 		$status=$this->db->escape(@$data['status']);
 		$field=array(
 						"siteid",
+						'sitemapid',
 						"sitemapparent",
 						"sitemapname",
 						"othername",
@@ -264,6 +266,7 @@ class ModelCoreSitemap extends Model
 					);
 		$value=array(
 						$siteid,
+						$sitemapid,
 						$sitemapparent,
 						$sitemapname,
 						$othername,
@@ -273,7 +276,7 @@ class ModelCoreSitemap extends Model
 						$imagepath,
 						$status
 					);
-		$where="sitemapid = '".$sitemapid."' AND siteid = '".$siteid."'";
+		$where=" id = '".$id."'";
 		$this->db->updateData('sitemap',$field,$value,$where);
 	}
 	
