@@ -436,9 +436,12 @@ z-index:100;
 #ben-main-nav li{
 float:left;
 position:relative;
-margin-left:5px;
-}
 
+border-right: 1px solid #64A835;
+}
+#ben-main-nav li:last-child{
+	border-right:none;
+}
 #ben-main-nav a.current-tab{
 	 background: url("../images/nav-active.gif") repeat-x scroll 0 -83px #1B3E0A;
 }
@@ -454,6 +457,7 @@ margin-left:5px;
 #ben-main-nav ul li{
 margin-left:0px;
 border-bottom:#666 thin solid;
+border-right:none;
 }
 #ben-main-nav ul li:last-child{
 	border:none;
