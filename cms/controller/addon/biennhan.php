@@ -155,7 +155,10 @@ class ControllerAddonBiennhan extends Controller
 		$this->data['data_chitiet'] = $this->model_addon_biennhan->getBienNhanChiTietList($where);
 		$this->id='content';
 		$this->template='addon/biennhan_view.tpl';
-		
+		if($_GET['dialog']=='print')
+		{
+			$this->layout='layout/print';
+		}
 		$this->render();
 	}
 	

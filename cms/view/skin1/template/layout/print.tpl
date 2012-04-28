@@ -8,17 +8,53 @@
 <meta name="author" content="" />
 
 </head>
+<style>
+body
+{
+	font-family:Tahoma, Geneva, sans-serif;	
+	font: normal 75% sans-serif;
+}
+p
+{
+	margin:0;	
+}
+table
+{
+	width:100%;	
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
+.number {
+	text-align: right;
+}
+.text-left {text-align: left;}
+.text-right {text-align: right;}
+.text-center {text-align: center;}
+.text-separator {padding: 0 5px;}
+.table-data td
+{
+	border-right:thin solid #000;
+	border-bottom:thin solid #000;
+}
+.table-data th
+{
+	border-right:thin solid #000;
+	border-bottom:thin solid #000;
+}
 
+.table-data
+{
+	border-top:thin solid #000;
+	border-left:thin solid #000;
+}
+</style>
 
 <body>
 
 <div id="site-wrapper">
 
-<div id="header"><?php echo $header?></div>
-
 <div class="main">
-
 
 <div id="main-content"><?php echo $content?></div>
 
@@ -27,10 +63,16 @@
 
 </div>
 
-<div id="footer"><?php echo $footer?></div>
+
 
 </div>
 
 </body>
 
 </html>
+<script>
+window.print();
+$(document).ready(function(e) {
+    
+});
+</script>

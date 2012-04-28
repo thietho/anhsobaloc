@@ -26,8 +26,8 @@ class ModelCoreSitemap extends Model
 								 "core/media" => "Quản lý thông tin",
 								 "addon/sitemap" => "Quản lý cấu trúc website",
 								 /*"core/comment" => "Đánh giá",*/
-								/* "addon/order" => "Order management <span id='orderwarring'></span>",
-								 "core/member" => "Member management",*/
+								/* "addon/order" => "Order management <span id='orderwarring'></span>",*/
+								 "core/member" => "Member management",
 								 'core/message' => 'Message',
 								 "core/user" => "User management"
 								 );

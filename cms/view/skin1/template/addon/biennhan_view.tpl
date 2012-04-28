@@ -16,6 +16,7 @@
 <p>
 	<label>Ghi chú:</label> <?php echo $item['ghichu']?>
 </p>
+<?php if($_GET['dialog']!='print'){ ?>
 <p>
 	<label>Tình trạng:</label>
     <select id="cbtinhtrang">
@@ -35,10 +36,10 @@ $('#cbtinhtrang').change(function(e) {
 });	
 </script>
 </p>
-
+<?php } ?>
 <div>
             	
-            	<table>
+            	<table class="table-data">
                 	<thead>
                     	<tr>
                         	
@@ -63,22 +64,25 @@ $('#cbtinhtrang').change(function(e) {
                             <td class="number"> <?php echo $this->string->numberFormate($item['tongcong'])?></td>
                             
                         </tr>
-                    	
+                    	<?php if($item['giamgia']){ ?>
                         <tr>
                         	<td class="text-right">Giảm giá:</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['giamgia'])?></td>
                             
                         </tr>
+                        
                         <tr>
                         	<td class="text-right">Phần trăm giảm giá:</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['phantramgiamgia'])?>%</td>
                             
                         </tr>
+                        
                         <tr>
                         	<td class="text-right">Tổng tiền:</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                             
                         </tr>
+                        <?php } ?>
                         <tr>
                         	
                             <td class="text-right">Tạm ứng:</td>

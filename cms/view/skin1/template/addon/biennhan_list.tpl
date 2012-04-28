@@ -137,14 +137,14 @@ function view(biennhanid)
 							window.location.reload();
 						},
 						'In': function(){
-							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"dialog=print",800,500)
+							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=print",800,500)
 							window.location.reload();
 						},
 					}
 				});
 			
 				
-	$("#popup-content").load("?route=addon/biennhan/view&biennhanid="+biennhanid+"dialog=true",function(){
+	$("#popup-content").load("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=true",function(){
 		$("#popup").dialog("open");	
 	});
 }
