@@ -16,10 +16,28 @@
 <p>
 	<label>Ghi chú:</label> <?php echo $item['ghichu']?>
 </p>
+<p>
+	<label>Tình trạng:</label>
+    <select id="cbtinhtrang">
+    	<?php foreach($this->document->tinhtrangbiennhan as $key => $val){ ?>
+        <option value="<?php echo $key?>"><?php echo $val?></option>
+        <?php } ?>
+    </select>
+<script language="javascript">
+$('#cbtinhtrang').val("<?php echo $item['tinhtrang']?>");
+$('#cbtinhtrang').change(function(e) {
+    $.post("?route=addon/biennhan/updateTinhTrang",{biennhanid:"<?php echo $item['biennhanid']?>",tinhtrang:$(this).val()},function(data){
+		if(data=='true')
+		{
+			alert('Cập nhật thành công');	
+		}
+	})
+});	
+</script>
+</p>
+
 <div>
-            	<input type="button" class="button" id="btnThemDong" value="Thêm"/>
-                <input type="button" class="button" id="btnXoaDong" value="Xóa"/>
-                <input type="hidden" id="delchitietid" name="delchitietid" />
+            	
             	<table>
                 	<thead>
                     	<tr>

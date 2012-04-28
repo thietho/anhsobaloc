@@ -16,16 +16,16 @@
             <div id="ben-search">
             	<p>
                     <label>Số biên nhận</label>
-                    <input type="text" id="sophieu" name="sophieu" class="text"/>
+                    <input type="text" id="sobiennhan" name="sobiennhan" class="text"/>
                     <label>Ngày lập</label>
                     từ
                     <input type="text" id="tungay" name="tungay" class="text ben-datepicker" />
                     đến
                     <input type="text" id="denngay" name="denngay" class="text ben-datepicker" />
                     <label>Tên khách hàng</label>
-                    <input type="text" id="kehoachngay" name="kehoachngay" class="text"/>
+                    <input type="text" id="tenkhachhang" name="tenkhachhang" class="text"/>
                     <label>Số diện thoai</label>
-                    <input type="text" id="kehoachngay" name="kehoachngay" class="text"/>
+                    <input type="text" id="sodienthoai" name="sodienthoai" class="text"/>
                 </p>
                 <p>
                 <label>Số tiền</label>
@@ -44,7 +44,7 @@
                 
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=quanlykho/phieunhapvattuhanghoa'"/>
+                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=addon/biennhan'"/>
             </div>
             <div class="sitemap treeindex">
                 <table class="data-table" cellpadding="0" cellspacing="0">
@@ -134,9 +134,11 @@ function view(biennhanid)
 					buttons: {
 						'Đóng': function() {
 							$( this ).dialog( "close" );
+							window.location.reload();
 						},
 						'In': function(){
-							$( this ).dialog( "close" );
+							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"dialog=print",800,500)
+							window.location.reload();
 						},
 					}
 				});
@@ -146,4 +148,34 @@ function view(biennhanid)
 		$("#popup").dialog("open");	
 	});
 }
+function searchForm()
+{
+	var url =  "?route=addon/biennhan";
+	if($("#sobiennhan").val() != "")
+		url += "&sobiennhan=" + $("#sobiennhan").val();
+	if($("#tungay").val() != "")
+		url += "&tungay="+ $("#tungay").val();
+	if($("#denngay").val() != "")
+		url += "&denngay="+ $("#denngay").val();
+	if($("#tenkhachhang").val() != "")
+		url += "&tenkhachhang="+ $("#tenkhachhang").val();
+	if($("#sodienthoai").val() != "")
+		url += "&sodienthoai="+ $("#sodienthoai").val();
+	if(parseFloat($("#sotientu").val()) != 0)
+		url += "&sotientu=" + $("#sotientu").val();
+	if(parseFloat($("#sotienden").val()) != 0)
+		url += "&sotienden=" + $("#sotienden").val();
+	if($("#tinhtrang").val() != "")
+		url += "&tinhtrang=" + $("#tinhtrang").val();
+	window.location = url;
+}
+
+$("#sobiennhan").val("<?php echo $_GET['sobiennhan']?>");
+$("#tungay").val("<?php echo $_GET['tungay']?>");
+$("#denngay").val("<?php echo $_GET['denngay']?>");
+$("#tenkhachhang").val("<?php echo $_GET['tenkhachhang']?>");
+$("#sodienthoai").val("<?php echo $_GET['sodienthoai']?>");
+$("#sotientu").val("<?php echo $_GET['sotientu']?>");
+$("#sotienden").val("<?php echo $_GET['sotienden']?>");
+$("#tinhtrang").val("<?php echo $_GET['tinhtrang']?>");
 </script>

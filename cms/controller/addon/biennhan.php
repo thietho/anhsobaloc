@@ -50,10 +50,48 @@ class ControllerAddonBiennhan extends Controller
 		$this->data['insert'] = $this->url->http('addon/biennhan/insert');
 		$this->data['delete'] = $this->url->http('addon/biennhan/delete');		
 		
-		
-		
 		$this->data['datas'] = array();
 		$where = "";
+		$data = $this->request->get;
+		foreach($data as $key =>$val)
+		{
+			$data[$key] = urldecode($val);	
+		}
+		$_GET = $data;
+		if(trim($data['sobiennhan']))
+		{
+			$where .= " AND sobiennhan like '".$data['sobiennhan']."'";
+		}
+		
+		if(trim($data['tungay']))
+		{
+			$where .= " AND ngaylap >= '".$this->date->formatViewDate($data['tungay'])."'";
+		}
+		
+		if(trim($data['denngay']))
+		{
+			$where .= " AND ngaylap <= '".$this->date->formatViewDate($data['denngay'])."'";
+		}
+		
+		if(trim($data['tenkhachhang']))
+		{
+			$where .= " AND tenkhachhang like '%".$data['tenkhachhang']."%'";
+		}
+		
+		if(trim($data['sotientu']))
+		{
+			$where .= " AND tongtien >= '".$this->string->toNumber($data['sotientu'])."'";
+		}
+		
+		if(trim($data['sotienden']))
+		{
+			$where .= " AND tongtien <= '".$this->string->toNumber($data['sotienden'])."'";
+		}
+		
+		if(trim($data['tinhtrang']))
+		{
+			$where .= " AND tinhtrang like '".$data['tinhtrang']."'";
+		}
 		
 		$where .= " Order by ngaylap DESC";
 		$rows = $this->model_addon_biennhan->getList($where);
@@ -118,6 +156,16 @@ class ControllerAddonBiennhan extends Controller
 		$this->id='content';
 		$this->template='addon/biennhan_view.tpl';
 		
+		$this->render();
+	}
+	
+	public function updateTinhTrang()
+	{
+		$data = $this->request->post;
+		$this->model_addon_biennhan->updateCol($data['biennhanid'],'tinhtrang',$data['tinhtrang']);
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
 		$this->render();
 	}
 	
