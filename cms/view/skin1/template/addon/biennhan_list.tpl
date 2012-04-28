@@ -13,7 +13,39 @@
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteorder()"/>  
             </div>
             <div class="clearer">&nbsp;</div>
-            
+            <div id="ben-search">
+            	<p>
+                    <label>Số biên nhận</label>
+                    <input type="text" id="sophieu" name="sophieu" class="text"/>
+                    <label>Ngày lập</label>
+                    từ
+                    <input type="text" id="tungay" name="tungay" class="text ben-datepicker" />
+                    đến
+                    <input type="text" id="denngay" name="denngay" class="text ben-datepicker" />
+                    <label>Tên khách hàng</label>
+                    <input type="text" id="kehoachngay" name="kehoachngay" class="text"/>
+                    <label>Số diện thoai</label>
+                    <input type="text" id="kehoachngay" name="kehoachngay" class="text"/>
+                </p>
+                <p>
+                <label>Số tiền</label>
+                từ
+                <input type="text" id="sotientu" name="sotientu" class="text number" />
+                đến
+                <input type="text" id="sotienden" name="sotienden" class="text number" />
+                
+                <label>Tình trạng</label>
+                <select id="tinhtrang" name="tinhtrang">
+                	<option value=""></option>
+                    <?php foreach($this->document->tinhtrangbiennhan as $key => $val){ ?>
+                    <option value="<?php echo $key?>"><?php echo $val?></option>
+                    <?php } ?>
+                </select>
+                
+                </p>
+                <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
+                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=quanlykho/phieunhapvattuhanghoa'"/>
+            </div>
             <div class="sitemap treeindex">
                 <table class="data-table" cellpadding="0" cellspacing="0">
                 <tbody>
