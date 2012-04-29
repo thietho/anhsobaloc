@@ -2,7 +2,11 @@
 class ControllerCoreMember extends Controller
 {
 	private $error = array();
-	
+	function __construct() 
+	{
+	 	$this->load->model("core/user");
+		
+   	}
 	public function index()
 	{
 		if(!$this->user->hasPermission($this->getRoute(), "access"))
@@ -29,7 +33,7 @@ class ControllerCoreMember extends Controller
 		
 		$this->document->title = $this->language->get('heading_title');
 		
-		$this->load->model("core/user");
+		
 		$this->getList();
 	}
 	
@@ -43,7 +47,7 @@ class ControllerCoreMember extends Controller
 		//$this->data = array_merge($this->data, $this->language->getData());
 		
 		$this->document->title = $this->language->get('heading_title');
-		$this->load->model("core/user");
+		
 		$this->data['haspass'] = true;
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validateForm())) 
 		{
@@ -68,7 +72,7 @@ class ControllerCoreMember extends Controller
 			//$this->data = array_merge($this->data, $this->language->getData());
 			
 			$this->document->title = $this->language->get('heading_title');
-			$this->load->model("core/user");
+			
 			$this->data['haspass'] = false;
 			
 			
@@ -81,7 +85,7 @@ class ControllerCoreMember extends Controller
 	public function active()
 	{
 		$id = $this->request->get['id'];
-		$this->load->model("core/user");
+		
 		
 		$data['id'] = $id;
 		$user=$this->model_core_user->getId($id);
@@ -103,7 +107,7 @@ class ControllerCoreMember extends Controller
 	{
 		$listuserid=$this->request->post['delete'];
 		//$listuserid=$_POST['delete'];
-		$this->load->model("core/user");
+		
 		if(count($listuserid))
 		{
 			foreach($listuserid as $id)
@@ -119,8 +123,22 @@ class ControllerCoreMember extends Controller
 	
 	private function getList() 
 	{
-		$this->data['insert'] = $this->url->http('core/user/insert');
+		$this->data['insert'] = $this->url->http('core/member/insert');
 		$this->data['delete'] = $this->url->http('core/user/delete');		
+		
+		
+		$this->id='content';
+		$this->template="core/member_list.tpl";
+		$this->layout="layout/center";
+		if($_GET['dialog'] == "true")
+			$this->layout="";
+		
+		
+		$this->render();
+	}
+	
+	public function loadTableMember()
+	{
 		
 		$this->data['users'] = array();
 		$where = "AND usertypeid = 'member'";
@@ -182,15 +200,9 @@ class ControllerCoreMember extends Controller
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
-		$this->template="core/member_list.tpl";
-		$this->layout="layout/center";
-		if($_GET['dialog'] == "true")
-			$this->layout="";
-		
-		
+		$this->template="core/member_table.tpl";
 		$this->render();
 	}
-	
 	
 	private function getForm()
 	{
@@ -220,7 +232,7 @@ class ControllerCoreMember extends Controller
 		
 		if($this->validateForm($data))
 		{
-			$this->load->model("core/user");
+			
 			$data['birthday'] = $this->date->formatViewDate($data['birthday']);
 			if($data['id']=="")
 			{
@@ -248,7 +260,7 @@ class ControllerCoreMember extends Controller
 	
 	private function validateForm()
 	{
-    	$this->load->model("core/user");
+    	
 		if(trim($this->request->post['username']))
 		{
 			

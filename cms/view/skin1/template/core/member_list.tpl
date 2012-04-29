@@ -8,7 +8,7 @@
         
         	<div class="button right">
                	<?php if($_GET['dialog'] != 'true'){ ?>
-                
+                <input type="button" class="button" value="Thêm" onclick="window.location='<?php echo $insert?>'" />
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteUser()"/>  
                 <?php }?>
             </div>
@@ -40,55 +40,12 @@
                 
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=core/member'"/>
+                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
             </div>
-            <div class="sitemap treeindex">
-                <table class="data-table" cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr class="tr-head">
-                        <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
-                        
-                        <th>Tên đăng nhập</th>
-                        <th>Tên khách hàng</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Email</th>
-                        <th>Trang thái</th>
-                        <?php if($_GET['dialog'] != 'true'){ ?>                 
-                        <th width="10%">Control</th>                                  
-                        <?php } ?>
-                    </tr>
-        
-        
-        <?php
-            foreach($users as $user)
-            {
-        ?>
-                    <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $user['id']?>]" value="<?php echo $user['id']?>" ></td>
-                        
-                        <td><?php echo $user['username']?></td>
-                        <td><?php echo $user['fullname']?></td>
-                        <td><?php echo $user['phone']?></td>
-                        <td><?php echo $user['address']?></td>
-                        <td><?php echo $user['email']?></td>
-                		<td><?php echo $this->document->userstatus[$user['status']]?></td>
-                        <?php if($_GET['dialog'] != 'true'){ ?>
-                        <td class="link-control">
-                            <input type="button" class="button" value="<?php echo $user['text_edit']?>" onclick="window.location='<?php echo $user['link_edit']?>'"/>
-                            <input type="button" class="button" value="<?php echo $user['text_active']?>" onclick="activeUser('<?php echo $user['id']?>')"/>
-                        </td>
-                        <?php } ?>
-                    </tr>
-        <?php
-            }
-        ?>
-                        
-                                                    
-                </tbody>
-                </table>
+            <div class="sitemap treeindex" id="memberlist">
+                
             </div>
-        	<?php echo $pager?>
+        	
         
         </form>
         
@@ -96,6 +53,9 @@
     
 </div>
 <script language="javascript">
+$(document).ready(function(e) {
+    viewAll();
+});
 function activeUser(userid)
 {
 	$.ajax({
@@ -126,9 +86,13 @@ function deleteUser()
 		);
 	}
 }
+function viewAll()
+{
+	$('#memberlist').load("?route=core/member/loadTableMember");
+}
 function searchForm()
 {
-	var url =  "?route=core/member";
+	var url =  "?route=core/member/loadTableMember";
 	if($("#username").val() != "")
 		url += "&username=" + $("#username").val();
 	if($("#fullname").val() != "")
@@ -142,7 +106,7 @@ function searchForm()
 	if($("#status").val() != "")
 		url += "&status="+ $("#status").val();
 	
-	window.location = url;
+	$('#memberlist').load(url);
 }
 
 $("#username").val("<?php echo $_GET['username']?>");

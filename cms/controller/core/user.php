@@ -241,5 +241,16 @@ class ControllerCoreUser extends Controller
 	  		return FALSE;
 		}
 	}
+	
+	public function getUser()
+	{
+		$this->load->model("core/user");
+		$id = $this->request->get['id'];
+		$user=$this->model_core_user->getId($id);
+		$this->data['output'] = json_encode($user);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
