@@ -56,6 +56,8 @@
 $(document).ready(function(e) {
     viewAll();
 });
+
+
 function activeUser(userid)
 {
 	$.ajax({
@@ -88,11 +90,18 @@ function deleteUser()
 }
 function viewAll()
 {
-	$('#memberlist').load("?route=core/member/loadTableMember");
+	var dialog = "<?php echo $_GET['dialog']?>";
+
+	var urldialog = "";
+	if(dialog == "true")
+	{
+		urldialog = "dialog=true";	
+	}
+	$('#memberlist').load("?route=core/member/loadTableMember"+"&"+urldialog);
 }
 function searchForm()
 {
-	var url =  "?route=core/member/loadTableMember";
+	var url = "?route=core/member/loadTableMember";
 	if($("#username").val() != "")
 		url += "&username=" + $("#username").val();
 	if($("#fullname").val() != "")
@@ -105,8 +114,13 @@ function searchForm()
 		url += "&email="+ $("#email").val();
 	if($("#status").val() != "")
 		url += "&status="+ $("#status").val();
-	
-	$('#memberlist').load(url);
+	var dialog = "<?php echo $_GET['dialog']?>";
+	var urldialog = "";
+	if(dialog == "true")
+	{
+		urldialog = "dialog=true";	
+	}
+	$('#memberlist').load(url+"&"+urldialog);
 }
 
 $("#username").val("<?php echo $_GET['username']?>");
@@ -115,4 +129,9 @@ $("#phone").val("<?php echo $_GET['phone']?>");
 $("#address").val("<?php echo $_GET['address']?>");
 $("#email").val("<?php echo $_GET['email']?>");
 $("#status").val("<?php echo $_GET['status']?>");
+
+function moveto(url,eid)
+{
+	$('#'+eid).load(url);
+}
 </script>

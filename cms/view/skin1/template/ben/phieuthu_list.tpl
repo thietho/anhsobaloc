@@ -1,7 +1,6 @@
-<script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
 <div class="section">
 
-	<div class="section-title">Quản lý biên nhận</div>
+	<div class="section-title">Quản lý phiếu thu</div>
     
     <div class="section-content">
     	
@@ -52,15 +51,14 @@
                     <tr class="tr-head">
                         <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
                         
-                        <th>Số biên nhận</th>
+                        <th>Số phiếu</th>
                         <th>Ngày lập</th>
-                        <th>Ngày hẹn</th>
+                        <th>Số chứng từ</th>
                         <th>Tên khách hàng</th>
                         <th>Số điện thoại</th>
-                        <th>Tổng số tiền</th>
-                        <th>Tạm ứng</th>
-                        <th>Còn lại</th>
-                        <th>Tình trạng</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                        <th>Số tiền</th>
                         <th></th>                                  
                     </tr>
         
@@ -70,18 +68,15 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['biennhanid']?>]" value="<?php echo $item['biennhanid']?>" ></td>
-                        <td><a onclick="view('<?php echo $item['biennhanid']?>')"><?php echo $item['sobiennhan']?></a></td>
-                        <td><?php echo  $this->date->formatMySQLDate($item['ngaylap'])?></td>
-                        <td><?php echo  $this->date->formatMySQLDate($item['ngayhen'])?></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['maphieu']?>]" value="<?php echo $item['maphieu']?>" ></td>
+                        <td><a onclick="view('<?php echo $item['maphieu']?>')"><?php echo $item['sophieu']?></a></td>
+                        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
+                        <td><?php echo $item['chungtulienquan']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
-                        <td><?php echo $item['sodienthoai']?></td>
-                        <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
-                        <td class="number"><?php echo $this->string->numberFormate($item['tamung'])?></td>
-                        <td class="number"><?php echo $this->string->numberFormate($item['tongtien']-$item['tamung'])?></td>
-                        <td><?php echo $this->document->tinhtrangbiennhan[$item['tinhtrang']]?></td>
-                        
-                		
+                        <td><?php echo $item['dienthoai']?></td>
+                        <td><?php echo $item['diachi']?></td>
+                        <td><?php echo $item['email']?></td>
+                        <td class="number"><?php echo $this->string->numberFormate($item['sotien'])?></td>
                         <td class="link-control">
                             <input type="button" class="button" name="btnEdit" value="Sửa" onClick="window.location='<?php echo $item['link_edit']?>'">
                            
@@ -121,7 +116,7 @@ function deleteorder()
 		);
 	}
 }
-function view(biennhanid)
+function view(maphieu)
 {
 	$("#popup").attr('title','Chọn khách hàng');
 				$( "#popup" ).dialog({
@@ -137,14 +132,14 @@ function view(biennhanid)
 							window.location.reload();
 						},
 						'In': function(){
-							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=print",800,500)
+							openDialog("?route=addon/biennhan/view&maphieu="+maphieu+"&dialog=print",800,500)
 							window.location.reload();
 						},
 					}
 				});
 			
 				
-	$("#popup-content").load("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=true",function(){
+	$("#popup-content").load("?route=addon/biennhan/view&maphieu="+maphieu+"&dialog=true",function(){
 		$("#popup").dialog("open");	
 	});
 }
