@@ -5,6 +5,8 @@ class ControllerCoreMember extends Controller
 	function __construct() 
 	{
 	 	$this->load->model("core/user");
+		$this->load->model("addon/biennhan");
+		$this->load->model("ben/thuchi");
 		
    	}
 	public function index()
@@ -192,16 +194,59 @@ class ControllerCoreMember extends Controller
 			$this->data['users'][$i] = $rows[$i];
 			$this->data['users'][$i]['link_edit'] = $this->url->http('core/member/update&id='.$this->data['users'][$i]['id']);
 			$this->data['users'][$i]['text_edit'] = "Edit";
-			$this->data['users'][$i]['link_active'] = $this->url->http('core/member/active&userid='.$this->data['users'][$i]['userid']);
+			$this->data['users'][$i]['link_active'] = $this->url->http('core/member/active&id='.$this->data['users'][$i]['id']);
 			if($this->data['users'][$i]['status']=='lock')
 				$this->data['users'][$i]['text_active'] = "Kích hoạt";
 			else
 				$this->data['users'][$i]['text_active'] = "Khóa";
+			$this->data['users'][$i]['congno'] = $this->getCongNo($this->data['users'][$i]['id']);
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
 		$this->template="core/member_table.tpl";
 		$this->render();
+	}
+	
+	public function getCongNo($id='')
+	{
+		if($id=="")
+			$id=$this->request->get['khachhangid'];
+		//Lay tat ca phieu thu
+		$where = " AND makhachhang = '".$id."' AND loaithuchi = 'thu'";
+		$this->data['data_phieuthu'] = $this->model_ben_thuchi->getList($where);
+		$tongthu = 0;
+		
+		foreach($this->data['data_phieuthu'] as $item)
+		{
+			$tongthu += $item['quidoi'];	
+		}
+		//Lay tat ca bien nhan
+		$where = " AND khachhangid = '".$id."'";
+		$this->data['data_biennhan'] = $this->model_addon_biennhan->getList($where);
+		$tongbiennhan = 0;
+		foreach($this->data['data_biennhan'] as $item)
+		{
+			$tongbiennhan += $item['tongtien'];	
+		}
+		$congno = $tongbiennhan - $tongthu;
+		
+		if($this->request->get['khachhangid'])
+		{
+			$this->data['tongphieuthu'] = $tongthu;
+			$this->data['tongbiennhan'] = $tongbiennhan;
+			$this->data['congno'] = $congno;
+			$this->id='content';
+			$this->template="core/member_congno.tpl";
+			if($_GET['dialog']=='print')
+			{
+				$this->layout='layout/print';
+			}
+			$this->render();
+		}
+		else
+		{
+			return $congno;
+		}
 	}
 	
 	private function getForm()

@@ -130,6 +130,34 @@ $("#address").val("<?php echo $_GET['address']?>");
 $("#email").val("<?php echo $_GET['email']?>");
 $("#status").val("<?php echo $_GET['status']?>");
 
+function viewCongNo(id)
+{
+	$("#popup").attr('title','Công nợ');
+				$( "#popup" ).dialog({
+					autoOpen: false,
+					show: "blind",
+					hide: "explode",
+					width: 800,
+					height: 500,
+					modal: true,
+					buttons: {
+						'Đóng': function() {
+							$( this ).dialog( "close" );
+							
+						},
+						'In': function(){
+							openDialog("?route=core/member/getCongNo&khachhangid="+id+"&dialog=print",800,500)
+							
+						},
+					}
+				});
+			
+				
+	$("#popup-content").load("?route=core/member/getCongNo&khachhangid="+id+"&dialog=true",function(){
+		$("#popup").dialog("open");	
+	});
+}
+
 function moveto(url,eid)
 {
 	$('#'+eid).load(url);
