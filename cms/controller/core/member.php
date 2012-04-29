@@ -70,15 +70,8 @@ class ControllerCoreMember extends Controller
 			$this->document->title = $this->language->get('heading_title');
 			$this->load->model("core/user");
 			$this->data['haspass'] = false;
-			$this->data['usernamereadonly'] = 'readonly="readonly"';
-			if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validateForm())) 
-			{
-				$this->request->post['userid'] = $this->request->get['userid'];
-				$this->request->post['birthday'] = $this->date->formatViewDate($this->request->post['birthday']);
-				$this->model_core_user->updateuser($this->request->post);
-				$this->session->data['success'] = $this->language->get('text_success');
-				$this->redirect($this->url->http('core/user'));
-			}
+			
+			
 		
 			$this->getForm();
 		}
@@ -145,7 +138,7 @@ class ControllerCoreMember extends Controller
 		//for($i=0; $i <= count($this->data['users'])-1 ; $i++)
 		{
 			$this->data['users'][$i] = $rows[$i];
-			$this->data['users'][$i]['link_edit'] = $this->url->http('core/member/update&userid='.$this->data['users'][$i]['userid']);
+			$this->data['users'][$i]['link_edit'] = $this->url->http('core/member/update&id='.$this->data['users'][$i]['id']);
 			$this->data['users'][$i]['text_edit'] = "View";
 			$this->data['users'][$i]['link_active'] = $this->url->http('core/member/active&userid='.$this->data['users'][$i]['userid']);
 			if($this->data['users'][$i]['status']=='lock')
@@ -171,34 +164,49 @@ class ControllerCoreMember extends Controller
 		$this->load->model("core/usertype");
 		$this->load->model("core/country");
 		$this->load->helper('image');
-		//$xml = simplexml_load_file(DIR_COMPONENT.'xml/countries.xml');
-		//$this->data['countries'] = $this->string->xmltoArray($xml);
-		$this->data['countries'] = $this->model_core_country->getCountrys();
-		$this->data['selectcountry'] = "VN";
-		$this->data['usertype'] = $this->model_core_usertype->getAllUsertype();
-		if (!isset($this->request->get['userid'])) {
-			$this->data['action'] = $this->url->http('core/user/insert');
-		} else {
-			$this->data['action'] = $this->url->http('core/user/update&userid=' . $this->request->get['userid']);
-		}
+		
 		$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
 		$this->data['cancel'] = $this->url->https('core/member');
+		$id = $this->request->get['id'];
 		
-		if ((isset($this->request->get['userid'])) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-      		$this->data['user'] = $this->model_core_user->getItem($this->request->get['userid']);
-			$this->data['user']['imagethumbnail']=HelperImage::resizePNG($this->data['user']['imagepath'], 200, 200);
-    	}
-		else
-		{
-			$this->data['user'] = $this->request->post;
-			$this->data['selectcountry'] = $this->data['user']['country'];
-			
-		}
+		$this->data['user'] = $this->model_core_user->getId($id);
+		$this->data['user']['imagethumbnail']=HelperImage::resizePNG($this->data['user']['imagepath'], 200, 200);
+    	
 		
 		$this->id='content';
 		$this->template='core/member_form.tpl';
 		$this->layout="layout/center";
 		
+		$this->render();
+	}
+	
+	public function save()
+	{
+		$data = $this->request->post;
+		
+		if($this->validateForm($data))
+		{
+			if($data['id']=="")
+			{
+				$this->model_core_user->insertUser($data);	
+			}
+			else
+			{	
+				$this->model_core_user->insertUser($data);	
+			}
+			
+			$this->data['output'] = "true";
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$this->data['output'] .= $item."<br>";
+			}
+		}
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
 		$this->render();
 	}
 	
@@ -220,7 +228,7 @@ class ControllerCoreMember extends Controller
 					$this->error['username'] = "username đã được sử dụng";			
 			}
 		}
-		if($this->request->get['userid']=="")
+		if($this->request->get['id']=="")
 		{
 			if (strlen($this->request->post['password']) == 0) 
 			{
