@@ -8,6 +8,7 @@
                         <th>Số điện thoại</th>
                         <th>Địa chỉ</th>
                         <th>Email</th>
+                        <th>Công nợ</th>
                         <th>Trang thái</th>
                         <?php if($_GET['dialog'] != 'true'){ ?>                 
                         <th width="10%">Control</th>                                  
@@ -28,6 +29,7 @@
                         <td><?php echo $user['phone']?></td>
                         <td><?php echo $user['address']?></td>
                         <td><?php echo $user['email']?></td>
+                        <td></td>
                 		<td><?php echo $this->document->userstatus[$user['status']]?></td>
                         <?php if($_GET['dialog'] != 'true'){ ?>
                         <td class="link-control">

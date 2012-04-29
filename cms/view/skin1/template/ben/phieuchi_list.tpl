@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title">Quản lý phiếu thu</div>
+	<div class="section-title">Quản lý phiếu chi</div>
     
     <div class="section-content">
     	
@@ -23,21 +23,26 @@
                     <input type="text" id="denngay" name="denngay" class="text ben-datepicker" />
                     <label>Tên khách hàng</label>
                     <input type="text" id="tenkhachhang" name="tenkhachhang" class="text"/>
-                    <label>Số diện thoai</label>
-                    <input type="text" id="dienthoai" name="dienthoai" class="text"/>
+                    
                 </p>
                 <p>
-                <label>Số tiền</label>
-                từ
-                <input type="text" id="sotientu" name="sotientu" class="text number" />
-                đến
-                <input type="text" id="sotienden" name="sotienden" class="text number" />
-                
+                    <label>Số tiền</label>
+                    từ
+                    <input type="text" id="sotientu" name="sotientu" class="text number" />
+                    đến
+                    <input type="text" id="sotienden" name="sotienden" class="text number" />
+                	<label>Tài khoản chi</label>
+                    <select id="taikhoanthuchi" name="taikhoanthuchi">
+                    	<option value=""></option>
+                    	<?php foreach($chiphi as $val){?>
+                        <option value="<?php echo $val['categoryid']?>"><?php echo $val['categoryname']?></option>
+                        <?php } ?>
+                    </select>
                 
                 
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=ben/phieuthu'"/>
+                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=ben/phieuchi'"/>
             </div>
             <div class="sitemap treeindex">
                 <table class="data-table" cellpadding="0" cellspacing="0">
@@ -48,10 +53,9 @@
                         <th>Số phiếu</th>
                         <th>Ngày lập</th>
                         <th>Số chứng từ</th>
-                        <th>Tên khách hàng</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Email</th>
+                        <th>Người nhận tiền</th>
+                        <th>Tài khoản chi</th>
+                        
                         <th>Số tiền</th>
                         <th></th>                                  
                     </tr>
@@ -67,9 +71,8 @@
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
                         <td><?php echo $item['chungtulienquan']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
-                        <td><?php echo $item['dienthoai']?></td>
-                        <td><?php echo $item['diachi']?></td>
-                        <td><?php echo $item['email']?></td>
+                        <td><?php echo $this->document->getCategory($item['taikhoanthuchi'])?></td>
+                        
                         <td class="number"><?php echo $this->string->numberFormate($item['sotien'])?></td>
                         <td class="link-control">
                             <input type="button" class="button" name="btnEdit" value="Sửa" onClick="window.location='<?php echo $item['link_edit']?>'">
@@ -126,20 +129,20 @@ function view(maphieu)
 							
 						},
 						'In': function(){
-							openDialog("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500)
+							openDialog("?route=ben/phieuchi/view&maphieu="+maphieu+"&dialog=print",800,500)
 							
 						},
 					}
 				});
 			
 				
-	$("#popup-content").load("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=true",function(){
+	$("#popup-content").load("?route=ben/phieuchi/view&maphieu="+maphieu+"&dialog=true",function(){
 		$("#popup").dialog("open");	
 	});
 }
 function searchForm()
 {
-	var url =  "?route=ben/phieuthu";
+	var url =  "?route=ben/phieuchi";
 	if($("#sophieu").val() != "")
 		url += "&sophieu=" + $("#sophieu").val();
 	if($("#tungay").val() != "")
@@ -148,8 +151,8 @@ function searchForm()
 		url += "&denngay="+ $("#denngay").val();
 	if($("#tenkhachhang").val() != "")
 		url += "&tenkhachhang="+ $("#tenkhachhang").val();
-	if($("#dienthoai").val() != "")
-		url += "&dienthoai="+ $("#dienthoai").val();
+	if($("#taikhoanthuchi").val() != "")
+		url += "&taikhoanthuchi="+ $("#taikhoanthuchi").val();
 	if(parseFloat($("#sotientu").val()) != 0)
 		url += "&sotientu=" + $("#sotientu").val();
 	if(parseFloat($("#sotienden").val()) != 0)
@@ -162,7 +165,7 @@ $("#sophieu").val("<?php echo $_GET['sophieu']?>");
 $("#tungay").val("<?php echo $_GET['tungay']?>");
 $("#denngay").val("<?php echo $_GET['denngay']?>");
 $("#tenkhachhang").val("<?php echo $_GET['tenkhachhang']?>");
-$("#dienthoai").val("<?php echo $_GET['dienthoai']?>");
+$("#taikhoanthuchi").val("<?php echo $_GET['taikhoanthuchi']?>");
 $("#sotientu").val("<?php echo $_GET['sotientu']?>");
 $("#sotienden").val("<?php echo $_GET['sotienden']?>");
 

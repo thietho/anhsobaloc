@@ -1,6 +1,6 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title">Quản lý phiếu thu</div>
+	<div class="section-title">Quản lý phiếu chi</div>
     
     <div class="section-content padding1">
     
@@ -11,7 +11,7 @@
             <div class="button right">
                 <a class="button save" onclick="save('')">Lưu</a>
                 <a class="button save" onclick="save('print')">Lưu & In</a>
-                <a class="button cancel" href="?route=ben/phieuthu">Bỏ qua</a>    
+                <a class="button cancel" href="?route=ben/phieuchi">Bỏ qua</a>    
         	</div>
             <div class="clearer">&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
@@ -24,7 +24,7 @@
                 
                 <div class="clearer">&nbsp;</div>
                 <p class="left">
-                    <label>Tên khách hàng</label><br />
+                    <label>Tên người nhận tiền</label><br />
                     <input type="hidden" id="makhachhang" name="makhachhang" value="<?php echo $item['makhachhang']?>">
                     <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                 </p>
@@ -48,6 +48,14 @@
                     <input type="text" name="chungtulienquan" value="<?php echo $item['chungtulienquan']?>" class="text" size=60/>
                 </p>
                 <p>
+                	<label>Tài khoản chi</label><br>
+                    <select id="taikhoanthuchi" name="taikhoanthuchi">
+                    	<?php foreach($chiphi as $val){?>
+                        <option value="<?php echo $val['categoryid']?>"><?php echo $val['categoryname']?></option>
+                        <?php } ?>
+                    </select>
+                </p>
+                <p>
                     <label>Số tiền</label><br />
                     <input type="text" name="sotien" value="<?php echo $item['sotien']?>" class="text number"/>
                     <input type="hidden" id="donvi" name="donvi" value="VND" />
@@ -62,7 +70,7 @@
                     </select>
                 </p>
                 <p>
-                    <label>Lý do</label><br />
+                    <label>Lý do chi</label><br />
                     <textarea name="lydo" class="ghichu"><?php echo $item['lydo']?></textarea>
                 </p>
                 <div class="clearer">&nbsp;</div>
@@ -75,6 +83,7 @@
 </div>
 
 <script language="javascript">
+$('#taikhoanthuchi').val("<?php echo $item['taikhoanthuchi']?>");
 $('#btnSelectKhachHang').click(function(e) {
 	$("#popup").attr('title','Chọn khách hàng');
 				$( "#popup" ).dialog({
@@ -123,7 +132,7 @@ function save(action)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
-	$.post("?route=ben/phieuthu/save", $("#frm").serialize(),
+	$.post("?route=ben/phieuchi/save", $("#frm").serialize(),
 		function(data){
 			var arr = data.split("-");
 			if(arr[0] == "true")
@@ -134,7 +143,7 @@ function save(action)
 				}
 				else
 				{
-					window.location = "?route=ben/phieuthu";
+					window.location = "?route=ben/phieuchi";
 				}
 				
 			}
@@ -160,22 +169,22 @@ function view(maphieu)
 					height: 500,
 					modal: true,
 					close: function(event, ui) {
-						window.location = "?route=ben/phieuthu";
+						window.location = "?route=ben/phieuchi";
 					},
 					buttons: {
 						'Đóng': function() {
 							$( this ).dialog( "close" );
-							window.location = "?route=ben/phieuthu";
+							window.location = "?route=ben/phieuchi";
 						},
 						'In': function(){
-							openDialog("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500)
-							window.location = "?route=ben/phieuthu";
+							openDialog("?route=ben/phieuchi/view&maphieu="+maphieu+"&dialog=print",800,500)
+							window.location = "?route=ben/phieuchi";
 						},
 					}
 				});
 			
 				
-	$("#popup-content").load("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=true",function(){
+	$("#popup-content").load("?route=ben/phieuchi/view&maphieu="+maphieu+"&dialog=true",function(){
 		$("#popup").dialog("open");	
 	});
 }

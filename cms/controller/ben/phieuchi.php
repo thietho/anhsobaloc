@@ -1,11 +1,14 @@
 <?php
-class ControllerBenPhieuthu extends Controller
+class ControllerBenPhieuchi extends Controller
 {
 	private $error = array();
    	function __construct() 
 	{
 	 	$this->load->model("ben/thuchi");
-		
+		$this->load->model("core/category");
+		$this->data['chiphi'] = array();
+		$this->model_core_category->getTree("chiphi",$this->data['chiphi']);
+		unset($this->data['chiphi'][0]);
    	}
 	
 	public function index()
@@ -47,11 +50,11 @@ class ControllerBenPhieuthu extends Controller
 	
 	private function getList() 
 	{
-		$this->data['insert'] = $this->url->http('ben/phieuthu/insert');
-		$this->data['delete'] = $this->url->http('ben/phieuthu/delete');		
+		$this->data['insert'] = $this->url->http('ben/phieuchi/insert');
+		$this->data['delete'] = $this->url->http('ben/phieuchi/delete');		
 		
 		$this->data['datas'] = array();
-		$where = " AND loaithuchi = 'thu'";
+		$where = " AND loaithuchi = 'chi'";
 		$data = $this->request->get;
 		foreach($data as $key =>$val)
 		{
@@ -88,9 +91,9 @@ class ControllerBenPhieuthu extends Controller
 			$where .= " AND quidoi <= '".$this->string->toNumber($data['sotienden'])."'";
 		}
 		
-		if(trim($data['dienthoai']))
+		if(trim($data['taikhoanthuchi']))
 		{
-			$where .= " AND dienthoai like '%".$data['dienthoai']."%'";
+			$where .= " AND taikhoanthuchi like '".$data['taikhoanthuchi']."'";
 		}
 		
 		$where .= " Order by ngaylap DESC";
@@ -112,7 +115,7 @@ class ControllerBenPhieuthu extends Controller
 		//for($i=0;$i < count($rows[$i]);$i++)
 		{
 			$this->data['datas'][$i] = $rows[$i];
-			$this->data['datas'][$i]['link_edit'] = $this->url->http('ben/phieuthu/update&maphieu='.$this->data['datas'][$i]['maphieu']);
+			$this->data['datas'][$i]['link_edit'] = $this->url->http('ben/phieuchi/update&maphieu='.$this->data['datas'][$i]['maphieu']);
 			$this->data['datas'][$i]['text_edit'] = "Edit";
 			
 			
@@ -120,7 +123,7 @@ class ControllerBenPhieuthu extends Controller
 		}
 		
 		$this->id='content';
-		$this->template="ben/phieuthu_list.tpl";
+		$this->template="ben/phieuchi_list.tpl";
 		$this->layout='layout/center';
 		
 		$this->render();
@@ -141,7 +144,7 @@ class ControllerBenPhieuthu extends Controller
 		}
 		
 		$this->id='content';
-		$this->template='ben/phieuthu_form.tpl';
+		$this->template='ben/phieuchi_form.tpl';
 		$this->layout='layout/center';
 		$this->render();
 	}
@@ -151,7 +154,7 @@ class ControllerBenPhieuthu extends Controller
 		$this->data['item'] = $this->model_ben_thuchi->getItem($this->request->get['maphieu']);
 		
 		$this->id='content';
-		$this->template='ben/phieuthu_view.tpl';
+		$this->template='ben/phieuchi_view.tpl';
 		if($_GET['dialog']=='print')
 		{
 			$this->layout='layout/print';
@@ -175,9 +178,9 @@ class ControllerBenPhieuthu extends Controller
 		
 		if($this->validateForm($data))
 		{
-			$data['loaithuchi'] = "thu";
-			$data['taikhoanthuchi'] = "thutienkhachhang";
-			$data['prefix'] = "PT";
+			$data['loaithuchi'] = "chi";
+			$data['taikhoanthuchi'] = $data['taikhoanthuchi'];
+			$data['prefix'] = "PC";
 			$data['quidoi'] = $this->document->toVND($this->string->toNumber($data['sotien']),$data['donvi']);
 			if($data['maphieu']=="")
 			{
@@ -208,12 +211,7 @@ class ControllerBenPhieuthu extends Controller
 		
 		if (trim($data['tenkhachhang']) == "") 
 		{
-      		$this->error['tenkhachhang'] = "Bạn chưa nhập tên khách hàng";
-    	}
-		
-		if (trim($data['dienthoai']) == "") 
-		{
-      		$this->error['dienthoai'] = "Bạn chưa nhập số điện thoại khách hàng";
+      		$this->error['tenkhachhang'] = "Bạn chưa nhập tên người nhận tiền";
     	}
 		
 		if (trim($data['email']) != "") 
@@ -221,9 +219,9 @@ class ControllerBenPhieuthu extends Controller
       		if ($this->validation->_checkEmail($data['email']) == false )
 				$this->error["email"] = "Email không đúng định dạng";
     	}
-		if (trim($data['sotien']) == "") 
+		if ((int)trim($data['sotien']) == 0) 
 		{
-      		$this->error['sotien'] = "Bạn chưa nhập số tiền thu";
+      		$this->error['sotien'] = "Bạn chưa nhập số tiền chi";
     	}
 		if (count($this->error)==0) {
 	  		return TRUE;
