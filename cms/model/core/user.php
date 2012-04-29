@@ -37,6 +37,7 @@ class ModelCoreUser extends ModelCoreFile
 	
 	public function insertUser($data)
 	{
+		$id=$this->db->escape(@$data['id']);
 		$userid=$this->db->escape(@$data['username']);
 		$username=$this->db->escape(@$data['username']);
 		$usertypeid=$this->db->escape(@$data['usertypeid']);
@@ -112,8 +113,9 @@ class ModelCoreUser extends ModelCoreFile
 		
 	}
 	
-	public function updateuser($data)
+	public function updateUser($data)
 	{
+		$id=$this->db->escape(@$data['id']);
 		$userid=$this->db->escape(@$data['userid']);
 		$username=$this->db->escape(@$data['username']);
 		$usertypeid=$this->db->escape(@$data['usertypeid']);
@@ -182,7 +184,7 @@ class ModelCoreUser extends ModelCoreFile
 						$deletedby,
 						$userip
 					);
-		$where="userid = '".$userid."'";
+		$where="id = '".$id."'";
 		$this->db->updateData("user",$field,$value,$where);
 	}
 	

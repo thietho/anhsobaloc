@@ -18,6 +18,10 @@ final class Document {
 	public $text = array();
 	public $setting = array();
 	public $setup = array();
+	public $userstatus = array(
+							'active' => "Đang kích hoạt",
+							'lock' => "Đã bị khóa"
+							);
 	public $status = array(
 						   'new' => "Đơn hàng mới",
 						   'pending' => "Đang chờ thanh toán",

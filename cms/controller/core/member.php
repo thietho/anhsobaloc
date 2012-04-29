@@ -80,16 +80,16 @@ class ControllerCoreMember extends Controller
 	
 	public function active()
 	{
-		$userid = $this->request->get['userid'];
+		$id = $this->request->get['id'];
 		$this->load->model("core/user");
 		
-		$data['userid'] = $userid;
-		$user=$this->model_core_user->getItem($userid);
+		$data['id'] = $id;
+		$user=$this->model_core_user->getId($id);
 		if($user['status'] == "lock")
 			$data['status'] = "active";
 		else
 			$data['status'] = "lock";
-		$this->model_core_user->updatestatus($data);
+		$this->model_core_user->updateCol($id,'status',$data['status']);
 		if($data['status'] == "active")
 			$this->data['output']="Kích hoạt thành công";
 		if($data['status'] == "lock")
@@ -186,6 +186,8 @@ class ControllerCoreMember extends Controller
 		
 		if($this->validateForm($data))
 		{
+			$this->load->model("core/user");
+			$data['birthday'] = $this->date->formatViewDate($data['birthday']);
 			if($data['id']=="")
 			{
 				$this->model_core_user->insertUser($data);	
@@ -212,23 +214,26 @@ class ControllerCoreMember extends Controller
 	
 	private function validateForm()
 	{
-    	if ((strlen($this->request->post['username']) == 0) || (strlen($this->request->post['username']) > 30)) 
-		{
-      		$this->error['username'] = "username not null";
-    	}
-		else
+    	$this->load->model("core/user");
+		if(trim($this->request->post['username']))
 		{
 			
 			if($this->validation->_isId(trim($this->request->post['username'])) == false)
 				$this->error['username'] ="username không hợp lệ";
 			else
 			{
-				$user = $this->model_core_user->getItemByUserName($this->request->post['username']);
-				if(count($user)>0 && $this->request->post['userid'] == '')
-					$this->error['username'] = "username đã được sử dụng";			
+				if($this->request->post['id'])
+				{
+					$id = $this->request->post['id'];
+					$where = " AND id <> '".$id."' AND username = '".trim($this->request->post['username'])."'";
+					$data_user = $this->model_core_user->getList($where);
+					count($data_user);
+					if(count($data_user)>0)
+						$this->error['username'] = "username đã được sử dụng";			
+				}
 			}
 		}
-		if($this->request->get['id']=="")
+		if($this->request->post['password']!="")
 		{
 			if (strlen($this->request->post['password']) == 0) 
 			{

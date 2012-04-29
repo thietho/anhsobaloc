@@ -24,12 +24,12 @@ class ModelCoreSitemap extends Model
 								 /*"core/changeskin" => "Change skin",*/
 								 "core/category" => "Quản lý danh mục",
 								 "core/media" => "Quản lý thông tin",
-								 "addon/sitemap" => "Quản lý cấu trúc website",
+								 "core/sitemap" => "Quản lý cấu trúc website",
 								 /*"core/comment" => "Đánh giá",*/
 								/* "addon/order" => "Order management <span id='orderwarring'></span>",*/
-								 "core/member" => "Member management",
-								 'core/message' => 'Message',
-								 "core/user" => "User management"
+								 "core/member" => "Quản lý khách hàng",
+								 'core/message' => 'Hộp thư',
+								 "core/user" => "Quản lý người dùng"
 								 );
 	public $moduleuser = array(
 							'group' => 'None',
