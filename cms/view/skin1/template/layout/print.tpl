@@ -48,6 +48,10 @@ table
 	border-top:thin solid #000;
 	border-left:thin solid #000;
 }
+label
+{
+	font-weight:bold;	
+}
 </style>
 
 <body>

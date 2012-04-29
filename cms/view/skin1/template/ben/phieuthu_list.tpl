@@ -43,7 +43,7 @@
                 
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=addon/biennhan'"/>
+                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=ben/phieuthu'"/>
             </div>
             <div class="sitemap treeindex">
                 <table class="data-table" cellpadding="0" cellspacing="0">
@@ -129,23 +129,23 @@ function view(maphieu)
 					buttons: {
 						'Đóng': function() {
 							$( this ).dialog( "close" );
-							window.location.reload();
+							
 						},
 						'In': function(){
-							openDialog("?route=addon/biennhan/view&maphieu="+maphieu+"&dialog=print",800,500)
-							window.location.reload();
+							openDialog("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500)
+							
 						},
 					}
 				});
 			
 				
-	$("#popup-content").load("?route=addon/biennhan/view&maphieu="+maphieu+"&dialog=true",function(){
+	$("#popup-content").load("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=true",function(){
 		$("#popup").dialog("open");	
 	});
 }
 function searchForm()
 {
-	var url =  "?route=addon/biennhan";
+	var url =  "?route=ben/phieuthu";
 	if($("#sobiennhan").val() != "")
 		url += "&sobiennhan=" + $("#sobiennhan").val();
 	if($("#tungay").val() != "")

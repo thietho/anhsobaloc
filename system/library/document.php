@@ -49,6 +49,21 @@ final class Document {
 						   'published' => "Duyệt",
 						   'denial' => "Không duyệt"
 						   );
+	public $tiente = array(
+						"VND" => "VNĐ",
+						"USD" => "USD"
+						);
+	public function toVND($value,$donvi)
+	{
+		if($donvi == "VND")
+			return $value;
+		else
+		{
+			
+			return $value * $this->toNumber($this->setup['Exchange']); 	
+		}
+			
+	}
 	private $filepath;
 	public function __construct() 
 	{

@@ -149,8 +149,7 @@ class ControllerBenPhieuthu extends Controller
 	public function view()
 	{
 		$this->data['item'] = $this->model_ben_thuchi->getItem($this->request->get['maphieu']);
-		$where = " AND maphieu = '".$this->request->get['maphieu']."'";
-		$this->data['data_chitiet'] = $this->model_ben_thuchi->getBienNhanChiTietList($where);
+		
 		$this->id='content';
 		$this->template='ben/phieuthu_view.tpl';
 		if($_GET['dialog']=='print')

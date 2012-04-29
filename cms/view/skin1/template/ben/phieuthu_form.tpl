@@ -9,8 +9,8 @@
         <input type="hidden" name="sophieu" value="<?php echo $item['sophieu']?>">
         <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">	
             <div class="button right">
-                <a class="button save" onclick="save()">Lưu</a>
-                <a class="button save" onclick="saveprint()">Lưu & In</a>
+                <a class="button save" onclick="save('')">Lưu</a>
+                <a class="button save" onclick="save('print')">Lưu & In</a>
                 <a class="button cancel" href="?route=ben/phieuthu">Bỏ qua</a>    
         	</div>
             <div class="clearer">&nbsp;</div>
@@ -63,7 +63,7 @@
                 </p>
                 <p>
                     <label>Lý do</label><br />
-                    <textarea name="lydo" class="ghichu"><?php echo $item['ghichu']?></textarea>
+                    <textarea name="lydo" class="ghichu"><?php echo $item['lydo']?></textarea>
                 </p>
                 <div class="clearer">&nbsp;</div>
             </div>
@@ -84,6 +84,7 @@ $('#btnSelectKhachHang').click(function(e) {
 					width: 800,
 					height: 500,
 					modal: true,
+					
 					buttons: {
 						
 						
@@ -118,7 +119,7 @@ $('#btnSelectKhachHang').click(function(e) {
 });
 
 
-function save()
+function save(action)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
@@ -127,7 +128,15 @@ function save()
 			var arr = data.split("-");
 			if(arr[0] == "true")
 			{
-				window.location = "?route=ben/phieuthu";
+				if(action == 'print')
+				{
+					view(arr[1])
+				}
+				else
+				{
+					window.location = "?route=ben/phieuthu";
+				}
+				
 			}
 			else
 			{
@@ -139,5 +148,35 @@ function save()
 			
 		}
 	);
+}
+function view(maphieu)
+{
+	$("#popup").attr('title','Chọn khách hàng');
+				$( "#popup" ).dialog({
+					autoOpen: false,
+					show: "blind",
+					hide: "explode",
+					width: 800,
+					height: 500,
+					modal: true,
+					close: function(event, ui) {
+						window.location = "?route=ben/phieuthu";
+					},
+					buttons: {
+						'Đóng': function() {
+							$( this ).dialog( "close" );
+							window.location = "?route=ben/phieuthu";
+						},
+						'In': function(){
+							openDialog("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500)
+							window.location = "?route=ben/phieuthu";
+						},
+					}
+				});
+			
+				
+	$("#popup-content").load("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=true",function(){
+		$("#popup").dialog("open");	
+	});
 }
 </script>
