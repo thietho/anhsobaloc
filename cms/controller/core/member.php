@@ -106,7 +106,10 @@ class ControllerCoreMember extends Controller
 		$this->load->model("core/user");
 		if(count($listuserid))
 		{
-			$this->model_core_user->deleteusers($listuserid);
+			foreach($listuserid as $id)
+			{
+				$this->model_core_user->deletemember($id);
+			}
 			$this->data['output'] = "Xóa thành công";
 		}
 		$this->id="content";
@@ -121,6 +124,37 @@ class ControllerCoreMember extends Controller
 		
 		$this->data['users'] = array();
 		$where = "AND usertypeid = 'member'";
+		$data = $this->request->get;
+		foreach($data as $key =>$val)
+		{
+			$data[$key] = urldecode($val);	
+		}
+		$_GET = $data;
+		if(trim($data['username']))
+		{
+			$where .= " AND username like '%".$data['username']."%'";
+		}
+		if(trim($data['fullname']))
+		{
+			$where .= " AND fullname like '%".$data['fullname']."%'";
+		}
+		if(trim($data['phone']))
+		{
+			$where .= " AND phone like '%".$data['phone']."%'";
+		}
+		if(trim($data['address']))
+		{
+			$where .= " AND address like '%".$data['address']."%'";
+		}
+		if(trim($data['email']))
+		{
+			$where .= " AND email like '%".$data['email']."%'";
+		}
+		if(trim($data['status']))
+		{
+			$where .= " AND status like '".$data['status']."'";
+		}
+		
 		$rows = $this->model_core_user->getList($where);
 		//Page
 		$page = $this->request->get['page'];		
@@ -142,9 +176,9 @@ class ControllerCoreMember extends Controller
 			$this->data['users'][$i]['text_edit'] = "Edit";
 			$this->data['users'][$i]['link_active'] = $this->url->http('core/member/active&userid='.$this->data['users'][$i]['userid']);
 			if($this->data['users'][$i]['status']=='lock')
-				$this->data['users'][$i]['text_active'] = "Active";
+				$this->data['users'][$i]['text_active'] = "Kích hoạt";
 			else
-				$this->data['users'][$i]['text_active'] = "Lock";
+				$this->data['users'][$i]['text_active'] = "Khóa";
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';

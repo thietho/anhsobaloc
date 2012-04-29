@@ -9,14 +9,14 @@
         	<div class="button right">
                	<?php if($_GET['dialog'] != 'true'){ ?>
                 
-            	<input class="button" type="button" name="delete_all" value="Delete" onclick="deleteUser()"/>  
+            	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteUser()"/>  
                 <?php }?>
             </div>
             <div class="clearer">^&nbsp;</div>
             <div id="ben-search">
             	<p>
-                    <label>User name</label>
-                    <input type="text" id="username	" name="username" class="text"/>
+                    <label>Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" class="text"/>
                     
                     <label>Tên khách hàng</label>
                     <input type="text" id="fullname" name="fullname" class="text"/>
@@ -24,12 +24,14 @@
                     <input type="text" id="phone" name="phone" class="text"/>
                     <label>Địa chỉ</label>
                     <input type="text" id="address" name="address" class="text"/>
+                    <label>Email</label>
+                    <input type="text" id="email" name="email" class="text"/>
                 </p>
                 <p>
                 
                 
                 <label>Tình trạng</label>
-                <select id="tinhtrang" name="tinhtrang">
+                <select id="status" name="status">
                 	<option value=""></option>
                     <?php foreach($this->document->userstatus as $key => $val){ ?>
                     <option value="<?php echo $key?>"><?php echo $val?></option>
@@ -46,11 +48,12 @@
                     <tr class="tr-head">
                         <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
                         
-                        <th width="25%">Tên đăng nhập</th>
-                        <th width="25%">Tên khách hàng</th>
-                        <th width="25%">Số điện thoại</th>
-                        <th width="25%">Địa chỉ</th>
-                        <th width="25%">Trang thái</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                        <th>Trang thái</th>
                         <?php if($_GET['dialog'] != 'true'){ ?>                 
                         <th width="10%">Control</th>                                  
                         <?php } ?>
@@ -68,11 +71,12 @@
                         <td><?php echo $user['fullname']?></td>
                         <td><?php echo $user['phone']?></td>
                         <td><?php echo $user['address']?></td>
+                        <td><?php echo $user['email']?></td>
                 		<td><?php echo $this->document->userstatus[$user['status']]?></td>
                         <?php if($_GET['dialog'] != 'true'){ ?>
                         <td class="link-control">
-                            <a class="button" href="<?php echo $user['link_edit']?>" title="<?php echo $user['text_edit']?>"><?php echo $user['text_edit']?></a>
-                            <a class="button" onclick="activeUser('<?php echo $user['id']?>')" ><?php echo $user['text_active']?></a>
+                            <input type="button" class="button" value="<?php echo $user['text_edit']?>" onclick="window.location='<?php echo $user['link_edit']?>'"/>
+                            <input type="button" class="button" value="<?php echo $user['text_active']?>" onclick="activeUser('<?php echo $user['id']?>')"/>
                         </td>
                         <?php } ?>
                     </tr>
@@ -133,18 +137,18 @@ function searchForm()
 		url += "&phone="+ $("#phone").val();
 	if($("#address").val() != "")
 		url += "&address="+ $("#address").val();
+	if($("#email").val() != "")
+		url += "&email="+ $("#email").val();
 	if($("#status").val() != "")
 		url += "&status="+ $("#status").val();
 	
 	window.location = url;
 }
 
-$("#sobiennhan").val("<?php echo $_GET['sobiennhan']?>");
-$("#tungay").val("<?php echo $_GET['tungay']?>");
-$("#denngay").val("<?php echo $_GET['denngay']?>");
-$("#tenkhachhang").val("<?php echo $_GET['tenkhachhang']?>");
-$("#sodienthoai").val("<?php echo $_GET['sodienthoai']?>");
-$("#sotientu").val("<?php echo $_GET['sotientu']?>");
-$("#sotienden").val("<?php echo $_GET['sotienden']?>");
-$("#tinhtrang").val("<?php echo $_GET['tinhtrang']?>");
+$("#username").val("<?php echo $_GET['username']?>");
+$("#fullname").val("<?php echo $_GET['fullname']?>");
+$("#phone").val("<?php echo $_GET['phone']?>");
+$("#address").val("<?php echo $_GET['address']?>");
+$("#email").val("<?php echo $_GET['email']?>");
+$("#status").val("<?php echo $_GET['status']?>");
 </script>

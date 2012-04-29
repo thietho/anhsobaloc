@@ -260,6 +260,29 @@ class ModelCoreUser extends ModelCoreFile
 		$this->db->updateData("user",$field,$value,$where);
 	}
 	
+	public function deletemember($id)
+	{
+		$id=$this->db->escape(@$id);
+		$deleteddate=$this->date->getToday();
+		$deletedby=$this->user->getId();
+		$userip=$this->db->escape(@$this->request->server['REMOTE_ADDR']);
+		
+		$field=array(
+						
+						'`deleteddate`',
+						'`deletedby`',
+						'`userip`'
+					);
+		$value=array(
+						
+						$deleteddate,
+						$deletedby,
+						$userip
+					);
+		$where="id = '".$id."'";
+		$this->db->updateData("user",$field,$value,$where);
+	}
+	
 	public function deleteusers($data)
 	{
 		foreach($data as $userid)
