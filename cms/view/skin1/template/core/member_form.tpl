@@ -5,10 +5,10 @@
     
     <div class="section-content padding1">
     
-    	<form name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frm" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="Save" class="button"/>
+            	<input type="button" value="Save" class="button" onclick="save()"/>
      	        <input type="button" value="Cancel" class="button" onclick="linkto('<?php echo $cancel?>')"/>   
      	        <input type="hidden" name="id" value="<?php echo $user['id']?>" />   
                 <input type="hidden" name="usertypeid" value="member" />   
@@ -36,7 +36,7 @@
                 
                 <p>
             		<label>Full name</label><br />
-					<input type="text" name="fullname" value="<?php echo $user['fullname']?>" class="text" size=60 />
+					<input type="text" name="fullname" value="<?php echo $user['fullname']?>" class="text" size=60 autocomplete="on" />
                     <i class="error"><?php echo $error['fullname']?></i>
             	</p>
                 <p>

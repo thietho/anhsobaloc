@@ -75,7 +75,7 @@ class ControllerCoreUser extends Controller
 			{
 				$this->request->post['userid'] = $this->request->get['userid'];
 				$this->request->post['birthday'] = $this->date->formatViewDate($this->request->post['birthday']);
-				$this->model_core_user->updateuser($this->request->post);
+				$this->model_core_user->updateUser($this->request->post);
 				$this->session->data['success'] = $this->language->get('text_success');
 				$this->redirect($this->url->http('core/user'));
 			}

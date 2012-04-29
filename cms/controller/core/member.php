@@ -139,7 +139,7 @@ class ControllerCoreMember extends Controller
 		{
 			$this->data['users'][$i] = $rows[$i];
 			$this->data['users'][$i]['link_edit'] = $this->url->http('core/member/update&id='.$this->data['users'][$i]['id']);
-			$this->data['users'][$i]['text_edit'] = "View";
+			$this->data['users'][$i]['text_edit'] = "Edit";
 			$this->data['users'][$i]['link_active'] = $this->url->http('core/member/active&userid='.$this->data['users'][$i]['userid']);
 			if($this->data['users'][$i]['status']=='lock')
 				$this->data['users'][$i]['text_active'] = "Active";
@@ -192,7 +192,7 @@ class ControllerCoreMember extends Controller
 			}
 			else
 			{	
-				$this->model_core_user->insertUser($data);	
+				$this->model_core_user->updateUser($data);	
 			}
 			
 			$this->data['output'] = "true";
