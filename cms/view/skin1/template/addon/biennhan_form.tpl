@@ -7,7 +7,8 @@
     	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         <input type="hidden" name="biennhanid" value="<?php echo $item['biennhanid']?>">	
             <div class="button right">
-                <a class="button save" onclick="save()">Lưu</a>
+                <a class="button save" onclick="save('')">Lưu</a>
+                <a class="button save" onclick="save('print')">Lưu & In</a>
                 <a class="button cancel" href="?route=addon/biennhan">Bỏ qua</a>    
         	</div>
             <div class="clearer">&nbsp;</div>
@@ -48,7 +49,7 @@
                 </p>
                 <p>
                     <label>Ghi chú</label><br />
-                    <textarea name="ghichu"><?php echo $item['ghichu']?></textarea>
+                    <textarea name="ghichu" class="ghichu"><?php echo $item['ghichu']?></textarea>
                 </p>
                 <div class="clearer">&nbsp;</div>
             </div>
@@ -263,7 +264,7 @@ function BienNhan()
 	}
 }
 var biennhan = new BienNhan();
-function save()
+function save(action)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
@@ -272,7 +273,14 @@ function save()
 			var arr = data.split("-");
 			if(arr[0] == "true")
 			{
-				window.location = "?route=addon/biennhan";
+				if(action == 'print')
+				{
+					view(arr[1])
+				}
+				else
+				{
+					window.location = "?route=addon/biennhan";	
+				}
 			}
 			else
 			{
@@ -284,5 +292,32 @@ function save()
 			
 		}
 	);
+}
+function view(biennhanid)
+{
+	$("#popup").attr('title','Chọn khách hàng');
+				$( "#popup" ).dialog({
+					autoOpen: false,
+					show: "blind",
+					hide: "explode",
+					width: 800,
+					height: 500,
+					modal: true,
+					buttons: {
+						'Đóng': function() {
+							$( this ).dialog( "close" );
+							window.location = "?route=addon/biennhan";
+						},
+						'In': function(){
+							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=print",800,500)
+							window.location = "?route=addon/biennhan";
+						},
+					}
+				});
+			
+				
+	$("#popup-content").load("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=true",function(){
+		$("#popup").dialog("open");	
+	});
 }
 </script>

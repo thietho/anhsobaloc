@@ -36,7 +36,9 @@ final class DB {
 	public function getNextIdVarChar($tablename,$tableid,$prefix) {
 		return $this->driver->getNextIdVarChar($tablename,$tableid,$prefix);
   	}
-	
+	public function getNextIdVarCharNumber($tablename,$tableid,$prefix) {
+		return $this->driver->getNextIdVarCharNumber($tablename,$tableid,$prefix);
+	}
 	public function insertData(  
 					  $tablename = NULL, 
 					  $fields = NULL,

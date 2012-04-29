@@ -18,6 +18,11 @@ final class Document {
 	public $text = array();
 	public $setting = array();
 	public $setup = array();
+	public $payment = array(
+							'cash' => 'Tiền mặt',
+							'banking' => 'Chuyển khoản',
+							'visa' => 'Visa'
+							);
 	public $userstatus = array(
 							'active' => "Đang kích hoạt",
 							'lock' => "Đã bị khóa"

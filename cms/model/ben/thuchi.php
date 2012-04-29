@@ -42,9 +42,21 @@ class ModelBenThuchi extends Model
 		return $query->row;
 	}
 	
+	private function createSoPhieu($prefix)
+	{
+		//return $this->db->getNextIdVarChar("ben_thuchi","sophieu",$prefix);	
+		
+		$mun = $this->db->getNextIdVarCharNumber("ben_thuchi","sophieu",$prefix);
+		return $this->string->numberToString($mun,3).$prefix;
+	}
 	
 	public function insert($data)
 	{
+		if($data['prefix'] == "")
+			$data['sophieu']=$this->db->escape(@$data['sophieu']);
+		else
+			$data['sophieu']=$this->createSoPhieu($data['prefix']);
+			
 		$data['ngaylap'] = $this->date->getToday();
 		$data['sotien']=$this->string->toNumber($data['sotien']);
 		

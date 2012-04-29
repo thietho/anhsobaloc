@@ -133,8 +133,6 @@ class ControllerBenPhieuthu extends Controller
 		if ((isset($this->request->get['maphieu'])) ) 
 		{
       		$this->data['item'] = $this->model_ben_thuchi->getItem($this->request->get['maphieu']);
-			$where = " AND maphieu = '".$this->request->get['maphieu']."'";
-			$this->data['data_chitiet'] = $this->model_ben_thuchi->getBienNhanChiTietList($where);
 			
     	}
 		else
@@ -178,58 +176,17 @@ class ControllerBenPhieuthu extends Controller
 		
 		if($this->validateForm($data))
 		{
-			
+			$data['loaithuchi'] = "thu";
+			$data['taikhoanthuchi'] = "thutienkhachhang";
+			$data['prefix'] = "PT";
 			if($data['maphieu']=="")
 			{
-				if($data['khachhangid'] == "")
-				{
-					$this->load->model('core/user');
-					$user['fullname'] = $data['tenkhachhang'];
-					$user['phone'] = $data['sodienthoai'];
-					$user['email'] = $data['email'];
-					$user['address'] = $data['diachi'];
-					$data['khachhangid'] = $this->model_core_user->insertUser($user);
-					
-					$this->model_core_user->updateCol($data['khachhangid'],'status','active');
-					$this->model_core_user->updateCol($data['khachhangid'],'usertypeid','member');
-				}
 				$data['maphieu'] = $this->model_ben_thuchi->insert($data);	
 			}
 			else
 			{
 				$this->model_ben_thuchi->update($data);	
 			}
-			//Xoa chi tiet bien nhan
-			if($data['delchitietid']!="")
-			{
-				$arr_idct = split(',',$data['delchitietid']);
-				foreach($arr_idct as $id)
-				{
-					$this->model_ben_thuchi->deleteBienNhanChiTiet($id);	
-				}
-			}
-			
-			//Luu chi tiet bien nhan
-			$arr_id = $data['id'];
-			$arr_dichvuid = $data['dichvuid'];
-			$arr_sotien = $data['sotien'];
-			$arr_ghichu = $data['ghichuct'];
-			$sum = 0;
-			foreach($arr_dichvuid as $key => $dichvuid)
-			{
-				$ct['id'] = $arr_id[$key];
-				$ct['maphieu'] = $data['maphieu'];
-				$ct['dichvuid'] = $dichvuid;
-				$ct['tendichvu'] = $this->document->getDichVu($dichvuid);
-				$ct['sotien'] = $arr_sotien[$key];
-				$ct['ghichu'] = $arr_ghichu[$key];
-				$ct['ngaylap'] = $data['ngaylap'];
-				$this->model_ben_thuchi->saveBienNhanChiTiet($ct);
-				$sum +=$this->string->toNumber($ct['sotien']);
-			}
-			$tongtien = $sum - $this->string->toNumber($data['giamgia']);
-			$this->model_ben_thuchi->updateCol($data['maphieu'],'tongcong',$sum);
-			$this->model_ben_thuchi->updateCol($data['maphieu'],'tongtien',$tongtien);
 			
 			$this->data['output'] = "true-".$data['maphieu'];
 		}
@@ -254,9 +211,9 @@ class ControllerBenPhieuthu extends Controller
       		$this->error['tenkhachhang'] = "Bạn chưa nhập tên khách hàng";
     	}
 		
-		if (trim($data['sodienthoai']) == "") 
+		if (trim($data['dienthoai']) == "") 
 		{
-      		$this->error['sodienthoai'] = "Bạn chưa nhập tên khách hàng";
+      		$this->error['dienthoai'] = "Bạn chưa nhập số điện thoại khách hàng";
     	}
 		
 		if (trim($data['email']) != "") 

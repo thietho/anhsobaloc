@@ -5,10 +5,13 @@
     <div class="section-content padding1">
     
     	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="biennhanid" value="<?php echo $item['biennhanid']?>">	
+        <input type="hidden" name="maphieu" value="<?php echo $item['maphieu']?>">
+        <input type="hidden" name="sophieu" value="<?php echo $item['sophieu']?>">
+        <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">	
             <div class="button right">
                 <a class="button save" onclick="save()">Lưu</a>
-                <a class="button cancel" href="?route=addon/biennhan">Bỏ qua</a>    
+                <a class="button save" onclick="saveprint()">Lưu & In</a>
+                <a class="button cancel" href="?route=ben/phieuthu">Bỏ qua</a>    
         	</div>
             <div class="clearer">&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
@@ -22,13 +25,13 @@
                 <div class="clearer">&nbsp;</div>
                 <p class="left">
                     <label>Tên khách hàng</label><br />
-                    <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>">
+                    <input type="hidden" id="makhachhang" name="makhachhang" value="<?php echo $item['makhachhang']?>">
                     <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                 </p>
                 
                 <p class="left">
                     <label>Số điện thoại</label><br />
-                    <input type="text" id="sodienthoai" name="sodienthoai" value="<?php echo $item['sodienthoai']?>" class="text" size=60 />
+                    <input type="text" id="dienthoai" name="dienthoai" value="<?php echo $item['dienthoai']?>" class="text" size=60 />
                 </p>
                 <p class="left">
                     <label>Email</label><br />
@@ -41,13 +44,26 @@
                 </p>
                 <div class="clearer">&nbsp;</div>
                 <p>
-                    <label>Ngày hẹn</label><br />
-                    <input type="text" name="ngayhen" value="<?php echo $this->date->formatMySQLDate($item['ngayhen'])?>" class="text ben-datepicker"/>
+                	<label>Số chứng từ:</label><br />
+                    <input type="text" name="chungtulienquan" value="<?php echo $item['chungtulienquan']?>" class="text" size=60/>
+                </p>
+                <p>
+                    <label>Số tiền</label><br />
+                    <input type="text" name="sotien" value="<?php echo $item['sotien']?>" class="text number"/>
+                    <input type="hidden" id="donvi" name="donvi" value="VND" />
                     
                 </p>
                 <p>
-                    <label>Ghi chú</label><br />
-                    <textarea name="ghichu"><?php echo $item['ghichu']?></textarea>
+                	<label>Hình thức thanh toán</label><br />
+                    <select id="hinhthucthanhtoan" name="hinhthucthanhtoan">
+                    <?php foreach($this->document->payment as $key => $val){ ?>
+                    <option value="<?php echo $key?>"><?php echo $val?></option>
+                    <?php } ?>
+                    </select>
+                </p>
+                <p>
+                    <label>Lý do</label><br />
+                    <textarea name="lydo" class="ghichu"><?php echo $item['ghichu']?></textarea>
                 </p>
                 <div class="clearer">&nbsp;</div>
             </div>
@@ -79,9 +95,9 @@ $('#btnSelectKhachHang').click(function(e) {
 								if(this.checked == true)
 								{
                                 	$.getJSON("?route=core/user/getUser&id="+this.value,function(data){
-										$('#khachhangid').val(data.id);
+										$('#makhachhang').val(data.id);
 										$('#tenkhachhang').val(data.fullname);
-										$('#sodienthoai').val(data.phone);
+										$('#dienthoai').val(data.phone);
 										$('#email').val(data.email);
 										$('#diachi').val(data.address);
 										
@@ -106,12 +122,12 @@ function save()
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
-	$.post("?route=addon/biennhan/save", $("#frm").serialize(),
+	$.post("?route=ben/phieuthu/save", $("#frm").serialize(),
 		function(data){
 			var arr = data.split("-");
 			if(arr[0] == "true")
 			{
-				window.location = "?route=addon/biennhan";
+				window.location = "?route=ben/phieuthu";
 			}
 			else
 			{

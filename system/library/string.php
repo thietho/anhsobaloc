@@ -63,6 +63,27 @@ final class String
 		return str_replace(",","",$str);
 	}
 	
+	public function numberToString($num,$leng)
+	{
+		$str = "".$num;
+		$arr = array();
+		for($i=strlen($str)-1;$i>=0;$i--)
+		{
+			array_push($arr,$str[$i]);
+		}
+		
+		while(count($arr)<$leng)
+		{
+			array_push($arr,0);
+		}
+		$s = "";
+		while(count($arr))
+		{
+			$s.=array_pop($arr);	
+		}
+		return $s;
+	}
+	
 	function arrayRemove($arr,$pos)
 	{
 		$ar=array();
@@ -272,7 +293,8 @@ final class String
 		$s="";
 		if(count($arr))
 			foreach($arr as $item)
-				$s.="[".$item."]";
+				if($item!="")
+					$s.="[".$item."]";
 		return $s;
 	}
 	
@@ -431,16 +453,10 @@ final class String
 		$s="";
 		for($i=0;$i < strlen($str) ; $i++)
 		{
-			
-			if(ord($str[$i])!=32)
-			{
-				if((ord($str[$i])>=97 && ord($str[$i])<= 122 && ord($str[$i])!=32) || (ord($str[$i])>=48 && ord($str[$i])<= 57))
-					$s .= $str[$i];
-				else 
-					$s .="";
-			}
-			else
-				$s.=" ";
+			if((ord($str[$i])>=97 && ord($str[$i])<= 122) || (ord($str[$i])>=48 && ord($str[$i])<= 57))
+				$s .= $str[$i];
+			else 
+				$s .=" ";				
 		}
 		
 		return $s;
@@ -706,5 +722,16 @@ final class String
 		return "Số quá lớn!";
 		}
 	} 
+	
+	public function showStar($n)
+	{
+		$str = "";
+		for($i=0;$i<$n;$i++)
+		{
+			$str.= '<img src="'.HTTP_SERVER.DIR_IMAGE.'star.png">';
+		}
+		return $str;
+	}
+	
 }	
 ?>
