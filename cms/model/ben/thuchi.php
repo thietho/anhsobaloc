@@ -65,7 +65,7 @@ class ModelBenThuchi extends Model
 			if($val!="")
 			{
 				$field[] = $val;
-				$value[] = $this->db->escape($data[$val]);	
+				$value[] = $this->db->escape($data[$val]);				
 			}
 		}
 		

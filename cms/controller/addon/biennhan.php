@@ -5,7 +5,7 @@ class ControllerAddonBiennhan extends Controller
    	function __construct() 
 	{
 	 	$this->load->model("addon/biennhan");
-		
+		$this->load->model("ben/thuchi");
    	}
 	
 	public function index()
@@ -193,11 +193,37 @@ class ControllerAddonBiennhan extends Controller
 					$this->model_core_user->updateCol($data['khachhangid'],'status','active');
 					$this->model_core_user->updateCol($data['khachhangid'],'usertypeid','member');
 				}
-				$data['biennhanid'] = $this->model_addon_biennhan->insert($data);	
+				$data['biennhanid'] = $this->model_addon_biennhan->insert($data);
 			}
 			else
 			{
 				$this->model_addon_biennhan->update($data);	
+			}
+			if($data['tamung']>0 )
+			{
+				$biennhan = $this->model_addon_biennhan->getItem($data['biennhanid']);
+				if($biennhan['maphieuthutamung']=="")
+				{
+					//Xuat phieu thu tien tam ung
+					$phieuthu['prefix'] = "PT";
+					$phieuthu['loaithuchi'] = "thu";
+					$phieuthu['taikhoanthuchi'] = "thutamungbienlai";
+					$phieuthu['chungtulienquan'] = $biennhan['sobiennhan'];
+					$phieuthu['makhachhang'] = $biennhan['khachhangid'];
+					$phieuthu['tenkhachhang'] = $biennhan['tenkhachhang'];
+					$phieuthu['diachi'] = $biennhan['diachi'];
+					$phieuthu['email'] = $biennhan['sobiennhan'];
+					$phieuthu['dienthoai'] = $biennhan['sodienthoai'];
+					$phieuthu['email'] = $biennhan['email'];
+					$phieuthu['sotien'] = $biennhan['tamung'];
+					$phieuthu['donvi'] = 'VND';
+					$phieuthu['quidoi'] = $this->document->toVND($this->string->toNumber($phieuthu['sotien']),$phieuthu['donvi']);
+					$phieuthu['lydo'] = "Thu tiền tạm ứng";
+					$phieuthu['nguongoc'] = $biennhan['biennhanid'];
+					$phieuthu['maphieu'] = $this->model_ben_thuchi->insert($phieuthu);	
+					
+					$this->model_addon_biennhan->updateCol($biennhan['biennhanid'],"maphieuthutamung",$phieuthu['maphieu']);
+				}
 			}
 			//Xoa chi tiet bien nhan
 			if($data['delchitietid']!="")

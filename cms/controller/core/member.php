@@ -211,6 +211,8 @@ class ControllerCoreMember extends Controller
 	{
 		if($id=="")
 			$id=$this->request->get['khachhangid'];
+			
+		$this->data['user'] = $this->model_core_user->getId($id);
 		//Lay tat ca phieu thu
 		$where = " AND makhachhang = '".$id."' AND loaithuchi = 'thu'";
 		$this->data['data_phieuthu'] = $this->model_ben_thuchi->getList($where);
