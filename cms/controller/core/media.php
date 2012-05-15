@@ -163,7 +163,7 @@ class ControllerCoreMedia extends Controller
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
 		$this->template="core/media_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

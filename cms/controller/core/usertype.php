@@ -165,7 +165,7 @@
 			
 			
 			$this->template="core/usertype_list.tpl";
-			$this->layout="layout/center";	
+			$this->layout=$this->user->getLayout();	
 		}
 		
 	
@@ -186,7 +186,7 @@
 			$this->data['modules'] = $this->model_core_sitemap->getModuleAddons();
 			
 			$this->template = 'core/usertype_form.tpl';
-			$this->layout="layout/center";
+			$this->layout=$this->user->getLayout();
 		}
 	
 		function cache()

@@ -6,7 +6,7 @@ class ControllerModuleInformation extends Controller
 		$this->id='content';
 		$this->data['output'] = $this->loadModule('core/postcontent');
 		$this->template='common/output.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

@@ -121,7 +121,7 @@ class ControllerAddonBiennhan extends Controller
 		
 		$this->id='content';
 		$this->template="addon/biennhan_list.tpl";
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -144,7 +144,7 @@ class ControllerAddonBiennhan extends Controller
 		
 		$this->id='content';
 		$this->template='addon/biennhan_form.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

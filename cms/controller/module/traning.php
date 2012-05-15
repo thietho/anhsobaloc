@@ -155,7 +155,7 @@ class ControllerModuleTraning extends Controller
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
 		$this->template="module/traning_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		if($this->request->get['opendialog']=='true')
 		{
 			$this->layout="layout/dialog";
@@ -191,7 +191,7 @@ class ControllerModuleTraning extends Controller
 		
 		$this->id='content';
 		$this->template='module/traning_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

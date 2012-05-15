@@ -112,7 +112,7 @@ class ControllerCoreModule extends Controller
 		$this->data['fromtitle']="Danh sách các module";
 		$this->id='content';
 		$this->template='core/module_list.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -132,7 +132,7 @@ class ControllerCoreModule extends Controller
 		$this->data['status']=$this->model_core_module->listStatus();
 		$this->id='content';
 		$this->template='core/module_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

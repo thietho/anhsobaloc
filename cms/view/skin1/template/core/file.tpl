@@ -4,7 +4,12 @@
 .tb-tree{}
 .tb-tree input{margin-right:3px;}
 .tb-tree label{font-size:0.9em}
-#result div img{vertical-align:middle;margin-bottom:2px;}
+#result div img{vertical-align:middle;margin-bottom:2px; }
+.filelist
+{
+	width:130px;
+	height:160px;
+}
 .tb-tree .td-selected{}
 .td-selected #selected img{vertical-align:top;margin-bottom:2px;}
 
@@ -40,10 +45,8 @@
         </td>
     </tr>
     <tr valign="top">
-    	<td width="34%" class="tb-tree">
-        	<?php echo $sitemap?>
-        </td>
-        <td width="40%" id="result" style="vertical-align:top !important">
+    	
+        <td id="result" style="vertical-align:top !important">
         	Loading...
         </td>
         <td width="26%" style="vertical-align:top !important" class="td-selected">

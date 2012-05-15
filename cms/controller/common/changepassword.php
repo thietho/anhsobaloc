@@ -7,7 +7,7 @@ class ControllerCommonChangepassword extends Controller
 		
 		$this->id='content';
 		$this->template='common/changepassword.tpl';
-		$this->layout='layout/center';	
+		$this->layout=$this->user->getLayout();	
 		$this->render();
 	}
 	

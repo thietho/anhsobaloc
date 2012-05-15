@@ -27,7 +27,7 @@ class ControllerSitebarCatalogue extends Controller
 		{
 			$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid, $status);
 			
-			$link = "<a class='left'>".$item['sitemapname']."</a>";
+			$link = "<a>".$item['sitemapname']."</a>";
 			
 			if(substr($item['moduleid'],0,6) == "group/")
 			{
@@ -47,7 +47,7 @@ class ControllerSitebarCatalogue extends Controller
 			
 			if(count($childs) > 0)
 			{
-				$str .= "<span class='collape right'>[+]</span>";
+				$str .= "<span class='collape ben-right'>[+]</span>";
 				$str .= '<div class="clearer">&nbsp;</div>';
 				$str .= "</div>";
 				

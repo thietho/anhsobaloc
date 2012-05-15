@@ -8,7 +8,7 @@ class ControllerCoreBackup extends Controller
 		$this->data['output'] = "";
 		$this->id="content";
 		$this->template="common/output.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 }

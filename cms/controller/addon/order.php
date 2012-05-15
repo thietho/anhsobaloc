@@ -47,7 +47,7 @@ class ControllerAddonOrder extends Controller
 		
 		$this->id='content';
 		$this->template="addon/order_form.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -99,7 +99,7 @@ class ControllerAddonOrder extends Controller
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
 		$this->template="addon/order_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

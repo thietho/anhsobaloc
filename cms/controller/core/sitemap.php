@@ -77,7 +77,7 @@ class ControllerCoreSitemap extends Controller
 
 		$this->id='content';
 		$this->template='core/sitemap_list.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -258,7 +258,7 @@ class ControllerCoreSitemap extends Controller
 		
 		$this->id='content';
 		$this->template='core/sitemap_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

@@ -121,7 +121,7 @@ class ControllerCoreMessage extends Controller
 		
 		$this->id='content';
 		$this->template='core/message_view.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -135,7 +135,7 @@ class ControllerCoreMessage extends Controller
 		$this->data['user'] = $this->model_core_user->getList($where);
 		$this->id='content';
 		$this->template='core/finecontact.tpl';
-		//$this->layout="layout/center";
+		//$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -199,7 +199,7 @@ class ControllerCoreMessage extends Controller
 		}
 		$this->id='content';
 		$this->template="core/message_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -227,7 +227,7 @@ class ControllerCoreMessage extends Controller
 		
 		$this->id='content';
 		$this->template='core/message_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

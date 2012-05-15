@@ -7,10 +7,3 @@
                             </ul>
                         </div>
                     </div>
-<script language="javascript">
-$(document).ready(function(){
-	<?php foreach($path as $item){ ?>
-	$("#<?php echo $item['sitemapid']?>").show();
-	<?php } ?>
-});
-</script>

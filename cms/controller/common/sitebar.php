@@ -6,7 +6,7 @@ class ControllerCommonSitebar extends Controller
 		$this->getForm();
 		$this->id='content';
 		$this->template='common/sitebar.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

@@ -156,7 +156,7 @@ class ControllerCoreUser extends Controller
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
 		$this->template="core/user_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -194,7 +194,7 @@ class ControllerCoreUser extends Controller
 		
 		$this->id='content';
 		$this->template='core/user_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

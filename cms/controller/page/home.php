@@ -5,7 +5,7 @@
 		{
 			$this->id="content";
 			$this->template="page/home.tpl";
-			$this->layout="layout/center";
+			$this->layout=$this->user->getLayout();
 			$this->response->redirect('?route=core/message');
 			$this->render();
 		}

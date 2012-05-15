@@ -642,7 +642,7 @@ ul#menu li {
 }
 
 ul#menu li div {
-  background: #666666;
+  background: #367c15;
   color: #FFF;	
   padding: 0.4em;
 }
@@ -667,7 +667,7 @@ ul#menu li ul li div {
 }
 
 ul#menu li ul li a {
-  color: #FFF;
+  color: #000;
 }
 
 ul#menu li ul li ul li div {

@@ -131,7 +131,7 @@ class ControllerCoreMember extends Controller
 		
 		$this->id='content';
 		$this->template="core/member_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		if($_GET['dialog'] == "true")
 			$this->layout="";
 		
@@ -268,7 +268,7 @@ class ControllerCoreMember extends Controller
 		
 		$this->id='content';
 		$this->template='core/member_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

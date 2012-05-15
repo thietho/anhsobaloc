@@ -125,7 +125,7 @@ class ControllerCoreSite extends Controller
 		
 		$this->id='content';
 		$this->template="core/site_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -155,7 +155,7 @@ class ControllerCoreSite extends Controller
 		
 		$this->id='content';
 		$this->template='core/site_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

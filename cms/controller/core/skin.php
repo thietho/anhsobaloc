@@ -52,7 +52,7 @@ class ControllerCoreSkin extends Controller
 		
 		$this->id='content';
 		$this->template="core/skin_list.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -91,7 +91,7 @@ class ControllerCoreSkin extends Controller
 		
 		$this->id='content';
 		$this->template="core/skin_form.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

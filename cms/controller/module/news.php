@@ -16,7 +16,7 @@ class ControllerModuleNews extends Controller
 		}
 		
 		$this->template='common/output.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -25,7 +25,7 @@ class ControllerModuleNews extends Controller
 		$this->data['output'] = $this->loadModule('core/postcontent');
 		$this->id='content';
 		$this->template='common/output.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -34,7 +34,7 @@ class ControllerModuleNews extends Controller
 		$this->data['output'] = $this->loadModule('core/postcontent');
 		$this->id='content';
 		$this->template='common/output.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 }

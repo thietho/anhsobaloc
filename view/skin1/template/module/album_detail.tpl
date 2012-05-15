@@ -73,3 +73,14 @@
         </div>
     </div>
 </div>
+<script language="javascript">
+$(document).ready(function(e) {
+	var width =0;
+    $('#gallery li').each(function(index, element) {
+        
+		width += $(this).outerWidth();
+    });
+	
+	$('#gallery ul').css('width',width+"px");
+});
+</script>

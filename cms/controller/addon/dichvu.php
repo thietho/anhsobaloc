@@ -83,7 +83,7 @@ class ControllerAddonDichvu extends Controller
 		
 		$this->id='content';
 		$this->template="addon/dichvu_list.tpl";
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -101,7 +101,7 @@ class ControllerAddonDichvu extends Controller
 		
 		$this->id='content';
 		$this->template='addon/dichvu_form.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

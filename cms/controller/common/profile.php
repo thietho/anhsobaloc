@@ -25,7 +25,7 @@
 		{
 			$this->id='content';
 			$this->template='common/profile.tpl';
-			$this->layout='layout/center';	
+			$this->layout=$this->user->getLayout();	
 			$this->render();
 		}
 		

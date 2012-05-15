@@ -6,7 +6,7 @@ class ControllerCommonDashboard extends Controller
 		$this->getForm();
 		$this->id='content';
 		$this->template='common/dashboard.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

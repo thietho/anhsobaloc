@@ -121,7 +121,7 @@ class ControllerBenPhieuthu extends Controller
 		
 		$this->id='content';
 		$this->template="ben/phieuthu_list.tpl";
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}
@@ -142,7 +142,7 @@ class ControllerBenPhieuthu extends Controller
 		
 		$this->id='content';
 		$this->template='ben/phieuthu_form.tpl';
-		$this->layout='layout/center';
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

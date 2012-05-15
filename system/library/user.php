@@ -261,7 +261,19 @@ final class User {
 		return $this->permission;
 	}
 	
-	
+	public function getLayout()
+	{
+		
+		switch($this->getUserTypeId())
+		{
+			case 'user':
+				$layout="layout/user";
+				break;
+			case 'admin':
+				$layout="layout/center";
+		}
+		return $layout;
+	}
 	
 //BENGIN PERMISSION JSON
 	

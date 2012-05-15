@@ -30,7 +30,7 @@ class ControllerModuleLocation extends Controller
 		$this->getForm();
 		$this->id='content';
 		$this->template="module/location_form.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

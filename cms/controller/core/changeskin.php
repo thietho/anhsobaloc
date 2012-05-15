@@ -42,7 +42,7 @@ class ControllerCoreChangeskin extends Controller
 		$this->getList();
 		$this->id='content';
 		$this->template="core/changeskin.tpl";
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	

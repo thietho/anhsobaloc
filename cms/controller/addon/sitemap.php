@@ -112,7 +112,7 @@ class ControllerAddonSitemap extends Controller
 
 		$this->id='content';
 		$this->template='addon/sitemap_list.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
@@ -258,7 +258,7 @@ class ControllerAddonSitemap extends Controller
 		
 		$this->id='content';
 		$this->template='addon/sitemap_form.tpl';
-		$this->layout="layout/center";
+		$this->layout=$this->user->getLayout();
 		
 		$this->render();
 	}

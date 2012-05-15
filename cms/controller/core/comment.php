@@ -55,7 +55,7 @@ class ControllerCoreComment extends Controller
 		$this->id='content';
 		$this->template='core/comment_list.tpl';
 		if($this->data['ispopup'] == "")
-			$this->layout="layout/center";
+			$this->layout=$this->user->getLayout();
 		$this->render();
 	}
 	
