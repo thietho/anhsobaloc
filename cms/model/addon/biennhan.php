@@ -194,6 +194,12 @@ class ModelAddonBiennhan extends Model
 		$where="id = '".$id."'";
 		$this->db->deleteData('qlb_biennhanchitiet',$where);
 	}
-	
+	//Thu chi
+	public function getDatra($biennhanid)
+	{
+		$sql = "SELECT sum(quidoi) as datra FROM `ben_thuchi` WHERE taikhoanthuchi = 'thutienbienlai' AND nguongoc = '".$biennhanid."'";
+		$query = $this->db->query($sql);
+		return $query->row['datra'];
+	}
 }
 ?>

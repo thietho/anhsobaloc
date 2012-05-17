@@ -114,7 +114,7 @@ class ControllerAddonBiennhan extends Controller
 			$this->data['datas'][$i] = $rows[$i];
 			$this->data['datas'][$i]['link_edit'] = $this->url->http('addon/biennhan/update&biennhanid='.$this->data['datas'][$i]['biennhanid']);
 			$this->data['datas'][$i]['text_edit'] = "Edit";
-			
+			$this->data['datas'][$i]['datra'] = $this->model_addon_biennhan->getDatra($this->data['datas'][$i]['biennhanid']);
 			
 			
 		}
@@ -150,9 +150,13 @@ class ControllerAddonBiennhan extends Controller
 	
 	public function view()
 	{
-		$this->data['item'] = $this->model_addon_biennhan->getItem($this->request->get['biennhanid']);
+		$biennhanid = $this->request->get['biennhanid'];
+		$this->data['item'] = $this->model_addon_biennhan->getItem($biennhanid);
 		$where = " AND biennhanid = '".$this->request->get['biennhanid']."'";
 		$this->data['data_chitiet'] = $this->model_addon_biennhan->getBienNhanChiTietList($where);
+		//Da tra
+		$this->data['datra'] = $this->model_addon_biennhan->getDatra($biennhanid);
+		
 		$this->id='content';
 		$this->template='addon/biennhan_view.tpl';
 		if($_GET['dialog']=='print')
@@ -170,6 +174,65 @@ class ControllerAddonBiennhan extends Controller
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
+	}
+	
+	public function thanhtoan()
+	{
+		$data = $this->request->post;
+		
+		if($this->validateFormThanhToan($data))
+		{
+						
+			$biennhan = $this->model_addon_biennhan->getItem($data['biennhanid']);
+			
+			//Xuat phieu thu tien tam ung
+			$phieuthu['prefix'] = "PT";
+			$phieuthu['loaithuchi'] = "thu";
+			$phieuthu['taikhoanthuchi'] = "thutienbienlai";
+			$phieuthu['chungtulienquan'] = $biennhan['sobiennhan'];
+			$phieuthu['makhachhang'] = $biennhan['khachhangid'];
+			$phieuthu['tenkhachhang'] = $biennhan['tenkhachhang'];
+			$phieuthu['diachi'] = $biennhan['diachi'];
+			$phieuthu['email'] = $biennhan['sobiennhan'];
+			$phieuthu['dienthoai'] = $biennhan['sodienthoai'];
+			$phieuthu['email'] = $biennhan['email'];
+			$phieuthu['sotien'] = $this->string->toNumber($data['thanhtoan']);
+			$phieuthu['donvi'] = 'VND';
+			$phieuthu['quidoi'] = $this->document->toVND($this->string->toNumber($phieuthu['sotien']),$phieuthu['donvi']);
+			$phieuthu['lydo'] = "Thu tiền biên nhận ".$biennhan['sobiennhan'];
+			$phieuthu['nguongoc'] = $biennhan['biennhanid'];
+			$phieuthu['maphieu'] = $this->model_ben_thuchi->insert($phieuthu);	
+				
+			
+			$this->data['output'] = "true";
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$this->data['output'] .= $item."\n";
+			}
+		}
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	private function validateFormThanhToan($data)
+	{
+		$biennhan = $this->model_addon_biennhan->getItem($data['biennhanid']);
+		if (trim($data['thanhtoan']) == 0) 
+		{
+      		$this->error['thanhtoan'] = "Bạn chưa nhập số tiền thanh toán";
+    	}
+		
+		
+		if (count($this->error)==0) {
+	  		return TRUE;
+		} else {
+	  		return FALSE;
+		}
 	}
 	
 	public function save()
@@ -215,7 +278,7 @@ class ControllerAddonBiennhan extends Controller
 					$phieuthu['email'] = $biennhan['sobiennhan'];
 					$phieuthu['dienthoai'] = $biennhan['sodienthoai'];
 					$phieuthu['email'] = $biennhan['email'];
-					$phieuthu['sotien'] = $biennhan['tamung'];
+					$phieuthu['sotien'] = $this->string->toNumber($biennhan['tamung']);
 					$phieuthu['donvi'] = 'VND';
 					$phieuthu['quidoi'] = $this->document->toVND($this->string->toNumber($phieuthu['sotien']),$phieuthu['donvi']);
 					$phieuthu['lydo'] = "Thu tiền tạm ứng";

@@ -59,6 +59,7 @@
                         <th>Số điện thoại</th>
                         <th>Tổng số tiền</th>
                         <th>Tạm ứng</th>
+                        <th>Đã trả</th>
                         <th>Còn lại</th>
                         <th>Tình trạng</th>
                         <th></th>                                  
@@ -78,7 +79,10 @@
                         <td><?php echo $item['sodienthoai']?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tamung'])?></td>
-                        <td class="number"><?php echo $this->string->numberFormate($item['tongtien']-$item['tamung'])?></td>
+                        <td class="number"><?php echo $this->string->numberFormate($item['datra'])?></td>
+                        <td class="number">
+                        	<?php echo $this->string->numberFormate($item['tongtien']-$item['tamung']-$item['datra'])?>
+                        </td>
                         <td><?php echo $this->document->tinhtrangbiennhan[$item['tinhtrang']]?></td>
                         
                 		

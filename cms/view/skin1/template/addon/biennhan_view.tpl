@@ -1,3 +1,6 @@
+<?php
+	$conlai = $item['tongtien']-$item['tamung'] - $datra
+?>
 <h3 style="text-align:center">Biên nhận</h3>
 <p>
 	<label>Số:</label> <?php echo $item['sobiennhan']?>
@@ -25,6 +28,7 @@
         <?php } ?>
     </select>
 <script language="javascript">
+
 $('#cbtinhtrang').val("<?php echo $item['tinhtrang']?>");
 $('#cbtinhtrang').change(function(e) {
     $.post("?route=addon/biennhan/updateTinhTrang",{biennhanid:"<?php echo $item['biennhanid']?>",tinhtrang:$(this).val()},function(data){
@@ -34,6 +38,41 @@ $('#cbtinhtrang').change(function(e) {
 		}
 	})
 });	
+</script>
+	<?php if($conlai){ ?>
+	<label>Thanh toán</label>
+    <input type="text" class="text number" id="txt_thanhtoan" />
+    <input type="button" class="button" id="btnThanhToan" value="Thanh toán" />
+    <?php } ?>
+<script language="javascript">
+var conlai = Number("<?php echo $conlai?>");
+$('#btnThanhToan').click(function(e) {
+	var thanhtoan = Number($('#txt_thanhtoan').val().replace(/,/g,""));
+	if(thanhtoan > conlai)
+	{
+		alert("Số tiền thanh toán đã vượt quá còn lại");
+		return false;
+	}
+    $.post("?route=addon/biennhan/thanhtoan",
+		
+		{biennhanid:"<?php echo $item['biennhanid']?>",thanhtoan:$('#txt_thanhtoan').val()},
+		function(data)
+		{
+			if(data=='true')
+			{
+				alert('Thanh toán thành công');
+				$("#popup-content").load("?route=addon/biennhan/view&biennhanid=<?php echo $item['biennhanid']?>&dialog=true");
+			}
+			else
+			{
+				alert(data);	
+			}
+		}
+	);
+});
+$(document).ready(function(e) {
+    numberReady();
+});
 </script>
 </p>
 <?php } ?>
@@ -89,10 +128,18 @@ $('#cbtinhtrang').change(function(e) {
                             <td class="number"><?php echo $this->string->numberFormate($item['tamung'])?></td>
                             
                         </tr>
+                        <?php if($datra){ ?>
+                        <tr>
+                        	
+                            <td class="text-right">Đã trả:</td>
+                            <td class="number"><?php echo $this->string->numberFormate($datra)?></td>
+                            
+                        </tr>
+                        <?php } ?>
                         <tr>
                         	
                             <td class="text-right">Còn lại:</td>
-                            <td class="number"><?php echo $this->string->numberFormate($item['tongtien']-$item['tamung'])?></td>
+                            <td class="number"><?php echo $this->string->numberFormate($conlai)?></td>
                             
                         </tr>
                     </tfoot>
