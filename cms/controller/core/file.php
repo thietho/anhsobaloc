@@ -13,6 +13,11 @@ class ControllerCoreFile extends Controller
 		$this->data['DIR_UPLOADATTACHMENT'] = HTTP_SERVER."index.php?route=common/uploadattachment";
 		$this->id='content';
 		$this->template="core/file.tpl";
+		if($_GET['dialog'] == '')
+		{
+			$this->template="core/file_list.tpl";
+			$this->layout="layout/center";
+		}
 		$this->render();
 	}
 
@@ -40,7 +45,7 @@ class ControllerCoreFile extends Controller
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
-		$limit = 20;
+		$limit = 28;
 		$total = count($rows); 
 		// work out the pager values 
 		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page); 
@@ -59,15 +64,12 @@ class ControllerCoreFile extends Controller
 			$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['files'][$i]['filepath'], 130, 130);
 			if(!$this->string->isImage($this->data['files'][$i]['extension']))
 				$this->data['files'][$i]['imagethumbnail'] = DIR_IMAGE."icon/dinhkem.png";
-			$this->data['output'].='<div class="filelist left text-center" id="image'.$this->data['files'][$i]['fileid'].'" ondblclick="selectFile('.$this->data['files'][$i]['fileid'].')">
-										<img src="'.$this->data['files'][$i]['imagethumbnail'].'" />
-										'.$this->data['files'][$i]['filename'].'
-									</div>';
+			
 		}
-		$this->data['output'].= '<div class="clearer">^&nbsp;</div>';
+		
 		$this->data['output'].=$this->data['pager'];
 		$this->id='content';
-		$this->template="common/output.tpl";
+		$this->template="core/file_grid.tpl";
 		$this->render();
 	}
 	
@@ -86,6 +88,17 @@ class ControllerCoreFile extends Controller
 		else
 			$file['imagepreview'] = DIR_IMAGE."icon/dinhkem.png";
 		$this->data['output'] = json_encode(array('file' => $file));
+		$this->id='post';
+		$this->template="common/output.tpl";
+		$this->render();
+	}
+	public function delFile()
+	{
+		$this->load->model("core/file");
+		$fileid = $this->request->get['fileid'];
+		$this->model_core_file->deleteFile($fileid);
+		
+		$this->data['output'] = "true";
 		$this->id='post';
 		$this->template="common/output.tpl";
 		$this->render();

@@ -101,7 +101,16 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                         
-                       
+                       	<?php if($hasEvent) {?>
+                        <p>
+                            <label>Ngày</label><br>
+                            <input class="text ben-datepicker" type="text" name="eventdate" value="<?php echo $this->date->formatMySQLDate($eventdate)?>" />
+                        </p>
+                        <p>
+                            <label>Thời gian</label><br>
+                            <input class="text" type="text" name="eventtime" value="<?php echo $eventtime?>" />
+                        </p>
+                        <?php } ?>
                     	<?php if($hasPrice) {?>
                         <p>
                             <label><?php echo $text_price?></label><br>
@@ -181,28 +190,12 @@ $(document).ready(function(e) {
                 
                 </div>
                 
+
             </div>
             <div id="fragment-properties">
             	<div>
                 	
-                	<p>
-                    	<label>Perfumes</label><br />
-                        <select name="nhomhuong">
-                        	<option value=""></option>
-                        	<?php foreach($nhomhuong as $it){ ?>
-                        	<option value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'selected="selected"':''; ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
-                        	<?php } ?>
-                        </select>
-                    </p>
-                    <p>
-                    	<label>Brand</label><br />
-                        <select name="nhanhieu">
-                        	<option value=""></option>
-                        	<?php foreach($nhanhieu as $it){ ?>
-                        	<option value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'selected="selected"':''; ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
-                        	<?php } ?>
-                        </select>
-                    </p>
+                	
                     <p>
                     	<label><?php echo $text_status?></label>
                         <?php foreach($statuspro as $it){ ?>
@@ -229,7 +222,7 @@ $(document).ready(function(e) {
             <div id="fragment-video">
                     <p id="pnVideo">
                         <label for="file">File</label><br />
-                        <a id="btnAddVideo" class="button">Select file</a><br />
+                        <a onclick="browserFile()" class="button">Select file</a><br />
                         <span id="filename"><?php echo $filepath?></span>
                         <input type="hidden" id="filepath" name="filepath" value="<?php echo $filepath?>" />
                         <input type="hidden" id="fileid" name="fileid" value="<?php echo $fileid?>" />
@@ -332,7 +325,7 @@ function editeSubInfor(mediaid)
 
 function removeSubInfor(mediaid)
 {
-	//$.blockUI({ message: "<h1>Please wait...</h1>" });
+	//$.blockUI({ message: "<h1>Đang xử lý...</h1>" });
 	$.ajax({
 		url: "?route=core/postcontent/removeSubImage&mediaid="+mediaid, 
 		cache: false,
@@ -354,38 +347,6 @@ $(document).ready(function() {
             <?php }?>
             <?php if($hasTabImages){ ?>
             <div id="fragment-images">
-            	<p>
-            		<a class="button" onclick="galery.browsFie()">Chọn hình</a>
-                </p>
-                <table>
-                	<thead>
-                    	<tr>
-                        	<th>Title</th>
-                            <th>Detail</th>
-                            <th>Images</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
-<script language="javascript">
-function Gallery()
-{
-	this.index = 0;
-	this.browsFie = function()
-	{
-		$('#handler').val('listimages');
-		$('#outputtype').val('images');
-		showPopup("#popup", 800, 500);
-		$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-		$("#popup").load("?route=core/file")
-	}
-	this.addImage(mediaid)
-	{
-		
-	}
-}
-var galery = new Gallery();
-</script>
             </div>
             <?php } ?>
             <?php if($hasTabVideos){ ?>
@@ -517,7 +478,7 @@ function Price()
 	}
 	this.remove = function(mediaid)
 	{
-		//$.blockUI({ message: "<h1>Please wait...</h1>" });
+		//$.blockUI({ message: "<h1>Đang xử lý...</h1>" });
 		$.ajax({
 			url: "?route=core/postcontent/removeSubImage&mediaid="+mediaid, 
 			cache: false,
@@ -629,7 +590,7 @@ $(document).ready(function(e) {
 <script type="text/javascript" charset="utf-8">
 function save()
 {
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	var oEditor = CKEDITOR.instances['editor1'] ;
 	var pageValue = oEditor.getData();
 	$('textarea#editor1').val(pageValue);
@@ -676,32 +637,41 @@ $(document).ready(function() {
 <script src="<?php echo DIR_JS?>uploadattament.js" type="text/javascript"></script>
 <?php } ?>
 <?php }?>
-<?php if($hasVideo) {?>
-<script src="<?php echo DIR_JS?>uploadvideo.js" type="text/javascript"></script>
-<?php }?>
+
 
 <script language="javascript">
 
 
 function browserFileImage()
 {
-    //var re = openDialog("?route=core/file",800,500);
+    //var re = openDialog("?route=core/file&dialog=true",800,500);
 	$('#handler').val('image');
 	$('#outputtype').val('image');
 	showPopup("#popup", 800, 500);
 	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file")
+	$("#popup").load("?route=core/file&dialog=true")
+		
+}
+
+function browserFile()
+{
+    //var re = openDialog("?route=core/file&dialog=true",800,500);
+	$('#handler').val('file');
+	$('#outputtype').val('file');
+	showPopup("#popup", 800, 500);
+	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
+	$("#popup").load("?route=core/file&dialog=true")
 		
 }
 
 function browserFileEditor()
 {
-    //var re = openDialog("?route=core/file",800,500);
+    //var re = openDialog("?route=core/file&dialog=true",800,500);
 	$('#handler').val('editor1');
 	$('#outputtype').val('editor');
 	showPopup("#popup", 800, 500);
 	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file")
+	$("#popup").load("?route=core/file&dialog=true")
 		
 }
 
@@ -752,12 +722,22 @@ function addImageTo()
 							
 							
 							break;
-						case 'images':
+						case 'file':
 							var handler = $('#handler').val();
-							alert(data.file.filepath)
+							$('#'+handler+'id').val(data.file.fileid);
+							$('#'+handler+'path').val(data.file.filepath);
+							$('#'+handler+'name').html(data.file.filename);
+							
+							/*$.getJSON("?route=core/file/getFile&fileid="+data.file.fileid+"&width=200", 
+							function(file) 
+							{
+								$('#'+handler+'thumbnail').val(file.file.imagepreview)
+								$('#'+handler+'preview').attr('src',file.file.imagepreview)
+							});*/
 							
 							
 							break;
+						
 					}
 				});
 		}

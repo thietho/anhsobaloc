@@ -1,15 +1,13 @@
 <script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
 
 
-
-
 <form id="ffile" name="ffile" method="post">
 
 <table width="100%" class="data-table">
 	<tr>
         <td colspan="3">
      		<input type="hidden" name="sitemap" id="sitemap" value="" />
-      		<strong>Keyword</strong> <input type="text" name="keyword" id="keyword" class="text" />&nbsp;&nbsp;
+      		<strong>Tên file</strong> <input type="text" name="keyword" id="keyword" class="text" />&nbsp;&nbsp;
             
             
             			
@@ -25,6 +23,7 @@
                 <a id="btnAddImagePopup" class="button">Select file</a><br />
                 
                 <div id="errorupload" class="error" style="display:none"></div>
+                <input type="button" class="button" id="btnDelFile" value="Xóa file"/>
             </p>
         </td>
     </tr>
@@ -33,12 +32,7 @@
         <td id="result" style="vertical-align:top !important">
         	Loading...
         </td>
-        <td width="26%" style="vertical-align:top !important" class="td-selected">
-        	<div id="selected">
-            </div><br />
-
-            <input type="button" class="button" name="btnSelect" value="OK" onclick="saveSelect()"/>
-        </td>
+        
     </tr>
 </table>
 </form>
@@ -50,7 +44,7 @@
 <script language="javascript">
 //alert(parent.opener.document.InsertContent.title.value);
 $(document).ready(function() {
-  	$("#result").load("?route=core/file/getList");
+  	$("#result").load("?route=core/file/getList&edit=true");
 	
 	$(".checkbox").click(function(index){
 		//alert($(this).val());
@@ -65,12 +59,20 @@ $(document).ready(function() {
 		$("#sitemap").val(temp);
 	});
 });
-
+var arrfileid = new Array();
 $("#btnfilter").click(function(){
 	
-	url = "?route=core/file/getList&keyword="+escape($("#keyword").val())+"&location="+$("#location").val()+"&sitemap="+$("#sitemap").val();
+	url = "?route=core/file/getList&edit=true&keyword="+escape($("#keyword").val())+"&location="+$("#location").val()+"&sitemap="+$("#sitemap").val();
 	$("#result").load(url);						   
 })
+$('#btnDelFile').click(function(e) {
+    for(i in arrfileid)
+	{
+		$.get("?route=core/file/delFile&fileid="+arrfileid[i],function(){
+			$("#result").load("?route=core/file/getList&edit=true");	
+		});
+	}
+});
 
 function moveto(url)
 {

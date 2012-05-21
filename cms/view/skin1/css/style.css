@@ -775,3 +775,12 @@ height:100px;
 	width:300px;
 	height:100px;	
 }
+.filelist
+{
+	width:135px;
+	height:190px	
+}
+.filename
+{
+	overflow:hidden;	
+}
