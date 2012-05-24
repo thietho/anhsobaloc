@@ -10,7 +10,7 @@
         	<div class="button right">
             	<input type="submit" value="Save" class="button"/>
      	        <input type="button" value="Cancel" class="button" onclick="linkto('<?php echo $cancel?>')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $user['id']?>" />
+     	        <input type="hidden" name="userid" value="<?php echo $user['userid']?>" />   
             </div>
             <div class="clearer">^&nbsp;</div>
         

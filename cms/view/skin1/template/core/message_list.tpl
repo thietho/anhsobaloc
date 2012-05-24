@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 function deletelist()
 {
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	$.post('?route=core/message/delete&folder=<?php echo $_GET["folder"]?>', $("#postlist").serialize(), function(data){
 		window.location.reload()
 	});	

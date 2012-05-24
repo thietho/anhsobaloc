@@ -65,7 +65,7 @@ $(document).ready(function() {
 function save()
 {
 	
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	$.post("index.php?route=core/changeskin/save", 
 		   $("#listitem").serialize(),
 		   function(data)

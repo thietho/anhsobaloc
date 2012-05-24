@@ -47,7 +47,7 @@
 <script language="javascript">
 function save()
 {
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	
 	$.post("?route=core/category/save", $("#frm").serialize(),
 		function(data){

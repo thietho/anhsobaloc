@@ -64,7 +64,7 @@ $(".checkbox").click(function(){
 
 function save()
 {
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	$.post("?route=core/usertype/save", 
 		   $("#frm").serialize(),
 		   function(data)

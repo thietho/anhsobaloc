@@ -133,7 +133,7 @@ function callbackUploadFile()
 			//alert(response);
 			
 			$('#errorupload').hide();
-			$("#result").load("?route=core/file/getList");
+			$("#result").load("?route=core/file/getList&edit=true");
 			
 				
 			

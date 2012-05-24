@@ -69,7 +69,7 @@ function deletelist()
 	var ans = confirm("do you want to delete?");
 	if(ans)
 	{
-		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+		$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 		$.post("index.php?route=<?php echo $route?>/delete", 
 			   $("#listitem").serialize(),
 			   function(data)
@@ -83,7 +83,7 @@ function deletelist()
 function updatePosition()
 {
 	
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	$.post("index.php?route=addon/visa/updataPosition", 
 		   $("#listitem").serialize(),
 		   function(data)

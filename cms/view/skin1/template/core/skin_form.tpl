@@ -63,7 +63,7 @@
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 function save()
 {
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	$.blockUI({ message: "<h1>Đang xử lý...</h1>" }); 
 	$.post("index.php?route=<?php echo $route?>/save", 
 		   $("#frm").serialize(),
 		   function(data)

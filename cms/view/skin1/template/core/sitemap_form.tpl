@@ -121,12 +121,12 @@ function save()
 }
 function browserFileImage()
 {
-    //var re = openDialog("?route=core/file",800,500);
+    //var re = openDialog("?route=core/file&dialog=true",800,500);
 	$('#handler').val('image');
 	$('#outputtype').val('image');
 	showPopup("#popup", 800, 500);
 	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file")
+	$("#popup").load("?route=core/file&dialog=true")
 		
 }
 function addImageTo()
