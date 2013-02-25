@@ -304,6 +304,8 @@ class ControllerAddonBiennhan extends Controller
 			//Luu chi tiet bien nhan
 			$arr_id = $data['id'];
 			$arr_dichvuid = $data['dichvuid'];
+			$arr_soluong = $data['soluong'];
+			$arr_dongia = $data['dongia'];
 			$arr_sotien = $data['sotien'];
 			$arr_ghichu = $data['ghichuct'];
 			$sum = 0;
@@ -313,6 +315,8 @@ class ControllerAddonBiennhan extends Controller
 				$ct['biennhanid'] = $data['biennhanid'];
 				$ct['dichvuid'] = $dichvuid;
 				$ct['tendichvu'] = $this->document->getDichVu($dichvuid);
+				$ct['soluong'] = $arr_soluong[$key];
+				$ct['dongia'] = $arr_dongia[$key];
 				$ct['sotien'] = $arr_sotien[$key];
 				$ct['ghichu'] = $arr_ghichu[$key];
 				$ct['ngaylap'] = $data['ngaylap'];

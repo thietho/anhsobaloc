@@ -141,9 +141,11 @@ class ModelAddonBiennhan extends Model
 	
 	public function saveBienNhanChiTiet($data)
 	{
+		$data['soluong']=$this->db->escape(@$this->string->toNumber($data['soluong']));
+		$data['dongia']=$this->db->escape(@$this->string->toNumber($data['dongia']));
 		$data['sotien']=$this->db->escape(@$this->string->toNumber($data['sotien']));
 		$data['ngaylap']=$this->db->escape(@$this->date->formatViewDate($data['ngaylap']));
-		
+		print_r($data);
 		foreach($data as $key => $val)
 		{
 			if($val!="")
