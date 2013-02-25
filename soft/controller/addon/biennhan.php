@@ -304,6 +304,7 @@ class ControllerAddonBiennhan extends Controller
 			//Luu chi tiet bien nhan
 			$arr_id = $data['id'];
 			$arr_dichvuid = $data['dichvuid'];
+			$arr_tendichvu = $data['tendichvu'];
 			$arr_soluong = $data['soluong'];
 			$arr_dongia = $data['dongia'];
 			$arr_sotien = $data['sotien'];
@@ -314,14 +315,17 @@ class ControllerAddonBiennhan extends Controller
 				$ct['id'] = $arr_id[$key];
 				$ct['biennhanid'] = $data['biennhanid'];
 				$ct['dichvuid'] = $dichvuid;
-				$ct['tendichvu'] = $this->document->getDichVu($dichvuid);
+				$ct['tendichvu'] = $arr_tendichvu[$key];
 				$ct['soluong'] = $arr_soluong[$key];
 				$ct['dongia'] = $arr_dongia[$key];
 				$ct['sotien'] = $arr_sotien[$key];
 				$ct['ghichu'] = $arr_ghichu[$key];
 				$ct['ngaylap'] = $data['ngaylap'];
-				$this->model_addon_biennhan->saveBienNhanChiTiet($ct);
-				$sum +=$this->string->toNumber($ct['sotien']);
+				if($ct['tendichvu'])
+				{
+					$this->model_addon_biennhan->saveBienNhanChiTiet($ct);
+					$sum +=$this->string->toNumber($ct['sotien']);
+				}
 			}
 			$tongtien = $sum - $this->string->toNumber($data['giamgia']);
 			$this->model_addon_biennhan->updateCol($data['biennhanid'],'tongcong',$sum);
@@ -360,6 +364,14 @@ class ControllerAddonBiennhan extends Controller
       		if ($this->validation->_checkEmail($data['email']) == false )
 				$this->error["email"] = "Email không đúng định dạng";
     	}
+		/*$arr_tendichvu = $data['tendichvu'];
+		foreach($arr_tendichvu as $tendichvu)
+		{
+			if(trim($tendichvu) == "")
+			{
+				$this->error["tendichvu"] = "Có sản phẩm chưa nhập tên";
+			}
+		}*/
 		
 		if (count($this->error)==0) {
 	  		return TRUE;

@@ -22,6 +22,8 @@
                     <input type="text" id="tungay" name="tungay" class="text ben-datepicker" />
                     đến
                     <input type="text" id="denngay" name="denngay" class="text ben-datepicker" />
+				</p>
+                </div>
                     <label>Tên khách hàng</label>
                     <input type="text" id="tenkhachhang" name="tenkhachhang" class="text"/>
                     <label>Số diện thoai</label>
@@ -141,7 +143,7 @@ function view(biennhanid)
 							window.location.reload();
 						},
 						'In': function(){
-							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=print",800,500)
+							openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=print",350,500)
 							window.location.reload();
 						},
 					}

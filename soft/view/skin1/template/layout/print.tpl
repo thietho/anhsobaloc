@@ -50,7 +50,7 @@ table
 }
 label
 {
-	font-weight:bold;	
+
 }
 </style>
 
@@ -76,7 +76,4 @@ label
 </html>
 <script>
 window.print();
-$(document).ready(function(e) {
-    
-});
 </script>

@@ -61,11 +61,11 @@
                 	<thead>
                     	<tr>
                         	
-                            <th>Tên dịch vụ</th>
+                            <th>Sản phẩm</th>
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
                             <th>Số tiền</th>
-                            
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="listdichvu">
@@ -105,14 +105,14 @@
                         	<td></td>
                             <td></td>
                             <td></td>
-                            <td class="number">Tạm ứng: <input type="text" class="text number" id="tamung" name="tamung" value="<?php echo $item['tamung']?>"/></td>
-                            
+                            <td class="number">Trả trước: <input type="text" class="text number" id="tamung" name="tamung" value="<?php echo $item['tamung']?>"/></td>
+                            <td><input id="btn_trahet" type="button" class="button" value="Trả hết"/></td>
                         </tr>
                         <tr>
                         	<td></td>
                             <td></td>
                             <td></td>
-                            <td class="number">Còn lại: <span id="remain"></span></td>
+                            <td class="number">Công nợ: <span id="remain"></span></td>
                             
                         </tr>
                     </tfoot>
@@ -195,6 +195,10 @@ $('#phantramgiamgia').keyup(function(e) {
 	$('#giamgia').val(formateNumber(giamgia));
 	biennhan.getTotal();
 });
+$("#btn_trahet").click(function(e) {
+    $("#tamung").val($('#totalfinal').html());
+	biennhan.getTotal();
+});
 $(document).ready(function(e) {
 	biennhan.loadCbDichVu();
 });
@@ -221,7 +225,7 @@ function BienNhan()
 	 ?>
 		});
 	}
-	this.addRow = function(id,dichvuid,tendichvu,soluong,dongia,sotien,ghichu)
+	this.addRow = function(id,dichvuid,tendichvu,soluong,dongia,sotien,ghichu,tool)
 	{
 		
 		var coldichvu = '<td><input type="hidden" id="id-'+this.index+'" name="id['+this.index+']" value="'+id+'"><input type="hidden" id="dichvuid-'+this.index+'" name="dichvuid['+this.index+']" value="'+dichvuid+'"><input type="text" class="text" id="tendichvu-'+this.index+'" name="tendichvu['+this.index+']" value="'+tendichvu+'"></td>';
@@ -229,6 +233,7 @@ function BienNhan()
 		var coldongia = '<td class="number"><input type="text" class="text number dongia" id="dongia-'+this.index+'" name="dongia['+this.index+']" value="'+dongia+'" ref="'+this.index+'"></td>';
 		var colsotien = '<td class="number"><input type="text" class="text number tinhtong" id="sotien-'+this.index+'" name="sotien['+this.index+']" value="'+sotien+'" readonly></td>';
 		var colghichu = '<td><textarea id="ghichuct-'+this.index+'" name="ghichuct['+this.index+']">'+ghichu+'</textarea></td>';
+		
 		var row = '<tr id="row-'+this.index+'">'+coldichvu+colsoluong+coldongia+colsotien+'</tr>';
 		
 		$('#listdichvu').append(row);

@@ -1,24 +1,25 @@
 <?php
 	$conlai = $item['tongtien']-$item['tamung'] - $datra
 ?>
-<h3 style="text-align:center">Biên nhận</h3>
+<center>
+	<font size="+1" style="font-weight:bold"><u>Studio-Wedding-Lab</u> NGỌC HÙNG</font><br />
+	ĐC: 128 Nguyễn Văn Thoại, Châu Đốc, An Giang<br />
+    ĐT: 076 3566 162 - 01646 796 879 - 0939 777 288
+    <h2>PHIẾU THU</h2>
+    <label>Số:</label> <?php echo $item['sobiennhan']?>
+</center>
+
+
 <p>
-	<label>Số:</label> <?php echo $item['sobiennhan']?>
-    <label>Ngày lập phiếu:</label> <?php echo $this->date->formatMySQLDate($item['ngaylap'])?>
-    <label>Ngày hẹn:</label> <?php echo $this->date->formatMySQLDate($item['ngayhen'])?>
-</p>
-<p>
-	<label>Tên khách hàng:</label> <?php echo $item['tenkhachhang']?>
-    <label>Số điện thoại</label> <?php echo $item['sodienthoai']?>
-    <label>Email:</label> <?php echo $item['email']?>
+	
+    <label>Ngày:</label> <?php echo $this->date->formatMySQLDate($item['ngaylap'])?>
     
 </p>
 <p>
-	<label>Địa chỉ:</label> <?php echo $item['diachi']?>
+	<label>Tên khách:</label> <?php echo $item['tenkhachhang']?>
+    
 </p>
-<p>
-	<label>Ghi chú:</label> <?php echo $item['ghichu']?>
-</p>
+
 <?php if($_GET['dialog']!='print'){ ?>
 <p>
 	<label>Tình trạng:</label>
@@ -81,64 +82,86 @@ $(document).ready(function(e) {
             	<table class="table-data">
                 	<thead>
                     	<tr>
-                        	
-                            <th>Tên dịch vụ</th>
+                        	<th>STT</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
                             <th>Số tiền</th>
                             
                         </tr>
                     </thead>
                     <tbody id="listdichvu">
-                    	<?php foreach($data_chitiet as $ct){?>
+                    	<?php foreach($data_chitiet as $key => $ct){?>
                         
                         <tr>
+                        	<td width="10px" align="center"><?php echo $key+1?></td>
                         	<td><?php echo $ct['tendichvu']?></td>
+                            <td width="20%" class="number"><?php echo $this->string->numberFormate($ct['soluong'])?></td>
+                            <td width="20%" class="number"><?php echo $this->string->numberFormate($ct['dongia'])?></td>
                             <td width="20%" class="number"><?php echo $this->string->numberFormate($ct['sotien'])?></td>
                         </tr>
                         <?php } ?>
                     </tbody>
                    	<tfoot>
                     	<tr>
-                        	
-                            <td class="text-right">Tổng cộng:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">Tổng cộng</td>
                             <td class="number"> <?php echo $this->string->numberFormate($item['tongcong'])?></td>
                             
                         </tr>
                     	<?php if($item['giamgia']){ ?>
                         <tr>
-                        	<td class="text-right">Giảm giá:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                        	<td class="text-right">Giảm giá</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['giamgia'])?></td>
                             
                         </tr>
                         
                         <tr>
-                        	<td class="text-right">Phần trăm giảm giá:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                        	<td class="text-right">Phần trăm giảm giá</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['phantramgiamgia'])?>%</td>
                             
                         </tr>
                         
                         <tr>
-                        	<td class="text-right">Tổng tiền:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                        	<td class="text-right">Tổng tiền</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                             
                         </tr>
                         <?php } ?>
                         <tr>
-                        	
-                            <td class="text-right">Tạm ứng:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">Trả trước</td>
                             <td class="number"><?php echo $this->string->numberFormate($item['tamung'])?></td>
                             
                         </tr>
                         <?php if($datra){ ?>
                         <tr>
-                        	
-                            <td class="text-right">Đã trả:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">Đã trả</td>
                             <td class="number"><?php echo $this->string->numberFormate($datra)?></td>
                             
                         </tr>
                         <?php } ?>
                         <tr>
-                        	
-                            <td class="text-right">Còn lại:</td>
+                        	<td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">Công nợ</td>
                             <td class="number"><?php echo $this->string->numberFormate($conlai)?></td>
                             
                         </tr>
