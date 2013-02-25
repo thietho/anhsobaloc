@@ -1,0 +1,5 @@
+.extra-wrap, #content .gallery ul, #content .gallery-images ul {zoom:1;}
+#header .row-2.alt { overflow:hidden;}
+.aside { clear:left;float:left; width:168px;background:#e9e8e3 url(../image/line.png) top center repeat-x;border-right:1px solid #a2a499;border-left:1px solid #a2a499;padding:0px 5px;margin-left:-91px !important;margin-right:0px !important;position:relative;}
+.row-3 .nav li{display:inline}
+.row-3 .nav li a { display:inline-block; float:left; padding:3px 15px;font-size:9pt; font-weight:bold;color:#38567a; background:#eaeceb; text-decoration:none; font-family:Verdana, Arial, Helvetica, sans-serif; text-align:center; margin-left:5px;border:1px solid #b2b1ad;border-bottom:none;letter-spacing:1px}
