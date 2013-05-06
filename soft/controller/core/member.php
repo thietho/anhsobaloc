@@ -226,15 +226,21 @@ class ControllerCoreMember extends Controller
 		$where = " AND khachhangid = '".$id."'";
 		$this->data['data_biennhan'] = $this->model_addon_biennhan->getList($where);
 		$tongbiennhan = 0;
+		$tongtamung = 0;
+		$tongno = 0;
 		foreach($this->data['data_biennhan'] as $item)
 		{
 			$tongbiennhan += $item['tongtien'];	
+			$tongtamung += $item['tamung'];	
+			$tongno += $item['tongtien'] - $item['tamung'];
 		}
 		$congno = $tongbiennhan - $tongthu;
 		
 		if($this->request->get['khachhangid'])
 		{
 			$this->data['tongphieuthu'] = $tongthu;
+			$this->data['tongtamung'] = $tongtamung;
+			$this->data['tongno'] = $tongno;
 			$this->data['tongbiennhan'] = $tongbiennhan;
 			$this->data['congno'] = $congno;
 			$this->id='content';

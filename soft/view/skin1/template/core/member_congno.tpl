@@ -13,18 +13,24 @@
     	<th width="30%">Số biên nhận</th>
         <th width="30%">Ngày lập</th>
         <th>Tổng số tiền</th>
+        <th>Tạm ứng</th>
+        <th>Nợ lại</th>
     </tr>
     <?php foreach($data_biennhan as $item){ ?>
     <tr>
     	<td><a onclick="viewBienNhan(<?php echo $item['biennhanid']?>)"><?php echo $item['sobiennhan']?></a></td>
         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['tamung'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['tongtien']-$item['tamung'])?></td>
     </tr>
     <?php } ?>
     <tr>
     	<td></td>
-        <td class="text-right">Tổng phải trả:</td>
+        <td class="text-right">Tổng</td>
         <td class="number"><?php echo $this->string->numberFormate($tongbiennhan)?></td>
+        <td class="number"><?php echo $this->string->numberFormate($tongtamung)?></td>
+        <td class="number"><?php echo $this->string->numberFormate($tongno)?></td>
     </tr>
 </table>
 <h3>Dach sách phiếu thu</h3>

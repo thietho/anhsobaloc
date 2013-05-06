@@ -265,7 +265,7 @@ class ControllerAddonBiennhan extends Controller
 			{
 				$this->model_addon_biennhan->update($data);	
 			}
-			if($data['tamung']>0 )
+			/*if($data['tamung']>0 )
 			{
 				$biennhan = $this->model_addon_biennhan->getItem($data['biennhanid']);
 				if($biennhan['maphieuthutamung']=="")
@@ -290,7 +290,7 @@ class ControllerAddonBiennhan extends Controller
 					
 					$this->model_addon_biennhan->updateCol($biennhan['biennhanid'],"maphieuthutamung",$phieuthu['maphieu']);
 				}
-			}
+			}*/
 			//Xoa chi tiet bien nhan
 			if($data['delchitietid']!="")
 			{

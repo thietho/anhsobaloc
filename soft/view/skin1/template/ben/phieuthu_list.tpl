@@ -97,7 +97,7 @@ function deleteorder()
 	var answer = confirm("Are you sure delete?")
 	if (answer)
 	{
-		$.post("?route=addon/order/delete", 
+		$.post("?route=ben/phieuthu/delete", 
 				$("#listitem").serialize(), 
 				function(data)
 				{
