@@ -234,7 +234,7 @@ class ControllerCoreMember extends Controller
 			$tongtamung += $item['tamung'];	
 			$tongno += $item['tongtien'] - $item['tamung'];
 		}
-		$congno = $tongbiennhan - $tongthu;
+		$congno = $tongno - $tongthu;
 		
 		if($this->request->get['khachhangid'])
 		{

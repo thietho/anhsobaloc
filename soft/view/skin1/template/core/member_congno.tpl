@@ -53,6 +53,7 @@
         <td class="number"><?php echo $this->string->numberFormate($tongphieuthu)?></td>
     </tr>
 </table>
+
 <h3>Tổng công nợ: <?php echo $this->string->numberFormate($congno)?></h3>
 <script language="javascript">
 function viewBienNhan(biennhanid)
@@ -63,4 +64,5 @@ function viewPhieuThu(maphieu)
 {
 	openDialog("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500);
 }
+
 </script>

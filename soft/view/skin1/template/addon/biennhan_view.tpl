@@ -43,7 +43,9 @@ $('#cbtinhtrang').change(function(e) {
 	<?php if($conlai){ ?>
 	<label>Thanh toán</label>
     <input type="text" class="text number" id="txt_thanhtoan" />
+    <input type="button" class="button" id="btnTraHet" value="Trả hết phần còn lại" />
     <input type="button" class="button" id="btnThanhToan" value="Thanh toán" />
+    
     <?php } ?>
 <script language="javascript">
 var conlai = Number("<?php echo $conlai?>");
@@ -70,6 +72,9 @@ $('#btnThanhToan').click(function(e) {
 			}
 		}
 	);
+});
+$('#btnTraHet').click(function(e) {
+    $('#txt_thanhtoan').val(formateNumber('<?php echo $conlai?>'));
 });
 $(document).ready(function(e) {
     numberReady();

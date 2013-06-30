@@ -137,6 +137,9 @@ function view(biennhanid)
 					width: 800,
 					height: 500,
 					modal: true,
+					close:function(){
+							window.location.reload();
+						},
 					buttons: {
 						'Đóng': function() {
 							$( this ).dialog( "close" );
