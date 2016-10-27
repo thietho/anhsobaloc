@@ -50,7 +50,7 @@ final class Front {
 				}
 				
 				
-				if($outputhtml != "" && $controller->layout == "")
+				if(@$outputhtml != "" && $controller->layout == "")
 				{
 					$args = array($file, $class, $outputhtml);
 					$action = call_user_func_array(array($controller, 'callmodule'), $args);

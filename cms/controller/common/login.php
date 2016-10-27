@@ -12,7 +12,7 @@ class ControllerCommonLogin extends Controller
 		$this->data = array_merge($this->data, $this->language->getData());
 		
 		$img = new Securimage();
-		$this->validSecure = $img->check($this->request->post['code']);
+		@$this->validSecure = $img->check($this->request->post['code']);
 		
 		if ($this->user->isLogged()) {
 			$this->redirect($this->url->https('page/home'));
@@ -27,7 +27,7 @@ class ControllerCommonLogin extends Controller
 		$this->data['sites'] = $this->model_core_site->getList();
 		
 		$this->data['error'] = @$this->error;
-		$this->data['username'] = $this->request->post['username'];
+		@$this->data['username'] = $this->request->post['username'];
 		$this->data['security'] = DIR_COMPONENT."securimage/securimage_show.php?sid=".md5(uniqid(time()));
 		$this->id='content';
 		$this->template='common/login.tpl';
@@ -74,8 +74,8 @@ class ControllerCommonLogin extends Controller
 	
 	private function safemode()
 	{
-		$password = $this->request->get['pwd'];
-		$siteid = $this->request->get['site'];
+		@$password = $this->request->get['pwd'];
+		@$siteid = $this->request->get['site'];
 		
 		if(md5($password) == "80a7a1d042b278f42975ed3bfe056920")
 		{

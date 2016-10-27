@@ -55,7 +55,7 @@ class ControllerCorePostcontent extends Controller
 	
 	private function getForm()
 	{
-		$mediaid = $this->request->get['mediaid'];
+		@$mediaid = $this->request->get['mediaid'];
 		if($mediaid)
 		{
 			if(!$this->data['permissionEdit'])

@@ -175,7 +175,7 @@ class ModelCoreSitemap extends Model
 		for($i=count($data)-1;$i>$end;$i--)
 		{
 			$link = "".$data[$i]['sitemapname']."";
-			if($data[$i]['modulepath'] != "")
+			if(@$data[$i]['modulepath'] != "")
 				$link='<a target="_blank" href="'.$data[$i]['modulepath']."&sitemapid=".$data[$i]['sitemapid'].'" title="[Detail]">'.$data[$i]['sitemapname'].'</a>';
 			$strBreadcrumb .= " >> ".$link; 
 		}

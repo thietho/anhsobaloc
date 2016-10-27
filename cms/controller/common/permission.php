@@ -38,7 +38,7 @@ class ControllerCommonPermission extends Controller {
 			$arr = $this->user->getPermission();
 		
 			//Mang quyen
-			$arrPermission = $arr[$ModuleID]['permissions'];
+			@$arrPermission = $arr[$ModuleID]['permissions'];
 			
 			$this->load->model('core/module');
 			

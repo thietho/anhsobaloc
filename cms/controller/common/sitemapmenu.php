@@ -9,7 +9,7 @@ class ControllerCommonSitemapmenu extends Controller
 		
 		$this->data = array_merge($this->data, $this->language->getData());
 		
-		$this->data['safemode'] = $this->session->data['safemode'];
+		@$this->data['safemode'] = $this->session->data['safemode'];
 		
 		$this->data['menu'] = $this->getMenu("");
 		$this->data['addon'] = $this->getAddOnMenu("");

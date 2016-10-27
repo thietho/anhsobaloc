@@ -3,9 +3,9 @@
 	{
 		public function index()
 		{
-			$this->data['username'] = $this->session->data['username'];
-			$this->data['sitename'] = $this->session->data['sitename'];
-			$this->data['language'] = $this->getLanguageCBX();
+			@$this->data['username'] = $this->session->data['username'];
+			@$this->data['sitename'] = $this->session->data['sitename'];
+			@$this->data['language'] = $this->getLanguageCBX();
 			$this->id="header";
 			$this->template="common/header.tpl";
 			$this->render();

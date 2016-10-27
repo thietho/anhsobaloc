@@ -24,7 +24,7 @@ final class Language {
       		);
     	}
 		
-		if($this->request->get['lang'] != "")
+		if(@$this->request->get['lang'] != "")
 		{
 			$this->session->set('language', $this->request->get['lang']);
 		}

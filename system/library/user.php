@@ -14,7 +14,7 @@ final class User {
 		$this->json  = Registry::get('json');
 		$this->string  = Registry::get('string');
 		
-		if($this->request->get['lang'])
+		if(@$this->request->get['lang'])
 		{
 			$this->session->set('siteid',$this->request->get['lang']);
 		}
@@ -192,7 +192,7 @@ final class User {
 
 	public function hasPermission($moduleid, $action) 
 	{
-		if( $_SESSION['safemode'])
+		if( @$_SESSION['safemode'])
 			return true;
 		if($this->usertypeid == 'admin')
 			return true;
@@ -213,14 +213,14 @@ final class User {
 	}
   
   	public function isLogged() {
-    	if($this->session->data['userid']){
+    	if(@$this->session->data['userid']){
 			$this->usertypeid = $this->session->data['usertypeid'];
 			$this->userid = $this->session->data['userid'];
 			$this->username = $this->session->data['username'];	
 			$this->siteid = $this->session->data['siteid'];		
 			return true;
 		}
-		elseif($this->session->data['safemode']){
+		elseif(@$this->session->data['safemode']){
 			$this->usertypeid = $this->session->data['usertypeid'];
 			$this->userid = $this->session->data['userid'];
 			$this->username = $this->session->data['username'];	

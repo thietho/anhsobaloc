@@ -30,7 +30,7 @@ final class Member {
 				$this->siteid = SITEID;
 				break;
 		}*/
-		if($this->request->get['lang'])
+		if(@$this->request->get['lang'])
 		{
 			
 			$this->siteid = $this->request->get['lang'];
@@ -40,16 +40,16 @@ final class Member {
 			$this->siteid = SITEID;
 		}
 		
-		if($this->request->get['contry'])
+		if(@$this->request->get['contry'])
 		{
 			$this->go_country = $this->request->get['contry'];
 			$this->session->set('country',$this->go_country);
 		}
 		else
 		{
-			$this->go_country = $this->session->data['country'];
+			@$this->go_country = $this->session->data['country'];
 		}
-		if($_COOKIE['username'] != "")
+		if(@$_COOKIE['username'] != "")
 		{
 			$this->login($_COOKIE['username'],$_COOKIE['password']);	
 		}

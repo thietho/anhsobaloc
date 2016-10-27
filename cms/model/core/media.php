@@ -238,14 +238,14 @@ class ModelCoreMedia extends ModelCoreFile
 		return $arr;
 	}
 	
-	private function nextID($prefix)
+	private function nextMediaID($prefix)
 	{
 		return $this->db->getNextIdVarChar("media","mediaid",$prefix);	
 	}
 	
 	public function insert($data)
 	{
-		$mediaid = $this->nextID($this->user->getSiteId().time());
+		$mediaid = $this->nextMediaID($this->user->getSiteId().time());
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
 		$refersitemap=$this->db->escape(@$data['refersitemap']);
@@ -538,4 +538,3 @@ class ModelCoreMedia extends ModelCoreFile
 	
 	
 }
-?>

@@ -4,7 +4,7 @@
 
     <div class="section-content">
         <form action="" method="post">
-        	<?php if($error['error_warning']) {?>
+        	<?php if(@$error['error_warning']) { ?>
             <div class="error"><?php echo $error_warning?></div>
              <div class="clearer">&nbsp;</div>
             <?php } ?>

@@ -9,7 +9,7 @@ class ControllerCoreMessage extends Controller
 		$this->data = array_merge($this->data, $this->language->getData());
 		
 		//$this->load->language('core/message');
-		$this->data = array_merge($this->data, $this->language->getData());
+		@$this->data = array_merge($this->data, $this->language->getData());
 		
 		$this->document->title = $this->language->get('heading_title');
 		
@@ -147,7 +147,7 @@ class ControllerCoreMessage extends Controller
 		$this->data['inbox'] = $this->url->http('core/message&folder=inbox');
 		$this->data['send'] = $this->url->http('core/message&folder=send');
 		$this->data['messages'] = array();
-		$this->data['folder'] = $this->request->get['folder'];
+		@$this->data['folder'] = $this->request->get['folder'];
 		if($this->data['folder'] == "")
 			$this->data['folder']="inbox";
 		
@@ -181,7 +181,7 @@ class ControllerCoreMessage extends Controller
 		//
 		$rows = $this->data['messages'];
 		//Page
-		$page = $this->request->get['page'];		
+		@$page = $this->request->get['page'];
 		$x=$page;		
 		$limit = 20;
 		$total = count($rows); 
@@ -193,7 +193,7 @@ class ControllerCoreMessage extends Controller
 		$limit  = $pager->limit; 
 		$page   = $pager->page;
 		$this->data['messages'] = array();
-		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
+		for($i=$offset;$i < $offset + $limit && count(@$rows[$i])>0;$i++)
 		{
 			$this->data['messages'][] = $rows[$i];
 		}
